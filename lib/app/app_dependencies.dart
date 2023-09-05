@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nasa_pictures_app/features/core/dependency_injector/dependency_injector.dart';
 import 'package:nasa_pictures_app/features/core/dependency_injector/adapter/get_it_adapter.dart';
 import 'package:nasa_pictures_app/features/core/infra/http/adapter/dio_adapter.dart';
 import 'package:nasa_pictures_app/features/core/infra/http/http_client.dart';
+import 'package:nasa_pictures_app/features/core/infra/local_storage/adapter/shared_preferences_adapter.dart';
+import 'package:nasa_pictures_app/features/core/infra/local_storage/local_storage_client.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_remote_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/repositories/pictures_repository_impl.dart';
@@ -14,13 +17,20 @@ import 'package:nasa_pictures_app/features/pictures/ui/pages/home/home_presenter
 class AppDependencies {
   final DependencyInjector injector = GetItAdapter();
 
-  void registerAppDependencies() {
+  Future<void> registerAppDependencies() async {
     // Http Client
     injector.registerLazySingleton<HttpClient>(
       instance: DioAdapter(
         dio: Dio(),
         apiEndpoint: const String.fromEnvironment("API_ENDPOINT"),
         apiKey: const String.fromEnvironment("API_KEY"),
+      ),
+    );
+
+    // Local Storage Client
+    injector.registerLazySingleton<LocalStorageClient>(
+      instance: SharedPreferencesAdapter(
+        sharedPreferences: await SharedPreferences.getInstance(),
       ),
     );
 
