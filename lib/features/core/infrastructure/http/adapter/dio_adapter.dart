@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:nasa_pictures_app/features/core/infra/http/http_client.dart';
-import 'package:nasa_pictures_app/features/core/infra/http/http_response.dart';
+import 'package:nasa_pictures_app/features/core/infrastructure/http/http_client.dart';
+import 'package:nasa_pictures_app/features/core/infrastructure/http/http_response.dart';
 
 class DioAdapter implements HttpClient {
   final Dio dio;

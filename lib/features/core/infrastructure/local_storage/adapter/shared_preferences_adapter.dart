@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:nasa_pictures_app/features/core/infra/local_storage/local_storage_client.dart';
+import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/local_storage_client.dart';
 
 class SharedPreferencesAdapter implements LocalStorageClient {
   final SharedPreferences sharedPreferences;

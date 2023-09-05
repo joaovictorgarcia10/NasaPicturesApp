@@ -1,4 +1,4 @@
-import 'package:nasa_pictures_app/features/core/infra/http/http_client.dart';
+import 'package:nasa_pictures_app/features/core/infrastructure/http/http_client.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
 
 class PicturesRemoteDatasource extends PicturesDatasource {
@@ -12,8 +12,7 @@ class PicturesRemoteDatasource extends PicturesDatasource {
         method: "get",
         path: "/planetary/apod",
         queryParameters: {
-          "start_date": "2023-08-04",
-          "end_date": "2023-09-04",
+          "count": "15",
         },
       );
 
