@@ -12,10 +12,10 @@ class DioAdapter implements HttpClient {
     required this.apiEndpoint,
     required this.apiKey,
   }) {
-    _init();
+    _initialize();
   }
 
-  void _init() {
+  void _initialize() {
     dio.options.baseUrl = apiEndpoint;
     dio.options.queryParameters = {"api_key": apiKey};
 
