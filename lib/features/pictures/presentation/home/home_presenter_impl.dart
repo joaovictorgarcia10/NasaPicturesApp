@@ -40,6 +40,8 @@ class HomePresenterImpl implements HomePresenter {
 
   @override
   Future<void> refreshPictures() async {
+    state.value = HomeStateLoading();
+
     try {
       shouldPaginate.value = true;
       final response = await getAllPicturesUsecase();
@@ -75,7 +77,6 @@ class HomePresenterImpl implements HomePresenter {
         var titleMatch =
             picture.title.toLowerCase().contains(value.toLowerCase());
         var dateMatch = picture.date.contains(value);
-
         return (titleMatch || dateMatch);
       }).toList();
 

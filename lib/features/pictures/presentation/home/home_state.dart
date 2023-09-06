@@ -7,10 +7,8 @@ class HomeStateLoading extends HomeState {
 }
 
 class HomeStateSuccess extends HomeState {
-  final List<Picture>? pictures;
-  HomeStateSuccess({
-    this.pictures = const <Picture>[],
-  });
+  final List<Picture> pictures;
+  HomeStateSuccess({required this.pictures});
 }
 
 class HomeStateError extends HomeState {

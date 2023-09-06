@@ -70,10 +70,10 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: ListView.builder(
                     controller: scrollController,
-                    itemCount: state.pictures!.length + 1,
+                    itemCount: state.pictures.length + 1,
                     itemBuilder: (context, index) {
-                      if (index < state.pictures!.length) {
-                        final picture = state.pictures![index];
+                      if (index < state.pictures.length) {
+                        final picture = state.pictures[index];
                         return PictureListTileWidget(
                           url: picture.url,
                           title: picture.title,

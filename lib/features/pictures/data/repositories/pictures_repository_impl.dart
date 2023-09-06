@@ -10,6 +10,11 @@ class PicturesRepositoryImpl implements PicturesRepository {
   @override
   Future<List<Picture>> getAllPictures() async {
     final response = await datasource.getAllPictures();
+
+    // Buscar lista atual do local storage
+    // Incrementar com os valores recebidos do datasource
+    // Salvar nova lista incrementada
+
     return response.map((e) => PictureDto.fromMap(e).toEntity()).toList();
   }
 }
