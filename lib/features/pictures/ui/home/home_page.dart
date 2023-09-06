@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nasa_pictures_app/features/core/dependency_injector/adapter/get_it_adapter.dart';
+import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/widgets/picture_list_tile_widget.dart';
 
@@ -49,29 +50,17 @@ class _HomePageState extends State<HomePage> {
         body: AnimatedBuilder(
           animation: Listenable.merge(
             [
-              presenter.picturesNotifier,
+              presenter.state,
               presenter.shouldPaginate,
             ],
           ),
           builder: (context, _) {
-            final pictures = presenter.picturesNotifier.value;
+            final state = presenter.state.value;
             final shouldPaginate = presenter.shouldPaginate.value;
 
-            if (pictures == null) {
-              return Center(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("No items found."),
-                  TextButton(
-                    onPressed: () => presenter.getAllPictures(),
-                    child: const Text("Try again"),
-                  )
-                ],
-              ));
-            } else if (pictures.isEmpty) {
+            if (state is HomeStateLoading) {
               return const Center(child: CircularProgressIndicator());
-            } else {
+            } else if (state is HomeStateSuccess) {
               return Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: RefreshIndicator(
@@ -81,10 +70,10 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: ListView.builder(
                     controller: scrollController,
-                    itemCount: pictures.length + 1,
+                    itemCount: state.pictures!.length + 1,
                     itemBuilder: (context, index) {
-                      if (index < pictures.length) {
-                        final picture = pictures[index];
+                      if (index < state.pictures!.length) {
+                        final picture = state.pictures![index];
                         return PictureListTileWidget(
                           url: picture.url,
                           title: picture.title,
@@ -102,6 +91,23 @@ class _HomePageState extends State<HomePage> {
                       }
                     },
                   ),
+                ),
+              );
+            } else {
+              final errorState = state as HomeStateError;
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(errorState.message),
+                    TextButton(
+                      onPressed: () {
+                        textEditingController.clear();
+                        presenter.getAllPictures();
+                      },
+                      child: const Text("Try again"),
+                    )
+                  ],
                 ),
               );
             }

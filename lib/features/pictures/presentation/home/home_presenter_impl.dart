@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_all_pictures_usecase.dart';
+import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
 
 class HomePresenterImpl implements HomePresenter {
@@ -16,7 +17,8 @@ class HomePresenterImpl implements HomePresenter {
 // _____________________________________________________________________________
 
   @override
-  ValueNotifier<List<Picture>?> picturesNotifier = ValueNotifier([]);
+  // TODO: implement state
+  ValueNotifier<HomeState> state = ValueNotifier(HomeStateLoading());
 
   @override
   ValueNotifier<bool> shouldPaginate = ValueNotifier(true);
@@ -25,12 +27,14 @@ class HomePresenterImpl implements HomePresenter {
 
   @override
   Future<void> getAllPictures() async {
+    state.value = HomeStateLoading();
+
     try {
       final response = await getAllPicturesUsecase();
       _allPictures.addAll(response);
-      picturesNotifier.value = _allPictures;
+      state.value = HomeStateSuccess(pictures: _allPictures);
     } catch (e) {
-      picturesNotifier.value = null;
+      state.value = HomeStateError(message: "Something went wrong.");
     }
   }
 
@@ -40,9 +44,9 @@ class HomePresenterImpl implements HomePresenter {
       shouldPaginate.value = true;
       final response = await getAllPicturesUsecase();
       _allPictures = response;
-      picturesNotifier.value = _allPictures;
+      state.value = HomeStateSuccess(pictures: _allPictures);
     } catch (e) {
-      picturesNotifier.value = null;
+      state.value = HomeStateError(message: "Something went wrong.");
     }
   }
 
@@ -52,7 +56,7 @@ class HomePresenterImpl implements HomePresenter {
       try {
         final response = await getAllPicturesUsecase();
         _allPictures = [..._allPictures, ...response];
-        picturesNotifier.value = _allPictures;
+        state.value = HomeStateSuccess(pictures: _allPictures);
       } catch (e) {
         shouldPaginate.value = false;
       }
@@ -65,9 +69,9 @@ class HomePresenterImpl implements HomePresenter {
   Future<void> search(String value) async {
     if (value.isNotEmpty) {
       shouldPaginate.value = false;
-      picturesNotifier.value = _allPictures;
+      state.value = HomeStateSuccess(pictures: _allPictures);
 
-      _filteredPictures = picturesNotifier.value!.where((picture) {
+      _filteredPictures = _allPictures.where((picture) {
         var titleMatch =
             picture.title.toLowerCase().contains(value.toLowerCase());
         var dateMatch = picture.date.contains(value);
@@ -76,13 +80,13 @@ class HomePresenterImpl implements HomePresenter {
       }).toList();
 
       if (_filteredPictures.isEmpty) {
-        picturesNotifier.value = null;
+        state.value = HomeStateError(message: "No items found.");
       } else {
-        picturesNotifier.value = _filteredPictures;
+        state.value = HomeStateSuccess(pictures: _filteredPictures);
       }
     } else {
       shouldPaginate.value = true;
-      picturesNotifier.value = _allPictures;
+      state.value = HomeStateSuccess(pictures: _allPictures);
     }
   }
 }

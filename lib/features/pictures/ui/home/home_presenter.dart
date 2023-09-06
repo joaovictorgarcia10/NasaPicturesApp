@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
+import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
 
 abstract class HomePresenter {
-  ValueNotifier<List<Picture>?> get picturesNotifier;
-
+  ValueNotifier<HomeState> get state;
   ValueNotifier<bool> get shouldPaginate;
 
   Future<void> getAllPictures();
