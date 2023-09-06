@@ -5,8 +5,8 @@ import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_re
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/check_internet_connection_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:nasa_pictures_app/features/core/dependency_injector/dependency_injector.dart';
-import 'package:nasa_pictures_app/features/core/dependency_injector/adapter/get_it_adapter.dart';
+import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/dependency_injector.dart';
+import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/adapter/get_it_adapter.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/http/adapter/dio_adapter.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/http/http_client.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/adapter/shared_preferences_adapter.dart';

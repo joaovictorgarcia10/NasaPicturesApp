@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nasa_pictures_app/features/core/dependency_injector/adapter/get_it_adapter.dart';
+import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/adapter/get_it_adapter.dart';
 
 void main() {
   late GetItAdapter sut;

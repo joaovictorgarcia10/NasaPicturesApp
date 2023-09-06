@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_pictures_app/features/core/dependency_injector/adapter/get_it_adapter.dart';
+import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/adapter/get_it_adapter.dart';
 import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/widgets/picture_list_tile_widget.dart';

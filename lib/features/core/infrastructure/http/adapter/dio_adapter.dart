@@ -22,7 +22,7 @@ class DioAdapter implements HttpClient {
   void _initialize() {
     dio.options.baseUrl = baseUrl;
     dio.options.queryParameters = queryParameters ?? {};
-    
+
     dio.options.headers = {
       'content-type': 'application/json',
       'accept': 'application/json',
@@ -48,10 +48,7 @@ class DioAdapter implements HttpClient {
     if (data == null || statusCode == null) {
       throw AppError(type: AppErrorType.httpResponse);
     } else {
-      return HttpResponse(
-        data: data,
-        statusCode: statusCode,
-      );
+      return HttpResponse(data: data, statusCode: statusCode);
     }
   }
 

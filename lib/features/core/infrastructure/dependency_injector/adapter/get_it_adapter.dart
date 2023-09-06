@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:nasa_pictures_app/features/core/dependency_injector/dependency_injector.dart';
+import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/dependency_injector.dart';
 
 class GetItAdapter implements DependencyInjector {
   final GetIt getIt;
