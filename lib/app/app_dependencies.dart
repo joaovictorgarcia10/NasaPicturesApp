@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nasa_pictures_app/features/core/dependency_injector/dependency_injector.dart';
 import 'package:nasa_pictures_app/features/core/dependency_injector/adapter/get_it_adapter.dart';
@@ -12,8 +13,7 @@ import 'package:nasa_pictures_app/features/pictures/data/repositories/pictures_r
 import 'package:nasa_pictures_app/features/pictures/domain/repositories/pictures_repository.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_all_pictures_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/presentation/home/home_presenter_impl.dart';
-import 'package:nasa_pictures_app/features/pictures/ui/pages/home/home_presenter.dart';
-
+ 
 class AppDependencies {
   final DependencyInjector injector = GetItAdapter();
 

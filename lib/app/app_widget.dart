@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_pictures_app/features/pictures/ui/pages/details/details_page.dart';
-import 'package:nasa_pictures_app/features/pictures/ui/pages/home/home_page.dart';
+import 'package:nasa_pictures_app/features/pictures/ui/details/details_page.dart';
+import 'package:nasa_pictures_app/features/pictures/ui/home/home_page.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
