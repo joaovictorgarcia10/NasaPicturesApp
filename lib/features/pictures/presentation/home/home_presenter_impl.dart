@@ -9,9 +9,9 @@ class HomePresenterImpl implements HomePresenter {
 
 // _____________________________________________________________________________
 
-  List<Picture> allPictures = [];
+  List<Picture> _allPictures = [];
 
-  List<Picture> filteredPictures = [];
+  List<Picture> _filteredPictures = [];
 
 // _____________________________________________________________________________
 
@@ -19,58 +19,70 @@ class HomePresenterImpl implements HomePresenter {
   ValueNotifier<List<Picture>?> picturesNotifier = ValueNotifier([]);
 
   @override
-  bool shouldPaginate = true;
+  ValueNotifier<bool> shouldPaginate = ValueNotifier(true);
 
 // _____________________________________________________________________________
 
   @override
   Future<void> getAllPictures() async {
-    final response = await getAllPicturesUsecase();
-    allPictures.addAll(response);
-    picturesNotifier.value = allPictures;
+    try {
+      final response = await getAllPicturesUsecase();
+      _allPictures.addAll(response);
+      picturesNotifier.value = _allPictures;
+    } catch (e) {
+      picturesNotifier.value = null;
+    }
   }
 
   @override
   Future<void> refreshPictures() async {
-    allPictures.clear();
-
-    final response = await getAllPicturesUsecase();
-    allPictures = response;
-
-    shouldPaginate = true;
-    picturesNotifier.value = allPictures;
+    try {
+      shouldPaginate.value = true;
+      final response = await getAllPicturesUsecase();
+      _allPictures = response;
+      picturesNotifier.value = _allPictures;
+    } catch (e) {
+      picturesNotifier.value = null;
+    }
   }
 
   @override
   Future<void> paginatePictures() async {
-    final response = await getAllPicturesUsecase();
-    allPictures = [...allPictures, ...response];
-    picturesNotifier.value = allPictures;
+    if (_allPictures.length <= 120) {
+      try {
+        final response = await getAllPicturesUsecase();
+        _allPictures = [..._allPictures, ...response];
+        picturesNotifier.value = _allPictures;
+      } catch (e) {
+        shouldPaginate.value = false;
+      }
+    } else {
+      shouldPaginate.value = false;
+    }
   }
 
   @override
   Future<void> search(String value) async {
     if (value.isNotEmpty) {
-      shouldPaginate = false;
-      picturesNotifier.value = allPictures;
+      shouldPaginate.value = false;
+      picturesNotifier.value = _allPictures;
 
-      filteredPictures = picturesNotifier.value!.where((picture) {
+      _filteredPictures = picturesNotifier.value!.where((picture) {
         var titleMatch =
             picture.title.toLowerCase().contains(value.toLowerCase());
-
         var dateMatch = picture.date.contains(value);
 
         return (titleMatch || dateMatch);
       }).toList();
 
-      if (filteredPictures.isEmpty) {
+      if (_filteredPictures.isEmpty) {
         picturesNotifier.value = null;
+      } else {
+        picturesNotifier.value = _filteredPictures;
       }
-
-      picturesNotifier.value = filteredPictures;
     } else {
-      shouldPaginate = true;
-      picturesNotifier.value = allPictures;
+      shouldPaginate.value = true;
+      picturesNotifier.value = _allPictures;
     }
   }
 }

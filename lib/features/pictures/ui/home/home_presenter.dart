@@ -3,7 +3,8 @@ import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart
 
 abstract class HomePresenter {
   ValueNotifier<List<Picture>?> get picturesNotifier;
-  bool get shouldPaginate;
+
+  ValueNotifier<bool> get shouldPaginate;
 
   Future<void> getAllPictures();
   Future<void> refreshPictures();

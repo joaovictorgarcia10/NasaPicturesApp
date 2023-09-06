@@ -19,21 +19,23 @@ class PictureListTileWidget extends StatelessWidget {
       elevation: 5.0,
       margin: const EdgeInsets.only(bottom: 20.0),
       child: SizedBox(
-        height: 100.0,
         child: Center(
-          child: ListTile(
-            leading: CachedNetworkImage(
-              height: 100.0,
-              width: 100.0,
-              imageUrl: url,
-              fit: BoxFit.cover,
-              errorWidget: (context, url, error) => const Icon(
-                Icons.error_outline_rounded,
+          child: Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: ListTile(
+              leading: CachedNetworkImage(
+                height: 100.0,
+                width: 100.0,
+                imageUrl: url,
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error_outline_rounded,
+                ),
               ),
+              title: Text(title),
+              subtitle: Text(date),
+              trailing: const Icon(Icons.arrow_forward_ios),
             ),
-            title: Text(title),
-            subtitle: Text(date),
-            trailing: const Icon(Icons.arrow_forward_ios),
           ),
         ),
       ),
