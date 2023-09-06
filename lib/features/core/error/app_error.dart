@@ -2,7 +2,6 @@ enum AppErrorType {
   httpRequest,
   httpResponse,
   invalidData,
-  domain,
 }
 
 class AppError implements Exception {

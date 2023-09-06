@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nasa_pictures_app/features/core/dependency_injector/dependency_injector.dart';
@@ -21,7 +22,7 @@ class AppDependencies {
     // Http Client
     injector.registerLazySingleton<HttpClient>(
       instance: DioAdapter(
-        dio: Dio(),
+        dio: DioForNative(),
         baseUrl: const String.fromEnvironment("API_ENDPOINT"),
         queryParameters: {"api_key": const String.fromEnvironment("API_KEY")},
       ),
