@@ -1,5 +1,5 @@
 class DateParserHelper {
-  String dateParser(String date) {
+  String parseDate(String date) {
     List<String> splittedDate = date.split('-');
 
     if (splittedDate.length != 3) {
