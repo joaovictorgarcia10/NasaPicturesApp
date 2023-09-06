@@ -1,3 +1,4 @@
+import 'package:nasa_pictures_app/features/core/error/app_error.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/http/http_client.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
 
@@ -19,7 +20,7 @@ class PicturesRemoteDatasource extends PicturesDatasource {
       if (response.data != null && response.statusCode == 200) {
         return response.data;
       } else {
-        throw Exception(); // Invalid Data Exception
+        throw AppError(type: AppErrorType.invalidData);
       }
     } catch (e) {
       rethrow;

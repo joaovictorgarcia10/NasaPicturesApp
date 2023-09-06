@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:nasa_pictures_app/features/core/error/app_error.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/http/http_client.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/http/http_response.dart';
 
@@ -40,7 +41,7 @@ class DioAdapter implements HttpClient {
     final statusCode = response.statusCode;
 
     if (data == null || statusCode == null) {
-      throw Exception(); // Http Response Exception
+      throw AppError(type: AppErrorType.httpResponse);
     } else {
       return HttpResponse(
         data: data,
@@ -73,14 +74,14 @@ class DioAdapter implements HttpClient {
           response = await dio.delete(path,
               queryParameters: queryParameters, data: jsonBody);
         default:
-          throw Exception();
+          throw AppError(type: AppErrorType.httpRequest);
       }
 
       return _handleResponse(response);
-    } on DioException catch (_) {
-      throw Exception(); // Dio Exception
+    } on DioException catch (e) {
+      throw AppError(type: AppErrorType.httpRequest, exception: e);
     } catch (e) {
-      throw Exception(); // Http Request Exception
+      throw AppError(type: AppErrorType.httpRequest, exception: e);
     }
   }
 }
