@@ -13,7 +13,7 @@ import 'package:nasa_pictures_app/features/pictures/data/repositories/pictures_r
 import 'package:nasa_pictures_app/features/pictures/domain/repositories/pictures_repository.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_all_pictures_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/presentation/home/home_presenter_impl.dart';
- 
+
 class AppDependencies {
   final DependencyInjector injector = GetItAdapter();
 
@@ -22,8 +22,8 @@ class AppDependencies {
     injector.registerLazySingleton<HttpClient>(
       instance: DioAdapter(
         dio: Dio(),
-        apiEndpoint: const String.fromEnvironment("API_ENDPOINT"),
-        apiKey: const String.fromEnvironment("API_KEY"),
+        baseUrl: const String.fromEnvironment("API_ENDPOINT"),
+        queryParameters: {"api_key": const String.fromEnvironment("API_KEY")},
       ),
     );
 

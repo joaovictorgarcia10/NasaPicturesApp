@@ -4,20 +4,20 @@ import 'package:nasa_pictures_app/features/core/infrastructure/http/http_respons
 
 class DioAdapter implements HttpClient {
   final Dio dio;
-  final String apiEndpoint;
-  final String apiKey;
+  final String baseUrl;
+  final Map<String, dynamic> queryParameters;
 
   DioAdapter({
     required this.dio,
-    required this.apiEndpoint,
-    required this.apiKey,
+    required this.baseUrl,
+    required this.queryParameters,
   }) {
     _initialize();
   }
 
   void _initialize() {
-    dio.options.baseUrl = apiEndpoint;
-    dio.options.queryParameters = {"api_key": apiKey};
+    dio.options.baseUrl = baseUrl;
+    dio.options.queryParameters = queryParameters;
 
     dio.options.headers = {
       'content-type': 'application/json',
