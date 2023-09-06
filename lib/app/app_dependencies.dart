@@ -11,7 +11,7 @@ import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_re
 import 'package:nasa_pictures_app/features/pictures/data/repositories/pictures_repository_impl.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/repositories/pictures_repository.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_all_pictures_usecase.dart';
-import 'package:nasa_pictures_app/features/pictures/presentation/presenters/home/home_presenter_impl.dart';
+import 'package:nasa_pictures_app/features/pictures/presentation/home/home_presenter_impl.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/pages/home/home_presenter.dart';
 
 class AppDependencies {

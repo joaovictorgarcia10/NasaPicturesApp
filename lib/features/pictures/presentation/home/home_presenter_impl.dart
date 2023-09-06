@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_all_pictures_usecase.dart';
-import 'package:nasa_pictures_app/features/pictures/ui/pages/home/home_presenter.dart';
+import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
 
 class HomePresenterImpl implements HomePresenter {
   final GetAllPicturesUsecase getAllPicturesUsecase;
