@@ -1,3 +1,3 @@
 abstract class PicturesDatasource {
-  Future<List<dynamic>> getAllPictures();
+  Future<List<Map<String, dynamic>>> getAllPictures();
 }

@@ -1,5 +1,5 @@
-import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/features/pictures/data/helper/date_parser_helper.dart';
+import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 
 class PictureDto {
   final String copyright;

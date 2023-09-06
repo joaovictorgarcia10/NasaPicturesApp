@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import 'package:nasa_pictures_app/features/core/error/app_error.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/http/http_client.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/http/http_response.dart';
@@ -6,20 +7,22 @@ import 'package:nasa_pictures_app/features/core/infrastructure/http/http_respons
 class DioAdapter implements HttpClient {
   final Dio dio;
   final String baseUrl;
-  final Map<String, dynamic> queryParameters;
+  final Map<String, dynamic>? queryParameters;
+  final List<Interceptor>? interceptors;
 
   DioAdapter({
     required this.dio,
     required this.baseUrl,
-    required this.queryParameters,
+    this.queryParameters,
+    this.interceptors,
   }) {
     _initialize();
   }
 
   void _initialize() {
     dio.options.baseUrl = baseUrl;
-    dio.options.queryParameters = queryParameters;
-
+    dio.options.queryParameters = queryParameters ?? {};
+    
     dio.options.headers = {
       'content-type': 'application/json',
       'accept': 'application/json',
@@ -34,6 +37,8 @@ class DioAdapter implements HttpClient {
         responseBody: true,
       ),
     );
+
+    dio.interceptors.addAll(interceptors ?? []);
   }
 
   HttpResponse _handleResponse(Response response) {

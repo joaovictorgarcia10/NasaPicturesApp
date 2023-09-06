@@ -7,7 +7,7 @@ class PicturesRemoteDatasource extends PicturesDatasource {
   PicturesRemoteDatasource({required this.httpClient});
 
   @override
-  Future<List<dynamic>> getAllPictures() async {
+  Future<List<Map<String, dynamic>>> getAllPictures() async {
     try {
       final response = await httpClient.request(
         method: "get",
@@ -18,7 +18,7 @@ class PicturesRemoteDatasource extends PicturesDatasource {
       );
 
       if (response.data != null && response.statusCode == 200) {
-        return response.data;
+        return List.from(response.data);
       } else {
         throw AppError(type: AppErrorType.invalidData);
       }

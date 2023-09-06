@@ -1,19 +1,27 @@
-import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
+import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_local_datasource.dart';
+import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_remote_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/dtos/picture_dto.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/repositories/pictures_repository.dart';
 
 class PicturesRepositoryImpl implements PicturesRepository {
-  final PicturesDatasource datasource;
-  PicturesRepositoryImpl({required this.datasource});
+  final PicturesRemoteDatasource remoteDatasource;
+  final PicturesLocalDatasource localDatasource;
+
+  PicturesRepositoryImpl({
+    required this.remoteDatasource,
+    required this.localDatasource,
+  });
 
   @override
-  Future<List<Picture>> getAllPictures() async {
-    final response = await datasource.getAllPictures();
+  Future<List<Picture>> getAllPictures({required bool isOnline}) async {
+    late List<Map<String, dynamic>> response;
 
-    // Buscar lista atual do local storage
-    // Incrementar com os valores recebidos do datasource
-    // Salvar nova lista incrementada
+    if (isOnline) {
+      response = await remoteDatasource.getAllPictures();
+    } else {
+      response = await localDatasource.getAllPictures();
+    }
 
     return response.map((e) => PictureDto.fromMap(e).toEntity()).toList();
   }
