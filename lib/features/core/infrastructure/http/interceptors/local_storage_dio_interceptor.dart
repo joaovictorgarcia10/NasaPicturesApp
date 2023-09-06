@@ -16,7 +16,7 @@ class LocalStorageDioInterceptor extends Interceptor {
       final currentList =
           localStorageClient.getPictures(AppConstants.pictureListCacheKey);
 
-      if (currentList.length > AppConstants.pictureListMaxLenght) {
+      if (currentList.length < AppConstants.pictureListMaxLenght) {
         _incrementCache(
           currentList: List.from(currentList),
           incrementalList: List.from(response.data),
