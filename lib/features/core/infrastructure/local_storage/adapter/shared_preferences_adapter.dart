@@ -7,19 +7,23 @@ class SharedPreferencesAdapter implements LocalStorageClient {
   SharedPreferencesAdapter({required this.sharedPreferences});
 
   @override
-  Future<bool> setMap(String key, Map<String, dynamic> value) {
+  Future<bool> setPictures(String key, List<Map<String, dynamic>> value) {
     return sharedPreferences.setString(key, json.encode(value));
   }
 
   @override
-  Future<Map<String, dynamic>?> getMap(String key) {
-    final String value = sharedPreferences.getString(key)!;
+  List<dynamic> getPictures(String key) {
+    final String value = sharedPreferences.getString(key) ?? "";
+
+    if (value.isEmpty) {
+      return [];
+    }
+
     return json.decode(value);
   }
 
   @override
-  Future<void> clear(String key) async {
-    await sharedPreferences.remove(key);
-    return;
+  Future<bool> clear(String key) async {
+    return await sharedPreferences.remove(key);
   }
 }

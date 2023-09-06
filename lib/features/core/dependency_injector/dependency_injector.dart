@@ -1,4 +1,4 @@
-abstract interface class DependencyInjector {
+abstract class DependencyInjector {
   void registerLazySingleton<T extends Object>({
     required T instance,
     String? instanceName,
