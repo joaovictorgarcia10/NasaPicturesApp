@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:nasa_pictures_app/features/core/environment/app_environment.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/http/interceptors/local_storage_dio_interceptor.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_local_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_remote_datasource.dart';
@@ -38,8 +39,8 @@ class AppDependencies {
     injector.registerLazySingleton<HttpClient>(
       instance: DioAdapter(
         dio: Dio(),
-        baseUrl: const String.fromEnvironment("API_ENDPOINT"),
-        queryParameters: {"api_key": const String.fromEnvironment("API_KEY")},
+        baseUrl: AppEnvironment.apiBaseUrl,
+        queryParameters: {"api_key": AppEnvironment.apiKey},
         interceptors: [injector.get<LocalStorageDioInterceptor>()],
       ),
     );
