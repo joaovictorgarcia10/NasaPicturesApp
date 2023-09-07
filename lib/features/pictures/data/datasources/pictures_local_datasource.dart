@@ -17,7 +17,7 @@ class PicturesLocalDatasource implements PicturesDatasource {
       if (response.isNotEmpty) {
         return List.from(response);
       } else {
-        throw AppError(type: AppErrorType.emptyData);
+        throw AppError(type: AppErrorType.localStorageEmptyData);
       }
     } catch (e) {
       throw AppError(type: AppErrorType.invalidData);

@@ -2,7 +2,7 @@ enum AppErrorType {
   httpRequest,
   httpResponse,
   invalidData,
-  emptyData,
+  localStorageEmptyData,
 }
 
 class AppError implements Exception {
