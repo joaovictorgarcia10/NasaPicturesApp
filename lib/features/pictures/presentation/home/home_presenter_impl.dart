@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:nasa_pictures_app/features/core/constants/app_constants.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/check_internet_connection_usecase.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_all_pictures_usecase.dart';
+import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_pictures_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
 
 class HomePresenterImpl implements HomePresenter {
-  final GetAllPicturesUsecase getAllPicturesUsecase;
+  final GetPicturesUsecase getPicturesUsecase;
   final CheckInternetConnectionUsecase checkInternetConnectionUsecase;
 
   HomePresenterImpl({
-    required this.getAllPicturesUsecase,
+    required this.getPicturesUsecase,
     required this.checkInternetConnectionUsecase,
   });
 
@@ -38,7 +38,7 @@ class HomePresenterImpl implements HomePresenter {
     state.value = HomeStateLoading();
 
     try {
-      final response = await getAllPicturesUsecase();
+      final response = await getPicturesUsecase();
       _allPictures.addAll(response);
       state.value = HomeStateSuccess(pictures: _allPictures);
     } catch (e) {
@@ -52,7 +52,7 @@ class HomePresenterImpl implements HomePresenter {
 
     try {
       shouldPaginate.value = true;
-      final response = await getAllPicturesUsecase();
+      final response = await getPicturesUsecase();
       _allPictures = response;
       state.value = HomeStateSuccess(pictures: _allPictures);
     } catch (e) {
@@ -66,7 +66,7 @@ class HomePresenterImpl implements HomePresenter {
 
     if (isOnline && _allPictures.length < AppConstants.pictureListMaxLenght) {
       try {
-        final response = await getAllPicturesUsecase();
+        final response = await getPicturesUsecase();
         _allPictures = [..._allPictures, ...response];
         state.value = HomeStateSuccess(pictures: _allPictures);
       } catch (e) {

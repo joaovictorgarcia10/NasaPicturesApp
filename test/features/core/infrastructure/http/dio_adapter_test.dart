@@ -7,6 +7,10 @@ void main() {
   late HttpClient sut;
 
   setUp(() {
-    sut = DioAdapter(dio: Dio(), baseUrl: "", queryParameters: {});
+    sut = DioAdapter(
+      dio: Dio(),
+      baseUrl: "",
+      queryParameters: {},
+    );
   });
 }

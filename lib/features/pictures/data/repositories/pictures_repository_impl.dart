@@ -14,13 +14,13 @@ class PicturesRepositoryImpl implements PicturesRepository {
   });
 
   @override
-  Future<List<Picture>> getAllPictures({required bool isOnline}) async {
+  Future<List<Picture>> getPictures({required bool isOnline}) async {
     late List<Map<String, dynamic>> response;
 
     if (isOnline) {
-      response = await remoteDatasource.getAllPictures();
+      response = await remoteDatasource.getPictures();
     } else {
-      response = await localDatasource.getAllPictures();
+      response = await localDatasource.getPictures();
     }
 
     return response.map((e) => PictureDto.fromMap(e).toEntity()).toList();

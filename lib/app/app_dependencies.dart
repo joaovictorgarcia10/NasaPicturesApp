@@ -13,7 +13,7 @@ import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/ada
 import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/local_storage_client.dart';
 import 'package:nasa_pictures_app/features/pictures/data/repositories/pictures_repository_impl.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/repositories/pictures_repository.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_all_pictures_usecase.dart';
+import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_pictures_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/presentation/home/home_presenter_impl.dart';
 
 class AppDependencies {
@@ -69,8 +69,8 @@ class AppDependencies {
     injector.registerLazySingleton<CheckInternetConnectionUsecase>(
         instance: CheckInternetConnectionUsecase());
 
-    injector.registerLazySingleton<GetAllPicturesUsecase>(
-      instance: GetAllPicturesUsecase(
+    injector.registerLazySingleton<GetPicturesUsecase>(
+      instance: GetPicturesUsecase(
         repository: injector.get<PicturesRepository>(),
         checkInternetConnection: injector.get<CheckInternetConnectionUsecase>(),
       ),
@@ -79,7 +79,7 @@ class AppDependencies {
     // Presenters
     injector.registerLazySingleton<HomePresenter>(
       instance: HomePresenterImpl(
-        getAllPicturesUsecase: injector.get<GetAllPicturesUsecase>(),
+        getPicturesUsecase: injector.get<GetPicturesUsecase>(),
         checkInternetConnectionUsecase:
             injector.get<CheckInternetConnectionUsecase>(),
       ),
