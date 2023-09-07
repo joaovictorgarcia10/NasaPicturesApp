@@ -10,14 +10,11 @@ class PicturesLocalDatasource implements PicturesDatasource {
   @override
   Future<List<Map<String, dynamic>>> getPictures() async {
     try {
-      final response = localStorageClient.getPictures(
-        AppConstants.pictureListCacheKey,
-      );
-
+      final response = localStorageClient.get(AppConstants.pictureListCacheKey);
       if (response.isNotEmpty) {
         return List.from(response);
       } else {
-        throw AppError(type: AppErrorType.localStorageEmptyData);
+        throw AppError(type: AppErrorType.emptyData);
       }
     } catch (e) {
       rethrow;

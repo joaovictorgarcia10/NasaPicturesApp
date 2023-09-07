@@ -1,4 +1,3 @@
- 
 class Picture {
   final String copyright;
   final String date;

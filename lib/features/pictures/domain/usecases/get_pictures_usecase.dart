@@ -13,7 +13,6 @@ class GetPicturesUsecase {
 
   Future<List<Picture>> call() async {
     final isOnline = await checkInternetConnection();
-    final response = await repository.getPictures(isOnline: isOnline);
-    return response;
+    return await repository.getPictures(isOnline: isOnline);
   }
 }

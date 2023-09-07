@@ -22,8 +22,7 @@ void main() {
   group("PicturesLocalDatasource Test", () {
     test("Should return a list of pictures from local storage client",
         () async {
-      when(() =>
-              localStorageClient.getPictures(AppConstants.pictureListCacheKey))
+      when(() => localStorageClient.get(AppConstants.pictureListCacheKey))
           .thenAnswer((_) => pictureLisMock);
 
       final response = await sut.getPictures();
@@ -32,29 +31,26 @@ void main() {
       expect(response.last["title"], "NGC 7635: The Bubble Nebula Expanding");
 
       verify(
-        () => localStorageClient.getPictures(AppConstants.pictureListCacheKey),
+        () => localStorageClient.get(AppConstants.pictureListCacheKey),
       );
     });
 
-    test("Should throw an AppError localStorageEmptyData", () async {
-      when(() =>
-              localStorageClient.getPictures(AppConstants.pictureListCacheKey))
+    test("Should throw an AppError emptyData", () async {
+      when(() => localStorageClient.get(AppConstants.pictureListCacheKey))
           .thenAnswer((_) => []);
 
       try {
         await sut.getPictures();
       } on AppError catch (e) {
         expect(e, isA<AppError>());
-        expect(e.type, AppErrorType.localStorageEmptyData);
+        expect(e.type, AppErrorType.emptyData);
       }
 
-      verify(() =>
-          localStorageClient.getPictures(AppConstants.pictureListCacheKey));
+      verify(() => localStorageClient.get(AppConstants.pictureListCacheKey));
     });
 
     test("Should throw an AppError localStorage", () async {
-      when(() =>
-              localStorageClient.getPictures(AppConstants.pictureListCacheKey))
+      when(() => localStorageClient.get(AppConstants.pictureListCacheKey))
           .thenThrow(AppError(type: AppErrorType.localStorage));
 
       try {
@@ -64,8 +60,7 @@ void main() {
         expect(e.type, AppErrorType.localStorage);
       }
 
-      verify(() =>
-          localStorageClient.getPictures(AppConstants.pictureListCacheKey));
+      verify(() => localStorageClient.get(AppConstants.pictureListCacheKey));
     });
   });
 }

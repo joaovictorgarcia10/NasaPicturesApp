@@ -8,7 +8,7 @@ class SharedPreferencesAdapter implements LocalStorageClient {
   SharedPreferencesAdapter({required this.sharedPreferences});
 
   @override
-  Future<bool> setPictures(String key, List<Map<String, dynamic>> value) {
+  Future<bool> save(String key, List<Map<String, dynamic>> value) {
     try {
       return sharedPreferences.setString(key, json.encode(value));
     } catch (e) {
@@ -17,7 +17,7 @@ class SharedPreferencesAdapter implements LocalStorageClient {
   }
 
   @override
-  List<dynamic> getPictures(String key) {
+  List<dynamic> get(String key) {
     try {
       final String value = sharedPreferences.getString(key) ?? "";
 
