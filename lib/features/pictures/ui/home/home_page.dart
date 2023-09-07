@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/adapter/get_it_adapter.dart';
 import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/widgets/picture_list_tile_widget.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final HomePresenter presenter;
+
+  const HomePage({
+    Key? key,
+    required this.presenter,
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final presenter = GetItAdapter().get<HomePresenter>();
-
   final textEditingController = TextEditingController();
   final scrollController = ScrollController();
 
@@ -23,16 +25,18 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    presenter.getAllPictures();
+    widget.presenter.getAllPictures();
     scrollController.addListener(() {
-      if (inTheEndOfList() && presenter.shouldPaginate.value) {
-        presenter.paginatePictures();
+      if (inTheEndOfList() && widget.presenter.shouldPaginate.value) {
+        widget.presenter.paginatePictures();
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final presenter = widget.presenter;
+
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
