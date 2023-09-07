@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:nasa_pictures_app/features/core/constants/app_constants.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/check_internet_connection_usecase.dart';
@@ -52,6 +51,7 @@ class HomePresenterImpl implements HomePresenter {
 
     try {
       shouldPaginate.value = true;
+
       final response = await getPicturesUsecase();
       _allPictures = response;
       state.value = HomeStateSuccess(pictures: _allPictures);

@@ -47,12 +47,14 @@ class AppDependencies {
 
     // Datasources
     injector.registerLazySingleton<PicturesLocalDatasource>(
+      instanceName: "PicturesLocalDatasource",
       instance: PicturesLocalDatasource(
         localStorageClient: injector.get<LocalStorageClient>(),
       ),
     );
 
     injector.registerLazySingleton<PicturesRemoteDatasource>(
+      instanceName: "PicturesRemoteDatasource",
       instance: PicturesRemoteDatasource(
         httpClient: injector.get<HttpClient>(),
       ),
@@ -61,8 +63,12 @@ class AppDependencies {
     // Repositorys
     injector.registerLazySingleton<PicturesRepository>(
       instance: PicturesRepositoryImpl(
-        localDatasource: injector.get<PicturesLocalDatasource>(),
-        remoteDatasource: injector.get<PicturesRemoteDatasource>(),
+        localDatasource: injector.get<PicturesLocalDatasource>(
+          instanceName: "PicturesLocalDatasource",
+        ),
+        remoteDatasource: injector.get<PicturesRemoteDatasource>(
+          instanceName: "PicturesRemoteDatasource",
+        ),
       ),
     );
 

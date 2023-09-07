@@ -1,12 +1,11 @@
-import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_local_datasource.dart';
-import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_remote_datasource.dart';
+import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/dtos/picture_dto.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/repositories/pictures_repository.dart';
 
 class PicturesRepositoryImpl implements PicturesRepository {
-  final PicturesRemoteDatasource remoteDatasource;
-  final PicturesLocalDatasource localDatasource;
+  final PicturesDatasource remoteDatasource;
+  final PicturesDatasource localDatasource;
 
   PicturesRepositoryImpl({
     required this.remoteDatasource,

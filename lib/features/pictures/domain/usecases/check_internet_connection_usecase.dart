@@ -5,13 +5,13 @@ class CheckInternetConnectionUsecase {
   Future<bool> call() async {
     try {
       final response = await InternetAddress.lookup(AppConstants.flutterUrl);
-      
+
       if (response.isNotEmpty && response.first.rawAddress.isNotEmpty) {
         return true;
       } else {
         return false;
       }
-    } on SocketException catch (_) {
+    } catch (_) {
       return false;
     }
   }

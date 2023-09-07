@@ -28,8 +28,8 @@ class PictureDto {
       date: map['date'] ?? '',
       explanation: map['explanation'] ?? '',
       hdurl: map['hdurl'] ?? '',
-      mediaType: map['mediaType'] ?? '',
-      serviceVersion: map['serviceVersion'] ?? '',
+      mediaType: map['media_type'] ?? '',
+      serviceVersion: map['service_version'] ?? '',
       title: map['title'] ?? '',
       url: map['url'] ?? '',
     );

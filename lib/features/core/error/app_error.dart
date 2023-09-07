@@ -2,6 +2,7 @@ enum AppErrorType {
   httpRequest,
   httpResponse,
   invalidData,
+  localStorage,
   localStorageEmptyData,
 }
 

@@ -20,7 +20,7 @@ class PicturesLocalDatasource implements PicturesDatasource {
         throw AppError(type: AppErrorType.localStorageEmptyData);
       }
     } catch (e) {
-      throw AppError(type: AppErrorType.invalidData);
+      rethrow;
     }
   }
 }
