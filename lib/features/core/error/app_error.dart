@@ -1,4 +1,5 @@
 enum AppErrorType {
+  dependencyInjector,
   httpRequest,
   httpResponse,
   localStorage,

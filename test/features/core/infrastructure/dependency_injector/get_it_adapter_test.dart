@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nasa_pictures_app/features/core/error/app_error.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/adapter/get_it_adapter.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/dependency_injector.dart';
 
@@ -28,10 +29,12 @@ void main() {
     });
 
     test('Should throw an error trying to access a not registered type', () {
-      expect(
-        () => sut.get<int>(),
-        throwsA(const TypeMatcher<StateError>()),
-      );
+      try {
+        sut.get<int>();
+      } on AppError catch (e) {
+        expect(e, isA<AppError>());
+        expect(e.type, AppErrorType.dependencyInjector);
+      }
     });
 
     test('Should throw an error when call get after Unregister', () async {
@@ -43,22 +46,28 @@ void main() {
 
       await sut.unregister<String>(instanceName: "mySingleton");
 
-      expect(
-        () => sut.get<String>(instanceName: "mySingleton"),
-        throwsA(const TypeMatcher<StateError>()),
-      );
+      try {
+        sut.get<String>(instanceName: "mySingleton");
+      } on AppError catch (e) {
+        expect(e, isA<AppError>());
+        expect(e.type, AppErrorType.dependencyInjector);
+      }
     });
 
     test("Should throw an error when call get after Reset", () async {
       sut.registerLazySingleton<String>(
-          instance: "hello world", instanceName: "mySingleton");
+        instance: "hello world",
+        instanceName: "mySingleton",
+      );
 
       await sut.reset();
 
-      expect(
-        () => sut.get<String>(instanceName: "mySingleton"),
-        throwsA(const TypeMatcher<StateError>()),
-      );
+      try {
+        sut.get<String>(instanceName: "mySingleton");
+      } on AppError catch (e) {
+        expect(e, isA<AppError>());
+        expect(e.type, AppErrorType.dependencyInjector);
+      }
     });
   });
 }
