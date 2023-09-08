@@ -33,7 +33,7 @@ At this layer you'll find the application's core features, such as: constants, e
 
 ### /pictures
 
-Here you'll find the application main functionality, wich is deal with the pictures. It was built following the Clean Architecture standard:
+Here you'll find the application main functionality, wich deals with the pictures. It was built following the Clean Architecture standard:
 
 - UI
 - Presentation
