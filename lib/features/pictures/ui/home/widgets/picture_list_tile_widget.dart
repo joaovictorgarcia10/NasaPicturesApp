@@ -28,8 +28,8 @@ class PictureListTileWidget extends StatelessWidget {
             padding: const EdgeInsets.all(3.0),
             child: ListTile(
               leading: CachedNetworkImage(
-                height: 100.0,
-                width: 100.0,
+                height: 90.0,
+                width: 90.0,
                 imageUrl: url,
                 fit: BoxFit.cover,
                 errorWidget: (context, url, error) => const Icon(
@@ -37,7 +37,7 @@ class PictureListTileWidget extends StatelessWidget {
                 ),
               ),
               title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
-              subtitle: FittedBox(child: Text(date)),
+              subtitle: Text(date),
               trailing: IconButton(
                 key: iconButtonKey,
                 icon: const Icon(Icons.arrow_forward_ios),
