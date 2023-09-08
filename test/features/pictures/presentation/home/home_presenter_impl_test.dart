@@ -130,9 +130,9 @@ void main() {
 
       expect(states[0], isA<HomeStateLoading>());
       expect(states[1], isA<HomeStateSuccess>());
+      
       expect(states[2], isA<HomeStateSuccess>());
       expect(states[3], isA<HomeStateSuccess>());
-
       expect(sut.state.value, isA<HomeStateSuccess>());
       cleanStates();
     });
@@ -146,9 +146,9 @@ void main() {
 
       expect(states[0], isA<HomeStateLoading>());
       expect(states[1], isA<HomeStateSuccess>());
+
       expect(states[2], isA<HomeStateSuccess>());
       expect(states[3], isA<HomeStateError>());
-
       expect(sut.state.value, isA<HomeStateError>());
       cleanStates();
     });
