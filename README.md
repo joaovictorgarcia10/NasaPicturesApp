@@ -15,11 +15,11 @@ This application consumes the [NASA's "Astronomy Picture of the Day"](https://ap
 
 ## App Dependencies
 
-- [x] get_it: ^7.6.4
-- [x] dio: ^5.3.2
-- [x] shared_preferences: ^2.2.1
-- [x] cached_network_image: ^3.2.3
-- [x] mocktail: ^1.0.0
+- get_it: ^7.6.4
+- dio: ^5.3.2
+- shared_preferences: ^2.2.1
+- cached_network_image: ^3.2.3
+- mocktail: ^1.0.0
 
 ## App Organization
 
