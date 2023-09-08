@@ -87,6 +87,7 @@ class _HomePageState extends State<HomePage> {
                             "/details",
                             arguments: picture,
                           ),
+                          iconButtonKey: Key("icon-button-key-$index"),
                         );
                       } else {
                         if (shouldPaginate) {

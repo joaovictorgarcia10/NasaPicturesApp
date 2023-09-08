@@ -6,6 +6,7 @@ class PictureListTileWidget extends StatelessWidget {
   final String title;
   final String date;
   final VoidCallback onPressed;
+  final Key iconButtonKey;
 
   const PictureListTileWidget({
     Key? key,
@@ -13,6 +14,7 @@ class PictureListTileWidget extends StatelessWidget {
     required this.title,
     required this.date,
     required this.onPressed,
+    required this.iconButtonKey,
   }) : super(key: key);
 
   @override
@@ -34,9 +36,10 @@ class PictureListTileWidget extends StatelessWidget {
                   Icons.error_outline_rounded,
                 ),
               ),
-              title: Text(title),
-              subtitle: Text(date),
+              title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
+              subtitle: FittedBox(child: Text(date)),
               trailing: IconButton(
+                key: iconButtonKey,
                 icon: const Icon(Icons.arrow_forward_ios),
                 onPressed: onPressed,
               ),

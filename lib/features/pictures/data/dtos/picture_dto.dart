@@ -1,4 +1,4 @@
-import 'package:nasa_pictures_app/features/pictures/data/helper/date_parser_helper.dart';
+import 'package:nasa_pictures_app/features/pictures/data/helper/date_formater_extension.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 
 class PictureDto {
@@ -38,7 +38,7 @@ class PictureDto {
   Picture toEntity() {
     return Picture(
       copyright: copyright,
-      date: DateParserHelper().parseDate(date),
+      date: date.formatDate(date),
       explanation: explanation,
       hdurl: hdurl,
       mediaType: mediaType,

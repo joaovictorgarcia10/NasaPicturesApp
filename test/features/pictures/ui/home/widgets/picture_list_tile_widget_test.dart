@@ -12,6 +12,7 @@ void main() {
       title: "title",
       date: "date",
       onPressed: () {},
+      iconButtonKey: const Key("icon-button-key"),
     );
   });
   testWidgets('Should render PictureListTileWidget with the expected values',
