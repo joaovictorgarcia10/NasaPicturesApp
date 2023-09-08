@@ -40,9 +40,9 @@ Here you'll find the application main functionality, wich deals with the picture
 - Domain
 - Data
 
-## App Enviroment
+## App Environment
 
-The application environment variables are setted by ```--dart-define``` strategy wich allow us to catch environment variables in our Flutter app run or build.
+The application environment variables are setted by ```--dart-define``` strategy which allow us to catch environment variables in our Flutter app run or build.
 
 At this development environment you can find ```--dart-define```values inside ```flutter_run.sh``` script and VsCode ```launch.json``` file:
 
