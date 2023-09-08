@@ -42,9 +42,9 @@ Here you'll find the application main functionality, wich deals with the picture
 
 ## App Enviroment
 
-The application environment variables are setted by _--dart-define_ strategy wich allow us to catch environment variables in our Flutter app run or build.
+The application environment variables are setted by ```--dart-define``` strategy wich allow us to catch environment variables in our Flutter app run or build.
 
-At this development environment you can find _--dart-define_ values inside ```flutter_run.sh``` script and VsCode __launch.json__ file:
+At this development environment you can find ```--dart-define```values inside ```flutter_run.sh``` script and VsCode ```launch.json``` file:
 
 ```bash
 flutter run -t lib/main.dart \
@@ -74,7 +74,7 @@ flutter run -t lib/main.dart \
 ```
 
 But for production environments, put sensitive data such as our __API_KEY__ inside the application code is a serious security problem that can be resolved by:
-- Set _--dart-define_  production values only in the __CI environment__.
+- Set ```--dart-define```  production values only in the __CI environment__.
 - Run __code obfuscation__ algorithms at production build time. [(Obfuscate Dart code)](https://docs.flutter.dev/deployment/obfuscate)
 
 
