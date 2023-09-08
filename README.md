@@ -75,7 +75,7 @@ flutter run -t lib/main.dart \
 
 But for production environments, put sensitive data such as our __API_KEY__ inside the application code is a serious security problem that can be resolved by:
 - Set _--dart-define_  production values only in the __CI environment__.
-- Run __code obfuscation__ algorithms at build time. [(Obfuscate Dart code)](https://docs.flutter.dev/deployment/obfuscate)
+- Run __code obfuscation__ algorithms at production build time. [(Obfuscate Dart code)](https://docs.flutter.dev/deployment/obfuscate)
 
 
 
