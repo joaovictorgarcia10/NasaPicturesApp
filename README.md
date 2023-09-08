@@ -46,8 +46,18 @@ The application environment variables are setted by _--dart-define_ strategy wic
 
 At this development environment you can find _--dart-define_ values inside ```flutter_run.sh``` script and VsCode __launch.json__ file:
 
+```bash
+flutter run -t lib/main.dart \
+--dart-define=API_BASE_URL=https://api.nasa.gov \
+--dart-define=API_KEY=ceTiTEfkHDvXK7tSu7hxrrA7hs6fwDYRPajfZ7cz
+```
+<br>
+
 ```json
 {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
