@@ -12,18 +12,22 @@ class LocalStorageDioInterceptor extends Interceptor {
     if (response.requestOptions.baseUrl == AppEnvironment.apiBaseUrl &&
         response.requestOptions.method == "GET" &&
         response.requestOptions.path == "/planetary/apod") {
-      final currentList =
-          localStorageClient.get(AppConstants.pictureListCacheKey);
+      try {
+        final currentList =
+            localStorageClient.get(AppConstants.pictureListCacheKey);
 
-      if (currentList.length < AppConstants.pictureListMaxLenght) {
-        final newList = <Map<String, dynamic>>[
-          ...List.from(currentList),
-          ...List.from(response.data),
-        ];
+        if (currentList.length < AppConstants.pictureListMaxLenght) {
+          final newList = <Map<String, dynamic>>[
+            ...List.from(currentList),
+            ...List.from(response.data),
+          ];
 
-        localStorageClient.save(AppConstants.pictureListCacheKey, newList);
-      } else {
-        localStorageClient.clear(AppConstants.pictureListCacheKey);
+          localStorageClient.save(AppConstants.pictureListCacheKey, newList);
+        } else {
+          localStorageClient.clear(AppConstants.pictureListCacheKey);
+        }
+      } catch (e) {
+        rethrow;
       }
     }
 
