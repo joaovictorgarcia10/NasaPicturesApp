@@ -22,6 +22,8 @@ class LocalStorageDioInterceptor extends Interceptor {
         ];
 
         localStorageClient.save(AppConstants.pictureListCacheKey, newList);
+      } else {
+        localStorageClient.clear(AppConstants.pictureListCacheKey);
       }
     }
 
