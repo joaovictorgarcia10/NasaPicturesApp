@@ -1,8 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/adapter/get_it_adapter.dart';
+import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/dependency_injector.dart';
 
 void main() {
-  late GetItAdapter sut;
+  late DependencyInjector sut;
 
   setUp(() async {
     sut = GetItAdapter();
@@ -41,7 +42,7 @@ void main() {
       expect(result, isInstanceOf<String>());
 
       await sut.unregister<String>(instanceName: "mySingleton");
-     
+
       expect(
         () => sut.get<String>(instanceName: "mySingleton"),
         throwsA(const TypeMatcher<StateError>()),
