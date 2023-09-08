@@ -3,7 +3,7 @@
 This application consumes the [NASA's "Astronomy Picture of the Day"](https://api.nasa.gov) API and display it's content to users in a fashion manner.
 
 
-## Features
+## App Features
 
 - [x] 2 screens: a list of images and a detail screen.
 - [x] The images list displays the title, date and provide a search field in the top (find by title or date)
@@ -13,7 +13,7 @@ This application consumes the [NASA's "Astronomy Picture of the Day"](https://ap
 - [x] Pull-to-refresh 
 - [x] Pagination
 
-## Dependencies
+## App Dependencies
 
 - [x] get_it: ^7.6.4
 - [x] dio: ^5.3.2
@@ -21,7 +21,7 @@ This application consumes the [NASA's "Astronomy Picture of the Day"](https://ap
 - [x] cached_network_image: ^3.2.3
 - [x] mocktail: ^1.0.0
 
-## Organization
+## App Organization
 
 ### /app
 
@@ -79,7 +79,7 @@ But for production environments, put sensitive data such as our __API_KEY__ insi
 
 
 
-## Tests
+## App Tests
 
 You can run the application Unit and Widget Tests by running the ```flutter_test_coverage.sh``` script wich will run all the tests, generate the __coverage/lcov.info__ and the __HTML report__.
 
