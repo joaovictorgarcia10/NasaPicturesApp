@@ -82,6 +82,11 @@ class _HomePageState extends State<HomePage> {
                           url: picture.url,
                           title: picture.title,
                           date: picture.date,
+                          onPressed: () => Navigator.pushNamed(
+                            context,
+                            "/details",
+                            arguments: picture,
+                          ),
                         );
                       } else {
                         if (shouldPaginate) {

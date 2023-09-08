@@ -5,12 +5,14 @@ class PictureListTileWidget extends StatelessWidget {
   final String url;
   final String title;
   final String date;
+  final VoidCallback onPressed;
 
   const PictureListTileWidget({
     Key? key,
     required this.url,
     required this.title,
     required this.date,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,10 @@ class PictureListTileWidget extends StatelessWidget {
               ),
               title: Text(title),
               subtitle: Text(date),
-              trailing: const Icon(Icons.arrow_forward_ios),
+              trailing: IconButton(
+                icon: const Icon(Icons.arrow_forward_ios),
+                onPressed: onPressed,
+              ),
             ),
           ),
         ),
