@@ -33,7 +33,7 @@ class HomePresenterImpl implements HomePresenter {
 // _____________________________________________________________________________
 
   @override
-  Future<void> getAllPictures() async {
+  Future<void> getPictures() async {
     state.value = HomeStateLoading();
 
     try {

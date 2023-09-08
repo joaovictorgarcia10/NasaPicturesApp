@@ -6,7 +6,7 @@ import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/loc
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_local_datasource.dart';
 
-import '../../../../mock/picture_list_mock.dart';
+import '../../mock/picture_list_mock.dart';
 
 class LocalStorageClientMock extends Mock implements LocalStorageClient {}
 

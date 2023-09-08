@@ -6,7 +6,7 @@ import 'package:nasa_pictures_app/features/pictures/data/repositories/pictures_r
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/repositories/pictures_repository.dart';
 
-import '../../../../mock/picture_list_mock.dart';
+import '../../mock/picture_list_mock.dart';
 
 class PicturesRemoteDatasourceMock extends Mock implements PicturesDatasource {}
 

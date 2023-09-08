@@ -4,7 +4,7 @@ import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/ada
 import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/local_storage_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../mock/picture_list_mock.dart';
+import '../../../pictures/mock/picture_list_mock.dart';
 
 void main() {
   late LocalStorageClient sut;

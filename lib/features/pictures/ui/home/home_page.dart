@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    widget.presenter.getAllPictures();
+    widget.presenter.getPictures();
     scrollController.addListener(() {
       if (inTheEndOfList() && widget.presenter.shouldPaginate.value) {
         widget.presenter.paginatePictures();
@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                     TextButton(
                       onPressed: () {
                         textEditingController.clear();
-                        presenter.getAllPictures();
+                        presenter.getPictures();
                       },
                       child: const Text("Try again"),
                     )

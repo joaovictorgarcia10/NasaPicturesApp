@@ -5,7 +5,7 @@ abstract class HomePresenter {
   ValueNotifier<HomeState> get state;
   ValueNotifier<bool> get shouldPaginate;
 
-  Future<void> getAllPictures();
+  Future<void> getPictures();
   Future<void> refreshPictures();
   Future<void> paginatePictures();
   Future<void> search(String value);

@@ -6,7 +6,7 @@ import 'package:nasa_pictures_app/features/core/infrastructure/http/http_respons
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_remote_datasource.dart';
 
-import '../../../../mock/picture_list_mock.dart';
+import '../../mock/picture_list_mock.dart';
 
 class HttpClientMock extends Mock implements HttpClient {}
 
