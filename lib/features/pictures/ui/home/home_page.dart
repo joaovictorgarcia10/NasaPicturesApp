@@ -64,7 +64,9 @@ class _HomePageState extends State<HomePage> {
 
             if (state is HomeStateLoading) {
               return const Center(child: CircularProgressIndicator());
-            } else if (state is HomeStateSuccess) {
+            }
+
+            if (state is HomeStateSuccess) {
               return Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: RefreshIndicator(
@@ -95,32 +97,31 @@ class _HomePageState extends State<HomePage> {
                             padding: EdgeInsets.symmetric(vertical: 20.0),
                             child: Center(child: CircularProgressIndicator()),
                           );
-                        } else {
-                          return const SizedBox();
                         }
+                        return const SizedBox();
                       }
                     },
                   ),
                 ),
               );
-            } else {
-              final errorState = state as HomeStateError;
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(errorState.message),
-                    TextButton(
-                      onPressed: () {
-                        textEditingController.clear();
-                        presenter.getPictures();
-                      },
-                      child: const Text("Try again"),
-                    )
-                  ],
-                ),
-              );
             }
+
+            final errorState = state as HomeStateError;
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(errorState.message),
+                  TextButton(
+                    onPressed: () {
+                      textEditingController.clear();
+                      presenter.getPictures();
+                    },
+                    child: const Text("Try again"),
+                  )
+                ],
+              ),
+            );
           },
         ),
       ),

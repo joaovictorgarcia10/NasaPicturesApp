@@ -24,7 +24,6 @@ class HomePresenterImpl implements HomePresenter {
 // _____________________________________________________________________________
 
   @override
-  // TODO: implement state
   ValueNotifier<HomeState> state = ValueNotifier(HomeStateLoading());
 
   @override
