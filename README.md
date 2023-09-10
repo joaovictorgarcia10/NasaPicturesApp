@@ -1,6 +1,6 @@
 # Nasa Pictures App
 
-This application consumes the [NASA's "Astronomy Picture of the Day"](https://api.nasa.gov) API and display it's content to users in a fashion manner.
+This application consumes the [NASA's "Astronomy Picture of the Day"](https://api.nasa.gov) API and display it's content to users in a fashion manner for Android and iOS.
 
 
 ## App Features
