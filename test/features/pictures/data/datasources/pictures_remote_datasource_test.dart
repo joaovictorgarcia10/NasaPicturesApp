@@ -54,7 +54,7 @@ void main() {
           queryParameters: {"count": "15"},
         ),
       ).thenAnswer(
-        (_) => Future.value(HttpResponse(data: null, statusCode: 400)),
+        (_) => Future.value(HttpResponse(data: [], statusCode: 200)),
       );
 
       try {

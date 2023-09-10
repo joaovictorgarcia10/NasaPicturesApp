@@ -15,8 +15,11 @@ class PicturesRemoteDatasource implements PicturesDatasource {
         queryParameters: {"count": "15"},
       );
 
-      if (response.data != null && response.statusCode == 200) {
-        return List.from(response.data);
+      final statusCode = response.statusCode;
+      final List<Map<String, dynamic>> data = List.from(response.data);
+
+      if (statusCode == 200 && data.isNotEmpty) {
+        return data;
       } else {
         throw AppError(type: AppErrorType.invalidData);
       }

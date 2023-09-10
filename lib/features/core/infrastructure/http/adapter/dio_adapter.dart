@@ -42,10 +42,10 @@ class DioAdapter implements HttpClient {
   }
 
   HttpResponse _handleResponse(Response response) {
-    final data = response.data;
     final statusCode = response.statusCode;
+    final data = response.data;
 
-    if (data == null || statusCode == null) {
+    if (statusCode == null || data == null) {
       throw AppError(type: AppErrorType.httpResponse);
     } else {
       return HttpResponse(data: data, statusCode: statusCode);
