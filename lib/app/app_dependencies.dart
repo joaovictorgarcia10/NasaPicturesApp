@@ -60,7 +60,7 @@ class AppDependencies {
       ),
     );
 
-    // Repositorys
+    // Repositories
     injector.registerLazySingleton<PicturesRepository>(
       instance: PicturesRepositoryImpl(
         localDatasource: injector.get<PicturesLocalDatasource>(
