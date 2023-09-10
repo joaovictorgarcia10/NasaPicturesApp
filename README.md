@@ -58,7 +58,7 @@ flutter run -t lib/main.dart \
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "nasa_pictures_app",
+            "name": "NasaPicturesApp - Dev",
             "request": "launch",
             "type": "dart",
             "args": [
