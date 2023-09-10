@@ -29,4 +29,17 @@ class LocalStorageDioInterceptor extends Interceptor {
 
     handler.resolve(response);
   }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    final currentList =
+        localStorageClient.get(AppConstants.pictureListCacheKey);
+
+    handler.resolve(
+      Response(
+        requestOptions: err.requestOptions,
+        data: currentList,
+      ),
+    );
+  }
 }
