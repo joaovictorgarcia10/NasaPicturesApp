@@ -28,8 +28,7 @@ void main() {
           queryParameters: {"count": "15"},
         ),
       ).thenAnswer(
-        (_) =>
-            Future.value(HttpResponse(data: pictureLisMock, statusCode: 200)),
+        (_) => Future.value(HttpResponse(data: pictureLisMock)),
       );
 
       final response = await sut.getPictures();
@@ -54,7 +53,7 @@ void main() {
           queryParameters: {"count": "15"},
         ),
       ).thenAnswer(
-        (_) => Future.value(HttpResponse(data: [], statusCode: 200)),
+        (_) => Future.value(HttpResponse(data: [])),
       );
 
       try {
