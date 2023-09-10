@@ -46,8 +46,15 @@ class HomePresenterImpl implements HomePresenter {
 
   @override
   Future<void> refreshPictures() async {
-    shouldPaginate.value = true;
-    await getPictures();
+    state.value = HomeStateLoading();
+
+    try {
+      final response = await getPicturesUsecase();
+      _allPictures = response;
+      state.value = HomeStateSuccess(pictures: _allPictures);
+    } catch (e) {
+      state.value = HomeStateError(message: "Something went wrong.");
+    }
   }
 
   @override
