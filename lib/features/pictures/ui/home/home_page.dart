@@ -34,6 +34,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void dispose() {
+    widget.presenter.state.dispose();
+    widget.presenter.shouldPaginate.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final presenter = widget.presenter;
 
