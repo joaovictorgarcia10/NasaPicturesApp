@@ -44,7 +44,7 @@ Here you'll find the application main functionality, wich deals with the picture
 
 The application environment variables are setted by ```--dart-define``` strategy which allow us to catch environment variables in our Flutter app run or build.
 
-At this development environment you can find ```--dart-define```values inside ```flutter_run.sh``` script and VsCode ```launch.json``` file:
+At this development environment you can find ```--dart-define```values inside ```flutter_run.sh``` script and VsCode ```launch.json``` file, respectively:
 
 ```bash
 flutter run -t lib/main.dart \
