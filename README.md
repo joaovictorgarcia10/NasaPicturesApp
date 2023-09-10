@@ -87,8 +87,8 @@ You can run the application Unit and Widget Tests by running the ```flutter_test
 
 ## App Preview
 
-<img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/preview_1.png" width="400" height="650"/>
-<img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/preview_2.png" width="400" height="650"/>
+<img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/preview_1.png" width="300" height="700"/>
+<img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/preview_2.png" width="300" height="700"/>
 
 
 
