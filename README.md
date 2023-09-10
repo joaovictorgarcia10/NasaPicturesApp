@@ -82,7 +82,7 @@ You can run the application Unit and Widget Tests by running the ```flutter_test
 
 - Note: on macOS you need to have lcov installed on your system (`brew install lcov`).
 
-<img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/coverage.png" width="400" height="650"/>
+<img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/coverage.png" height="650"/>
 
 
 
