@@ -54,8 +54,13 @@ void main() {
 
         final findButton = find.byKey(const Key("icon-button-key-0"));
         expect(findButton, findsOneWidget);
-        await widgetTester.tap(findButton);
         await widgetTester.pump();
+
+        await widgetTester.tap(findButton);
+        await widgetTester.pumpAndSettle();
+
+        expect(find.byType(DetailsPage), findsOneWidget);
+        expect(find.text("Details"), findsOneWidget);
 
         expect(find.text("M13: The Great Globular Cluster in Hercules"),
             findsOneWidget);
