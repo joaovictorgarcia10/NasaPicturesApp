@@ -49,6 +49,7 @@ class HomePresenterImpl implements HomePresenter {
     state.value = HomeStateLoading();
 
     try {
+      shouldPaginate.value = true;
       final response = await getPicturesUsecase();
       _allPictures = response;
       state.value = HomeStateSuccess(pictures: _allPictures);
