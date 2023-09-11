@@ -94,7 +94,7 @@ But for production environments, put sensitive data such as our __API_KEY__ insi
 
 ## Running the app
 
-- Install [Flutter](https://docs.flutter.dev/get-started/install)
+- Install [Flutter](https://docs.flutter.dev/get-started/install) (The project is using the __3.10.6__ version)
 - Setup an Android or iOS device / emulator
 - Clone the project repository ```$ git clone https://github.com/joaovictorgarcia10/nasa_pictures_app.git```
 
