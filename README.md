@@ -2,6 +2,7 @@
 
 This application consumes the [NASA's "Astronomy Picture of the Day"](https://api.nasa.gov) API and display it's content to users in a fashion manner for Android and iOS.
 
+<br>
 
 ## App Features
 
@@ -13,6 +14,8 @@ This application consumes the [NASA's "Astronomy Picture of the Day"](https://ap
 - [x] Pull-to-refresh 
 - [x] Pagination
 
+<br>
+
 ## App Dependencies
 
 - get_it: ^7.6.4
@@ -21,6 +24,8 @@ This application consumes the [NASA's "Astronomy Picture of the Day"](https://ap
 - cached_network_image: ^3.2.3
 - mocktail: ^1.0.0
 
+<br>
+
 ## App Preview
 
 <p float="left"> 
@@ -28,6 +33,7 @@ This application consumes the [NASA's "Astronomy Picture of the Day"](https://ap
 <img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/preview_2.png" width="315" height="550"/>
 </p>
 
+<br>
 
 ## App Organization
 
@@ -47,6 +53,8 @@ Here you'll find the application main functionality, wich deals with the picture
 - Presentation
 - Domain
 - Data
+
+<br>
 
 ## App Environment
 
@@ -82,6 +90,7 @@ But for production environments, put sensitive data such as our __API_KEY__ insi
 - Set ```--dart-define```  production values only in the __CI environment__.
 - Run __code obfuscation__ algorithms at production build time. [(Obfuscate Dart code)](https://docs.flutter.dev/deployment/obfuscate)
 
+<br>
 
 ## Running the app
 
@@ -97,6 +106,7 @@ $ flutter pub get
 $ bash flutter_run.sh
 ```
 
+<br>
 
 ## Testing the app
 
