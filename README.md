@@ -86,8 +86,8 @@ But for production environments, put sensitive data such as our __API_KEY__ insi
 ## Running the app
 
 - Install [Flutter](https://docs.flutter.dev/get-started/install)
-- Clone the project ```git clone https://github.com/joaovictorgarcia10/nasa_pictures_app.git```
 - Setup and Android or iOS device / emulator
+- Clone the project repository ```$ git clone https://github.com/joaovictorgarcia10/nasa_pictures_app.git```
 
 Open the project folder and run the following commands:
   
@@ -98,8 +98,7 @@ $ bash flutter_run.sh
 ```
 
 
-
-## Test
+## Testing the app
 
 You can run the application Unit and Widget Tests by running the ```flutter_test_coverage.sh``` script wich will run all the tests, generate the __coverage/lcov.info__ and the __HTML report__.
 
