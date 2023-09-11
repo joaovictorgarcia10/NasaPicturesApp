@@ -21,6 +21,14 @@ This application consumes the [NASA's "Astronomy Picture of the Day"](https://ap
 - cached_network_image: ^3.2.3
 - mocktail: ^1.0.0
 
+## App Preview
+
+<p float="left"> 
+<img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/preview_1.png" width="315" height="550"/>
+<img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/preview_2.png" width="315" height="550"/>
+</p>
+
+
 ## App Organization
 
 ### /app
@@ -75,8 +83,25 @@ But for production environments, put sensitive data such as our __API_KEY__ insi
 - Run __code obfuscation__ algorithms at production build time. [(Obfuscate Dart code)](https://docs.flutter.dev/deployment/obfuscate)
 
 
+## Running the app
 
-## App Tests
+- Install [Flutter](https://docs.flutter.dev/get-started/install)
+  
+- Clone the project ```https://github.com/joaovictorgarcia10/nasa_pictures_app.git```
+  
+- Open the project folder
+  
+- Run:
+  
+```bash
+$ flutter pub get
+
+$ bash flutter_run.sh
+```
+
+
+
+## Test
 
 You can run the application Unit and Widget Tests by running the ```flutter_test_coverage.sh``` script wich will run all the tests, generate the __coverage/lcov.info__ and the __HTML report__.
 
@@ -85,12 +110,6 @@ You can run the application Unit and Widget Tests by running the ```flutter_test
 <img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/coverage.png"/>
 
 
-## App Preview
-
-<p float="left"> 
-<img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/preview_1.png" width="315" height="550"/>
-<img src="https://github.com/joaovictorgarcia10/nasa_pictures_app/blob/master/assets/preview_2.png" width="315" height="550"/>
-</p>
 
 
 
