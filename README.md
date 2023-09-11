@@ -87,7 +87,7 @@ But for production environments, put sensitive data such as our __API_KEY__ insi
 
 - Install [Flutter](https://docs.flutter.dev/get-started/install)
   
-- Clone the project ```https://github.com/joaovictorgarcia10/nasa_pictures_app.git```
+- Clone the project ```git clone https://github.com/joaovictorgarcia10/nasa_pictures_app.git```
   
 - Open the project folder
   
