@@ -108,7 +108,7 @@ $ bash flutter_run.sh
 
 <br>
 
-## Testing the app
+## Running the tests
 
 You can run the application Unit and Widget Tests by running the ```flutter_test_coverage.sh``` script wich will run all the tests, generate the __coverage/lcov.info__ and the __HTML report__.
 
