@@ -1,5 +1,5 @@
-import 'package:nasa_pictures_app/features/core/error/app_error.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/http/http_client.dart';
+import 'package:nasa_pictures_app/core/error/app_error.dart';
+import 'package:nasa_pictures_app/core/infrastructure/http/http_client.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
 
 class PicturesRemoteDatasource implements PicturesDatasource {
@@ -23,7 +23,7 @@ class PicturesRemoteDatasource implements PicturesDatasource {
         throw AppError(type: AppErrorType.invalidData);
       }
     } catch (e) {
-      rethrow;
+      throw AppError(type: AppErrorType.datasource, exception: e);
     }
   }
 }

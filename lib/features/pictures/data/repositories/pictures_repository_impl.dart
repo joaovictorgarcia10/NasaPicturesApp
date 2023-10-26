@@ -1,3 +1,4 @@
+import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/dtos/picture_dto.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
@@ -14,14 +15,18 @@ class PicturesRepositoryImpl implements PicturesRepository {
 
   @override
   Future<List<Picture>> getPictures({required bool isOnline}) async {
-    late List<Map<String, dynamic>> response;
+    try {
+      late List<Map<String, dynamic>> response;
 
-    if (isOnline) {
-      response = await remoteDatasource.getPictures();
-    } else {
-      response = await localDatasource.getPictures();
+      if (isOnline) {
+        response = await remoteDatasource.getPictures();
+      } else {
+        response = await localDatasource.getPictures();
+      }
+
+      return response.map((e) => PictureDto.fromMap(e).toEntity()).toList();
+    } catch (e) {
+      throw AppError(type: AppErrorType.repository, exception: e);
     }
-
-    return response.map((e) => PictureDto.fromMap(e).toEntity()).toList();
   }
 }

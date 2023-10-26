@@ -114,6 +114,7 @@ class _HomePageState extends State<HomePage> {
             }
 
             final errorState = state as HomeStateError;
+
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

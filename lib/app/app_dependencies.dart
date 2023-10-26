@@ -1,24 +1,22 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:nasa_pictures_app/features/core/environment/app_environment.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/http/interceptors/local_storage_dio_interceptor.dart';
+import 'package:nasa_pictures_app/core/environment/app_environment.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_local_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_remote_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/check_internet_connection_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/dependency_injector.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/dependency_injector/adapter/get_it_adapter.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/http/adapter/dio_adapter.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/http/http_client.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/adapter/shared_preferences_adapter.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/local_storage_client.dart';
+import 'package:nasa_pictures_app/core/infrastructure/dependency_injector/adapter/get_it_adapter.dart';
+import 'package:nasa_pictures_app/core/infrastructure/http/adapter/dio_adapter.dart';
+import 'package:nasa_pictures_app/core/infrastructure/http/http_client.dart';
+import 'package:nasa_pictures_app/core/infrastructure/local_storage/adapter/shared_preferences_adapter.dart';
+import 'package:nasa_pictures_app/core/infrastructure/local_storage/local_storage_client.dart';
 import 'package:nasa_pictures_app/features/pictures/data/repositories/pictures_repository_impl.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/repositories/pictures_repository.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_pictures_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/presentation/home/home_presenter_impl.dart';
 
 class AppDependencies {
-  final DependencyInjector injector = GetItAdapter();
+  final injector = GetItAdapter();
 
   Future<void> registerAppDependencies() async {
     // Local Storage Client
@@ -28,20 +26,12 @@ class AppDependencies {
       ),
     );
 
-    // Local Storage Dio Interceptor
-    injector.registerLazySingleton<LocalStorageDioInterceptor>(
-      instance: LocalStorageDioInterceptor(
-        localStorageClient: injector.get<LocalStorageClient>(),
-      ),
-    );
-
     // Http Client
     injector.registerLazySingleton<HttpClient>(
       instance: DioAdapter(
         dio: Dio(),
         baseUrl: AppEnvironment.apiBaseUrl,
         queryParameters: {"api_key": AppEnvironment.apiKey},
-        interceptors: [injector.get<LocalStorageDioInterceptor>()],
       ),
     );
 

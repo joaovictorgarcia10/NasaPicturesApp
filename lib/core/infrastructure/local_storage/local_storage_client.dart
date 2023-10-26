@@ -1,5 +1,5 @@
 abstract class LocalStorageClient {
-  Future<bool> save(String key, List<Map<String, dynamic>> value);
+  Future<bool> saveList(String key, List<Map<String, dynamic>> value);
   List<dynamic> get(String key);
   Future<bool> clear(String key);
 }

@@ -1,14 +1,14 @@
 import 'dart:convert';
-import 'package:nasa_pictures_app/features/core/error/app_error.dart';
+import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/local_storage_client.dart';
+import 'package:nasa_pictures_app/core/infrastructure/local_storage/local_storage_client.dart';
 
 class SharedPreferencesAdapter implements LocalStorageClient {
   final SharedPreferences sharedPreferences;
   SharedPreferencesAdapter({required this.sharedPreferences});
 
   @override
-  Future<bool> save(String key, List<Map<String, dynamic>> value) {
+  Future<bool> saveList(String key, List<Map<String, dynamic>> value) {
     try {
       return sharedPreferences.setString(key, json.encode(value));
     } catch (e) {

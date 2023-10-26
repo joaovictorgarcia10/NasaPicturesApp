@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_pictures_app/features/core/constants/app_constants.dart';
+import 'package:nasa_pictures_app/core/constants/app_constants.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/check_internet_connection_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_pictures_usecase.dart';

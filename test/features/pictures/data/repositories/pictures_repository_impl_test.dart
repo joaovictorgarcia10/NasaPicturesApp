@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:nasa_pictures_app/features/core/error/app_error.dart';
+import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/repositories/pictures_repository_impl.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';

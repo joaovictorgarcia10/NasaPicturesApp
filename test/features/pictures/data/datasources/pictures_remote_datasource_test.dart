@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:nasa_pictures_app/features/core/error/app_error.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/http/http_client.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/http/http_response.dart';
+import 'package:nasa_pictures_app/core/error/app_error.dart';
+import 'package:nasa_pictures_app/core/infrastructure/http/http_client.dart';
+import 'package:nasa_pictures_app/core/infrastructure/http/http_response.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_remote_datasource.dart';
 

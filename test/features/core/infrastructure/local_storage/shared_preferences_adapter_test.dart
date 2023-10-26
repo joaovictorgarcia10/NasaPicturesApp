@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/adapter/shared_preferences_adapter.dart';
-import 'package:nasa_pictures_app/features/core/infrastructure/local_storage/local_storage_client.dart';
+import 'package:nasa_pictures_app/core/infrastructure/local_storage/adapter/shared_preferences_adapter.dart';
+import 'package:nasa_pictures_app/core/infrastructure/local_storage/local_storage_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../pictures/mock/picture_list_mock.dart';
@@ -22,7 +22,7 @@ void main() {
 
   group("SharedPreferencesAdapter Tests", () {
     test("Should set a list of pictures on Local Storage", () async {
-      final response = await sut.save("ALL_PICTURES", pictureLisMock);
+      final response = await sut.saveList("ALL_PICTURES", pictureLisMock);
       expect(response, true);
     });
 

@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:nasa_pictures_app/features/core/constants/app_constants.dart';
+import 'package:nasa_pictures_app/core/constants/app_constants.dart';
 
 class CheckInternetConnectionUsecase {
   Future<bool> call() async {
