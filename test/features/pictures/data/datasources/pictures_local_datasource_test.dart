@@ -22,7 +22,7 @@ void main() {
   group("PicturesLocalDatasource Test", () {
     test("Should return a list of pictures from local storage client",
         () async {
-      when(() => localStorageClient.get(AppConstants.pictureListCacheKey))
+      when(() => localStorageClient.getList(AppConstants.pictureListCacheKey))
           .thenAnswer((_) => pictureLisMock);
 
       final response = await sut.getPictures();
@@ -31,12 +31,12 @@ void main() {
       expect(response.last["title"], "NGC 7635: The Bubble Nebula Expanding");
 
       verify(
-        () => localStorageClient.get(AppConstants.pictureListCacheKey),
+        () => localStorageClient.getList(AppConstants.pictureListCacheKey),
       );
     });
 
     test("Should throw an AppError invalidData", () async {
-      when(() => localStorageClient.get(AppConstants.pictureListCacheKey))
+      when(() => localStorageClient.getList(AppConstants.pictureListCacheKey))
           .thenAnswer((_) => []);
 
       try {
@@ -46,11 +46,12 @@ void main() {
         expect(e.type, AppErrorType.invalidData);
       }
 
-      verify(() => localStorageClient.get(AppConstants.pictureListCacheKey));
+      verify(
+          () => localStorageClient.getList(AppConstants.pictureListCacheKey));
     });
 
     test("Should throw an AppError localStorage", () async {
-      when(() => localStorageClient.get(AppConstants.pictureListCacheKey))
+      when(() => localStorageClient.getList(AppConstants.pictureListCacheKey))
           .thenThrow(AppError(type: AppErrorType.localStorage));
 
       try {
@@ -60,7 +61,8 @@ void main() {
         expect(e.type, AppErrorType.localStorage);
       }
 
-      verify(() => localStorageClient.get(AppConstants.pictureListCacheKey));
+      verify(
+          () => localStorageClient.getList(AppConstants.pictureListCacheKey));
     });
   });
 }

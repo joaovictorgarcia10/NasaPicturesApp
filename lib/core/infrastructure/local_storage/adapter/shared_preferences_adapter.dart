@@ -17,7 +17,7 @@ class SharedPreferencesAdapter implements LocalStorageClient {
   }
 
   @override
-  List<dynamic> get(String key) {
+  List<dynamic> getList(String key) {
     try {
       final String value = sharedPreferences.getString(key) ?? "";
 

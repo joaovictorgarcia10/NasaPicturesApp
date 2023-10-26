@@ -27,7 +27,7 @@ void main() {
     });
 
     test("Should get a list of pictures from Local Storage", () {
-      final get = sut.get("ALL_PICTURES");
+      final get = sut.getList("ALL_PICTURES");
       expect(get, isA<List>());
       expect(get.length, 2);
       expect(get[0]["date"], "2007-05-18");
@@ -35,18 +35,18 @@ void main() {
     });
 
     test("Should get an empty list when call a unregistered key", () {
-      final get = sut.get("ALL_MOVIES");
+      final get = sut.getList("ALL_MOVIES");
       expect(get.length, 0);
     });
 
     test("Should clear the local storage cache", () async {
-      final firstGet = sut.get("ALL_PICTURES");
+      final firstGet = sut.getList("ALL_PICTURES");
       expect(firstGet.length, 2);
 
       final clear = await sut.clear("ALL_PICTURES");
       expect(clear, true);
 
-      final secondGet = sut.get("ALL_PICTURES");
+      final secondGet = sut.getList("ALL_PICTURES");
       expect(secondGet.length, 0);
     });
   });
