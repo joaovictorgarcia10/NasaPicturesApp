@@ -1,4 +1,4 @@
-import 'package:nasa_pictures_app/features/pictures/data/helper/date_formater_extension.dart';
+import 'package:nasa_pictures_app/features/pictures/data/helpers/date_formater_extension.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 
 class PictureDto {

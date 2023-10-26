@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
 
 abstract class HomePresenter {
