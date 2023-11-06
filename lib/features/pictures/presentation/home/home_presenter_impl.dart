@@ -1,18 +1,19 @@
 import 'package:flutter/foundation.dart';
+
 import 'package:nasa_pictures_app/core/constants/app_constants.dart';
+import 'package:nasa_pictures_app/core/infrastructure/network_connection/network_connection_client.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/usecases/check_internet_connection_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_pictures_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
 
 class HomePresenterImpl implements HomePresenter {
   final GetPicturesUsecase getPicturesUsecase;
-  final CheckInternetConnectionUsecase checkInternetConnectionUsecase;
+  final NetworkConnectionClient networkConnectionClient;
 
   HomePresenterImpl({
     required this.getPicturesUsecase,
-    required this.checkInternetConnectionUsecase,
+    required this.networkConnectionClient,
   });
 
 // _____________________________________________________________________________
@@ -60,9 +61,10 @@ class HomePresenterImpl implements HomePresenter {
 
   @override
   Future<void> paginatePictures() async {
-    final isOnline = await checkInternetConnectionUsecase();
+    final hasConnection = await networkConnectionClient.hasConnection();
 
-    if (isOnline && _allPictures.length < AppConstants.pictureListMaxLenght) {
+    if (hasConnection &&
+        _allPictures.length < AppConstants.pictureListMaxLenght) {
       try {
         final response = await getPicturesUsecase();
         _allPictures = [..._allPictures, ...response];

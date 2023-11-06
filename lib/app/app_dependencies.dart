@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:nasa_pictures_app/core/infrastructure/network_connection/adapter/connectivity_plus_adapter.dart';
+import 'package:nasa_pictures_app/core/infrastructure/network_connection/network_connection_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nasa_pictures_app/core/environment/app_environment.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_local_datasource.dart';
 import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_remote_datasource.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/usecases/check_internet_connection_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
 import 'package:nasa_pictures_app/core/infrastructure/dependency_injector/adapter/get_it_adapter.dart';
 import 'package:nasa_pictures_app/core/infrastructure/http/adapter/dio_adapter.dart';
@@ -35,6 +36,11 @@ class AppDependencies {
       ),
     );
 
+    // Network Connection
+    injector.registerLazySingleton<NetworkConnectionClient>(
+      instance: ConnectivityPlusAdapter(),
+    );
+
     // Datasources
     injector.registerLazySingleton<PicturesLocalDatasource>(
       instanceName: "PicturesLocalDatasource",
@@ -59,17 +65,14 @@ class AppDependencies {
         remoteDatasource: injector.get<PicturesRemoteDatasource>(
           instanceName: "PicturesRemoteDatasource",
         ),
+        networkConnectionClient: injector.get<NetworkConnectionClient>(),
       ),
     );
 
     // Usecases
-    injector.registerLazySingleton<CheckInternetConnectionUsecase>(
-        instance: CheckInternetConnectionUsecase());
-
     injector.registerLazySingleton<GetPicturesUsecase>(
       instance: GetPicturesUsecase(
         repository: injector.get<PicturesRepository>(),
-        checkInternetConnection: injector.get<CheckInternetConnectionUsecase>(),
       ),
     );
 
@@ -77,8 +80,7 @@ class AppDependencies {
     injector.registerLazySingleton<HomePresenter>(
       instance: HomePresenterImpl(
         getPicturesUsecase: injector.get<GetPicturesUsecase>(),
-        checkInternetConnectionUsecase:
-            injector.get<CheckInternetConnectionUsecase>(),
+        networkConnectionClient: injector.get<NetworkConnectionClient>(),
       ),
     );
   }

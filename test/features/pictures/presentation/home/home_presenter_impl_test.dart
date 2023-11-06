@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nasa_pictures_app/core/error/app_error.dart';
+import 'package:nasa_pictures_app/core/infrastructure/network_connection/network_connection_client.dart';
 import 'package:nasa_pictures_app/features/pictures/data/dtos/picture_dto.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/usecases/check_internet_connection_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_pictures_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/presentation/home/home_presenter_impl.dart';
 import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
@@ -13,13 +13,13 @@ import '../../mock/picture_list_mock.dart';
 
 class GetPicturesUsecaseMock extends Mock implements GetPicturesUsecase {}
 
-class CheckInternetConnectionUsecaseMock extends Mock
-    implements CheckInternetConnectionUsecase {}
+class NetworkConnectionClientMock extends Mock
+    implements NetworkConnectionClient {}
 
 void main() {
   late HomePresenter sut;
   late GetPicturesUsecase getPicturesUsecase;
-  late CheckInternetConnectionUsecase checkInternetConnectionUsecase;
+  late NetworkConnectionClient networkConnectionClient;
   late List<Picture> pictures;
   late List<HomeState> states;
 
@@ -38,10 +38,10 @@ void main() {
 
   setUp(() {
     getPicturesUsecase = GetPicturesUsecaseMock();
-    checkInternetConnectionUsecase = CheckInternetConnectionUsecaseMock();
+    networkConnectionClient = NetworkConnectionClientMock();
     sut = HomePresenterImpl(
       getPicturesUsecase: getPicturesUsecase,
-      checkInternetConnectionUsecase: checkInternetConnectionUsecase,
+      networkConnectionClient: networkConnectionClient,
     );
 
     pictures =
@@ -98,7 +98,7 @@ void main() {
     });
 
     test("Should paginatePictures and set state to HomeStateSuccess", () async {
-      when(() => checkInternetConnectionUsecase())
+      when(() => networkConnectionClient.hasConnection())
           .thenAnswer((_) => Future.value(true));
 
       when(() => getPicturesUsecase())
@@ -110,7 +110,7 @@ void main() {
     });
 
     test("Should paginatePictures and set shouldPaginate to false", () async {
-      when(() => checkInternetConnectionUsecase())
+      when(() => networkConnectionClient.hasConnection())
           .thenAnswer((_) => Future.value(false));
 
       when(() => getPicturesUsecase())
@@ -130,7 +130,7 @@ void main() {
 
       expect(states[0], isA<HomeStateLoading>());
       expect(states[1], isA<HomeStateSuccess>());
-      
+
       expect(states[2], isA<HomeStateSuccess>());
       expect(states[3], isA<HomeStateSuccess>());
       expect(sut.state.value, isA<HomeStateSuccess>());

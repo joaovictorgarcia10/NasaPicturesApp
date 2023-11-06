@@ -3,27 +3,18 @@ import 'package:mocktail/mocktail.dart';
 import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/repositories/pictures_repository.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/usecases/check_internet_connection_usecase.dart';
 import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_pictures_usecase.dart';
 
 class PicturesRepositoryMock extends Mock implements PicturesRepository {}
 
-class CheckInternetConnectionUsecaseMock extends Mock
-    implements CheckInternetConnectionUsecase {}
-
 void main() {
   late GetPicturesUsecase sut;
-  late CheckInternetConnectionUsecase checkInternetConnection;
   late PicturesRepository repository;
   late List<Picture> mock;
 
   setUp(() {
     repository = PicturesRepositoryMock();
-    checkInternetConnection = CheckInternetConnectionUsecaseMock();
-    sut = GetPicturesUsecase(
-      repository: repository,
-      checkInternetConnection: checkInternetConnection,
-    );
+    sut = GetPicturesUsecase(repository: repository);
 
     mock = [
       Picture(
@@ -37,25 +28,21 @@ void main() {
         url: "url",
       )
     ];
-
-    when(() => checkInternetConnection()).thenAnswer((_) => Future.value(true));
   });
 
   group("GetPicturesUsecase Tests", () {
     test("Should get a list of Pictures with success", () async {
-      when(() => repository.getPictures(isOnline: true))
-          .thenAnswer((_) async => mock);
+      when(() => repository.getPictures()).thenAnswer((_) async => mock);
 
       final response = await sut();
 
       expect(response.length, 1);
       expect(response.first.title, "title");
-      verify(() => checkInternetConnection());
-      verify(() => repository.getPictures(isOnline: true));
+      verify(() => repository.getPictures());
     });
 
     test("Should throw an AppError invalidData", () async {
-      when(() => repository.getPictures(isOnline: true))
+      when(() => repository.getPictures())
           .thenThrow(AppError(type: AppErrorType.invalidData));
 
       try {
@@ -65,8 +52,7 @@ void main() {
         expect(e.type, AppErrorType.invalidData);
       }
 
-      verify(() => checkInternetConnection());
-      verify(() => repository.getPictures(isOnline: true));
+      verify(() => repository.getPictures());
     });
   });
 }
