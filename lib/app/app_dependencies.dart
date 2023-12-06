@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:nasa_pictures_app/core/infrastructure/network_connection/adapter/connectivity_plus_adapter.dart';
 import 'package:nasa_pictures_app/core/infrastructure/network_connection/network_connection_client.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nasa_pictures_app/core/environment/app_environment.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_remote_datasource.dart';
@@ -38,7 +39,7 @@ class AppDependencies {
 
     // Network Connection
     injector.registerLazySingleton<NetworkConnectionClient>(
-      instance: ConnectivityPlusAdapter(),
+      instance: ConnectivityPlusAdapter(connectivity: Connectivity()),
     );
 
     // Datasources

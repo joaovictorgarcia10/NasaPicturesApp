@@ -20,7 +20,6 @@ class PicturesRepositoryImpl implements PicturesRepository {
   Future<List<Picture>> getPictures() async {
     try {
       late List<Map<String, dynamic>> response;
-
       final hasConnection = await networkConnectionClient.hasConnection();
 
       if (hasConnection) {
