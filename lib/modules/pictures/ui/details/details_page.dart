@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
+import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});

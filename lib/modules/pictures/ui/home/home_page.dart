@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
-import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
-import 'package:nasa_pictures_app/features/pictures/ui/home/widgets/picture_list_tile_widget.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/home_state.dart';
+import 'package:nasa_pictures_app/modules/pictures/ui/home/home_presenter.dart';
+import 'package:nasa_pictures_app/modules/pictures/ui/home/widgets/picture_list_tile_widget.dart';
 
 class HomePage extends StatefulWidget {
   final HomePresenter presenter;

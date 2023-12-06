@@ -2,10 +2,10 @@ import 'package:flutter/foundation.dart';
 
 import 'package:nasa_pictures_app/core/constants/app_constants.dart';
 import 'package:nasa_pictures_app/core/infrastructure/network_connection/network_connection_client.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/usecases/get_pictures_usecase.dart';
-import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
-import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
+import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
+import 'package:nasa_pictures_app/modules/pictures/domain/usecases/get_pictures_usecase.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/home_state.dart';
+import 'package:nasa_pictures_app/modules/pictures/ui/home/home_presenter.dart';
 
 class HomePresenterImpl implements HomePresenter {
   final GetPicturesUsecase getPicturesUsecase;

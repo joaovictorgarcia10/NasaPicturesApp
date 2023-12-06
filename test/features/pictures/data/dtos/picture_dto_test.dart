@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nasa_pictures_app/features/pictures/data/dtos/picture_dto.dart';
+import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
 
 import '../../mock/picture_list_mock.dart';
 

@@ -2,10 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/infrastructure/network_connection/network_connection_client.dart';
-import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
-import 'package:nasa_pictures_app/features/pictures/data/repositories/pictures_repository_impl.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/repositories/pictures_repository.dart';
+import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_datasource.dart';
+import 'package:nasa_pictures_app/modules/pictures/data/repositories/pictures_repository_impl.dart';
+import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
+import 'package:nasa_pictures_app/modules/pictures/domain/repositories/pictures_repository.dart';
 
 import '../../mock/picture_list_mock.dart';
 

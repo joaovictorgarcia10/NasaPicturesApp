@@ -1,4 +1,4 @@
-import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
+import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
 
 abstract class HomeState {}
 

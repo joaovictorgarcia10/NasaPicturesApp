@@ -1,6 +1,6 @@
 import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/infrastructure/http/http_client.dart';
-import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
+import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_datasource.dart';
 
 class PicturesRemoteDatasource implements PicturesDatasource {
   final HttpClient httpClient;

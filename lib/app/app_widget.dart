@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nasa_pictures_app/core/infrastructure/dependency_injector/adapter/get_it_adapter.dart';
-import 'package:nasa_pictures_app/features/pictures/ui/details/details_page.dart';
-import 'package:nasa_pictures_app/features/pictures/ui/home/home_page.dart';
-import 'package:nasa_pictures_app/features/pictures/ui/home/home_presenter.dart';
+import 'package:nasa_pictures_app/modules/pictures/ui/details/details_page.dart';
+import 'package:nasa_pictures_app/modules/pictures/ui/home/home_page.dart';
+import 'package:nasa_pictures_app/modules/pictures/ui/home/home_presenter.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nasa_pictures_app/features/pictures/ui/home/widgets/picture_list_tile_widget.dart';
+import 'package:nasa_pictures_app/modules/pictures/ui/home/widgets/picture_list_tile_widget.dart';
 
 void main() {
   late PictureListTileWidget sut;

@@ -1,9 +1,9 @@
 import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/infrastructure/network_connection/network_connection_client.dart';
-import 'package:nasa_pictures_app/features/pictures/data/datasources/pictures_datasource.dart';
-import 'package:nasa_pictures_app/features/pictures/data/dtos/picture_dto.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/entities/picture.dart';
-import 'package:nasa_pictures_app/features/pictures/domain/repositories/pictures_repository.dart';
+import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_datasource.dart';
+import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
+import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
+import 'package:nasa_pictures_app/modules/pictures/domain/repositories/pictures_repository.dart';
 
 class PicturesRepositoryImpl implements PicturesRepository {
   final PicturesDatasource remoteDatasource;

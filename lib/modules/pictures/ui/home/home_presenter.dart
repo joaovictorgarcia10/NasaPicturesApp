@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:nasa_pictures_app/features/pictures/presentation/home/home_state.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/home_state.dart';
 
 abstract class HomePresenter {
   ValueNotifier<HomeState> get state;
