@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nasa_pictures_app/core/error/app_error.dart';
-import 'package:nasa_pictures_app/core/infrastructure/network_connection/network_connection_client.dart';
+import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/repositories/pictures_repository_impl.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
@@ -13,24 +13,24 @@ class PicturesRemoteDatasourceMock extends Mock implements PicturesDatasource {}
 
 class PicturesLocalDatasourceMock extends Mock implements PicturesDatasource {}
 
-class NetworkConnectionClientMock extends Mock
-    implements NetworkConnectionClient {}
+class NetworkConnectionControllerMock extends Mock
+    implements NetworkConnectionController {}
 
 void main() {
   late PicturesRepository sut;
   late PicturesDatasource remoteDatasource;
   late PicturesDatasource localDatasource;
-  late NetworkConnectionClient networkConnectionClient;
+  late NetworkConnectionController networkConnectionController;
 
   setUp(() {
     remoteDatasource = PicturesRemoteDatasourceMock();
     localDatasource = PicturesLocalDatasourceMock();
-    networkConnectionClient = NetworkConnectionClientMock();
+    networkConnectionController = NetworkConnectionControllerMock();
 
     sut = PicturesRepositoryImpl(
       remoteDatasource: remoteDatasource,
       localDatasource: localDatasource,
-      networkConnectionClient: networkConnectionClient,
+      networkConnectionController: networkConnectionController,
     );
   });
 
@@ -38,7 +38,7 @@ void main() {
     test(
         "Should get a List<Map<String, dynamic>> from the remoteDatasource and rerturn a List<Picture>",
         () async {
-      when(() => networkConnectionClient.hasConnection())
+      when(() => networkConnectionController.hasConnection())
           .thenAnswer((_) => Future.value(true));
 
       when(() => remoteDatasource.getPictures())
@@ -66,7 +66,7 @@ void main() {
     test(
         "Should get a List<Map<String, dynamic>> from the localDatasource and rerturn a List<Picture>",
         () async {
-      when(() => networkConnectionClient.hasConnection())
+      when(() => networkConnectionController.hasConnection())
           .thenAnswer((_) => Future.value(false));
 
       when(() => localDatasource.getPictures())

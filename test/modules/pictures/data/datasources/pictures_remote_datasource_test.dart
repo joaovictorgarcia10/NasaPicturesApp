@@ -4,19 +4,28 @@ import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/infrastructure/http/http_client.dart';
 import 'package:nasa_pictures_app/core/infrastructure/http/http_response.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_datasource.dart';
+import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_remote_datasource.dart';
 
 import '../../mock/picture_list_mock.dart';
 
 class HttpClientMock extends Mock implements HttpClient {}
 
+class PicturesLocalDatasourceMock extends Mock
+    implements PicturesLocalDatasource {}
+
 void main() {
   late PicturesDatasource sut;
   late HttpClient httpClient;
+  late PicturesLocalDatasource localDatasource;
 
   setUp(() {
     httpClient = HttpClientMock();
-    sut = PicturesRemoteDatasource(httpClient: httpClient);
+    localDatasource = PicturesLocalDatasourceMock();
+    sut = PicturesRemoteDatasource(
+      httpClient: httpClient,
+      localDatasource: localDatasource,
+    );
   });
 
   group("PicturesRemoteDatasource Tests", () {
@@ -29,6 +38,11 @@ void main() {
         ),
       ).thenAnswer(
         (_) => Future.value(HttpResponse(data: pictureLisMock)),
+      );
+
+      when(() => localDatasource.savePictures(pictures: pictureLisMock))
+          .thenAnswer(
+        (_) async => true,
       );
 
       final response = await sut.getPictures();

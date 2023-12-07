@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nasa_pictures_app/core/error/app_error.dart';
-import 'package:nasa_pictures_app/core/infrastructure/network_connection/network_connection_client.dart';
+import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/usecases/get_pictures_usecase.dart';
@@ -13,13 +13,13 @@ import '../../mock/picture_list_mock.dart';
 
 class GetPicturesUsecaseMock extends Mock implements GetPicturesUsecase {}
 
-class NetworkConnectionClientMock extends Mock
-    implements NetworkConnectionClient {}
+class NetworkConnectionControllerMock extends Mock
+    implements NetworkConnectionController {}
 
 void main() {
   late HomePresenter sut;
   late GetPicturesUsecase getPicturesUsecase;
-  late NetworkConnectionClient networkConnectionClient;
+  late NetworkConnectionController networkConnectionController;
   late List<Picture> pictures;
   late List<HomeState> states;
 
@@ -38,10 +38,10 @@ void main() {
 
   setUp(() {
     getPicturesUsecase = GetPicturesUsecaseMock();
-    networkConnectionClient = NetworkConnectionClientMock();
+    networkConnectionController = NetworkConnectionControllerMock();
     sut = HomePresenterImpl(
       getPicturesUsecase: getPicturesUsecase,
-      networkConnectionClient: networkConnectionClient,
+      networkConnectionController: networkConnectionController,
     );
 
     pictures =
@@ -98,7 +98,7 @@ void main() {
     });
 
     test("Should paginatePictures and set state to HomeStateSuccess", () async {
-      when(() => networkConnectionClient.hasConnection())
+      when(() => networkConnectionController.hasConnection())
           .thenAnswer((_) => Future.value(true));
 
       when(() => getPicturesUsecase())
@@ -110,7 +110,7 @@ void main() {
     });
 
     test("Should paginatePictures and set shouldPaginate to false", () async {
-      when(() => networkConnectionClient.hasConnection())
+      when(() => networkConnectionController.hasConnection())
           .thenAnswer((_) => Future.value(false));
 
       when(() => getPicturesUsecase())

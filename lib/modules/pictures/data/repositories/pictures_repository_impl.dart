@@ -1,5 +1,5 @@
 import 'package:nasa_pictures_app/core/error/app_error.dart';
-import 'package:nasa_pictures_app/core/infrastructure/network_connection/network_connection_client.dart';
+import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
@@ -8,19 +8,19 @@ import 'package:nasa_pictures_app/modules/pictures/domain/repositories/pictures_
 class PicturesRepositoryImpl implements PicturesRepository {
   final PicturesDatasource remoteDatasource;
   final PicturesDatasource localDatasource;
-  final NetworkConnectionClient networkConnectionClient;
+  final NetworkConnectionController networkConnectionController;
 
   PicturesRepositoryImpl({
     required this.remoteDatasource,
     required this.localDatasource,
-    required this.networkConnectionClient,
+    required this.networkConnectionController,
   });
 
   @override
   Future<List<Picture>> getPictures() async {
     try {
       late List<Map<String, dynamic>> response;
-      final hasConnection = await networkConnectionClient.hasConnection();
+      final hasConnection = await networkConnectionController.hasConnection();
 
       if (hasConnection) {
         response = await remoteDatasource.getPictures();

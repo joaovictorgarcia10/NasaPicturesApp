@@ -5,7 +5,10 @@ import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_dat
 
 class PicturesLocalDatasource implements PicturesDatasource {
   final LocalStorageClient localStorageClient;
-  PicturesLocalDatasource({required this.localStorageClient});
+
+  PicturesLocalDatasource({
+    required this.localStorageClient,
+  });
 
   @override
   Future<List<Map<String, dynamic>>> getPictures() async {
@@ -24,6 +27,19 @@ class PicturesLocalDatasource implements PicturesDatasource {
       rethrow;
     } catch (e) {
       throw AppError(type: AppErrorType.datasource, exception: e);
+    }
+  }
+
+  Future<bool> savePictures({
+    required List<Map<String, dynamic>> pictures,
+  }) async {
+    try {
+      return await localStorageClient.saveList(
+        AppConstants.pictureListCacheKey,
+        pictures,
+      );
+    } catch (e) {
+      return false;
     }
   }
 }

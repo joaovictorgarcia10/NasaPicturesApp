@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:nasa_pictures_app/core/infrastructure/network_connection/adapter/connectivity_plus_adapter.dart';
-import 'package:nasa_pictures_app/core/infrastructure/network_connection/network_connection_client.dart';
+import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
 import 'package:nasa_pictures_app/core/environment/app_environment.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_remote_datasource.dart';
@@ -37,9 +35,9 @@ class AppDependencies {
       ),
     );
 
-    // Network Connection
-    injector.registerLazySingleton<NetworkConnectionClient>(
-      instance: ConnectivityPlusAdapter(connectivity: Connectivity()),
+    // Network Connection Controller
+    injector.registerLazySingleton<NetworkConnectionController>(
+      instance: NetworkConnectionController(),
     );
 
     // Datasources
@@ -54,6 +52,9 @@ class AppDependencies {
       instanceName: "PicturesRemoteDatasource",
       instance: PicturesRemoteDatasource(
         httpClient: injector.get<HttpClient>(),
+        localDatasource: injector.get<PicturesLocalDatasource>(
+          instanceName: "PicturesLocalDatasource",
+        ),
       ),
     );
 
@@ -66,7 +67,8 @@ class AppDependencies {
         remoteDatasource: injector.get<PicturesRemoteDatasource>(
           instanceName: "PicturesRemoteDatasource",
         ),
-        networkConnectionClient: injector.get<NetworkConnectionClient>(),
+        networkConnectionController:
+            injector.get<NetworkConnectionController>(),
       ),
     );
 
@@ -81,7 +83,8 @@ class AppDependencies {
     injector.registerLazySingleton<HomePresenter>(
       instance: HomePresenterImpl(
         getPicturesUsecase: injector.get<GetPicturesUsecase>(),
-        networkConnectionClient: injector.get<NetworkConnectionClient>(),
+        networkConnectionController:
+            injector.get<NetworkConnectionController>(),
       ),
     );
   }
