@@ -21,15 +21,19 @@ void main() {
         () async {
       when(() => connectivity.checkConnectivity())
           .thenAnswer((_) async => ConnectivityResult.wifi);
+
       final result = await sut.hasConnection();
+      
       expect(result, true);
     });
 
     test("Should return false when the network connection is not available",
         () async {
       when(() => connectivity.checkConnectivity())
+
           .thenAnswer((_) async => ConnectivityResult.none);
       final result = await sut.hasConnection();
+     
       expect(result, false);
     });
   });

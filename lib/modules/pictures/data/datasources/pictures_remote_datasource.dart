@@ -22,6 +22,8 @@ class PicturesRemoteDatasource implements PicturesDatasource {
       } else {
         throw AppError(type: AppErrorType.invalidData);
       }
+    } on AppError catch (_) {
+      rethrow;
     } catch (e) {
       throw AppError(type: AppErrorType.datasource, exception: e);
     }

@@ -43,14 +43,14 @@ void main() {
         await sut.getPictures();
       } on AppError catch (e) {
         expect(e, isA<AppError>());
-        expect(e.type, AppErrorType.datasource);
+        expect(e.type, AppErrorType.invalidData);
       }
 
       verify(
           () => localStorageClient.getList(AppConstants.pictureListCacheKey));
     });
 
-    test("Should throw an AppError localStorage", () async {
+    test("Should throw an AppError datasource", () async {
       when(() => localStorageClient.getList(AppConstants.pictureListCacheKey))
           .thenThrow(Exception());
 
