@@ -6,9 +6,7 @@ import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_dat
 class PicturesLocalDatasource implements PicturesDatasource {
   final LocalStorageClient localStorageClient;
 
-  PicturesLocalDatasource({
-    required this.localStorageClient,
-  });
+  PicturesLocalDatasource({required this.localStorageClient});
 
   @override
   Future<List<Map<String, dynamic>>> getPictures() async {
