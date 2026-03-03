@@ -1,16 +1,23 @@
 import 'dart:convert';
-import 'package:nasa_pictures_app/core/error/app_error.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:nasa_pictures_app/core/infrastructure/local_storage/local_storage_client.dart';
 
+import 'package:nasa_pictures_app/core/error/app_error.dart';
+import 'package:nasa_pictures_app/core/infrastructure/local_storage/local_storage_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+/// [LocalStorageClient] implementation backed by [SharedPreferencesWithCache].
 class SharedPreferencesAdapter implements LocalStorageClient {
-  final SharedPreferences sharedPreferences;
+  final SharedPreferencesWithCache sharedPreferences;
+
+  /// Creates a [SharedPreferencesAdapter] with an already-initialised
+  /// [SharedPreferencesWithCache] instance.
   SharedPreferencesAdapter({required this.sharedPreferences});
 
   @override
-  Future<bool> saveList(String key, List<Map<String, dynamic>> value) {
+  Future<void> saveList(String key, List<Map<String, dynamic>> value) async {
     try {
-      return sharedPreferences.setString(key, json.encode(value));
+      await sharedPreferences.setString(key, json.encode(value));
+    } on AppError {
+      rethrow;
     } catch (e) {
       throw AppError(type: AppErrorType.localStorage, exception: e);
     }
@@ -19,22 +26,26 @@ class SharedPreferencesAdapter implements LocalStorageClient {
   @override
   List<dynamic> getList(String key) {
     try {
-      final String value = sharedPreferences.getString(key) ?? "";
+      final String value = sharedPreferences.getString(key) ?? '';
 
       if (value.isEmpty) {
         return [];
       }
 
       return json.decode(value);
+    } on AppError {
+      rethrow;
     } catch (e) {
       throw AppError(type: AppErrorType.localStorage, exception: e);
     }
   }
 
   @override
-  Future<bool> clear(String key) async {
+  Future<void> clear(String key) async {
     try {
-      return await sharedPreferences.remove(key);
+      await sharedPreferences.remove(key);
+    } on AppError {
+      rethrow;
     } catch (e) {
       throw AppError(type: AppErrorType.localStorage, exception: e);
     }

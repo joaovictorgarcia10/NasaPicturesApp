@@ -1,5 +1,6 @@
+/// Abstract interface for key-value local storage operations.
 abstract class LocalStorageClient {
-  Future<bool> saveList(String key, List<Map<String, dynamic>> value);
+  Future<void> saveList(String key, List<Map<String, dynamic>> value);
   List<dynamic> getList(String key);
-  Future<bool> clear(String key);
+  Future<void> clear(String key);
 }

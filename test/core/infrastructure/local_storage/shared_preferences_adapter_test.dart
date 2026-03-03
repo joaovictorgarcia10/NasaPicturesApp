@@ -1,8 +1,11 @@
 import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nasa_pictures_app/core/infrastructure/local_storage/adapter/shared_preferences_adapter.dart';
 import 'package:nasa_pictures_app/core/infrastructure/local_storage/local_storage_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
 
 import '../../../modules/pictures/mock/picture_list_mock.dart';
 
@@ -11,19 +14,26 @@ void main() {
 
   setUp(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
-    SharedPreferences.setMockInitialValues({
-      "ALL_PICTURES": jsonEncode(pictureLisMock),
+
+    // SharedPreferencesWithCache uses the async platform (no 'flutter.' prefix).
+    SharedPreferencesAsyncPlatform
+        .instance = InMemorySharedPreferencesAsync.withData({
+      'ALL_PICTURES': jsonEncode(pictureLisMock),
     });
 
     sut = SharedPreferencesAdapter(
-      sharedPreferences: await SharedPreferences.getInstance(),
+      sharedPreferences: await SharedPreferencesWithCache.create(
+        cacheOptions: const SharedPreferencesWithCacheOptions(),
+      ),
     );
   });
 
   group("SharedPreferencesAdapter Tests", () {
     test("Should set a list of pictures on Local Storage", () async {
-      final response = await sut.saveList("ALL_PICTURES", pictureLisMock);
-      expect(response, true);
+      await expectLater(
+        sut.saveList("ALL_PICTURES", pictureLisMock),
+        completes,
+      );
     });
 
     test("Should get a list of pictures from Local Storage", () {
@@ -43,8 +53,7 @@ void main() {
       final firstGet = sut.getList("ALL_PICTURES");
       expect(firstGet.length, 2);
 
-      final clear = await sut.clear("ALL_PICTURES");
-      expect(clear, true);
+      await sut.clear("ALL_PICTURES");
 
       final secondGet = sut.getList("ALL_PICTURES");
       expect(secondGet.length, 0);

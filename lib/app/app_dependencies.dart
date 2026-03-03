@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart'
+    show SharedPreferencesWithCache, SharedPreferencesWithCacheOptions;
 import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
 import 'package:nasa_pictures_app/core/environment/app_environment.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
@@ -22,7 +23,9 @@ class AppDependencies {
     // Local Storage Client
     injector.registerLazySingleton<LocalStorageClient>(
       instance: SharedPreferencesAdapter(
-        sharedPreferences: await SharedPreferences.getInstance(),
+        sharedPreferences: await SharedPreferencesWithCache.create(
+          cacheOptions: const SharedPreferencesWithCacheOptions(),
+        ),
       ),
     );
 

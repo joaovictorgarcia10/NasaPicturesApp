@@ -11,8 +11,9 @@ class PicturesLocalDatasource implements PicturesDatasource {
   @override
   Future<List<Map<String, dynamic>>> getPictures() async {
     try {
-      final response =
-          localStorageClient.getList(AppConstants.pictureListCacheKey);
+      final response = localStorageClient.getList(
+        AppConstants.pictureListCacheKey,
+      );
 
       final List<Map<String, dynamic>> data = List.from(response);
 
@@ -32,10 +33,11 @@ class PicturesLocalDatasource implements PicturesDatasource {
     required List<Map<String, dynamic>> pictures,
   }) async {
     try {
-      return await localStorageClient.saveList(
+      await localStorageClient.saveList(
         AppConstants.pictureListCacheKey,
         pictures,
       );
+      return true;
     } catch (e) {
       return false;
     }

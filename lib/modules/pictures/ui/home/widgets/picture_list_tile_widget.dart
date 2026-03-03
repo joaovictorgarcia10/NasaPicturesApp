@@ -9,13 +9,13 @@ class PictureListTileWidget extends StatelessWidget {
   final Key iconButtonKey;
 
   const PictureListTileWidget({
-    Key? key,
+    super.key,
     required this.url,
     required this.title,
     required this.date,
     required this.onPressed,
     required this.iconButtonKey,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,9 @@ class PictureListTileWidget extends StatelessWidget {
                 width: 90.0,
                 imageUrl: url,
                 fit: BoxFit.cover,
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.error_outline_rounded,
-                ),
+                errorWidget:
+                    (context, url, error) =>
+                        const Icon(Icons.error_outline_rounded),
               ),
               title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
               subtitle: Text(date),

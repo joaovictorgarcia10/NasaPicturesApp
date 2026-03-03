@@ -6,10 +6,7 @@ import 'package:nasa_pictures_app/modules/pictures/ui/home/widgets/picture_list_
 class HomePage extends StatefulWidget {
   final HomePresenter presenter;
 
-  const HomePage({
-    Key? key,
-    required this.presenter,
-  }) : super(key: key);
+  const HomePage({super.key, required this.presenter});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -19,8 +16,9 @@ class _HomePageState extends State<HomePage> {
   final textEditingController = TextEditingController();
   final scrollController = ScrollController();
 
-  bool inTheEndOfList() => (scrollController.position.pixels ==
-      scrollController.position.maxScrollExtent);
+  bool inTheEndOfList() =>
+      (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent);
 
   @override
   void initState() {
@@ -59,12 +57,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         body: AnimatedBuilder(
-          animation: Listenable.merge(
-            [
-              presenter.state,
-              presenter.shouldPaginate,
-            ],
-          ),
+          animation: Listenable.merge([
+            presenter.state,
+            presenter.shouldPaginate,
+          ]),
           builder: (context, _) {
             final state = presenter.state.value;
             final shouldPaginate = presenter.shouldPaginate.value;
@@ -91,11 +87,12 @@ class _HomePageState extends State<HomePage> {
                           url: picture.url,
                           title: picture.title,
                           date: picture.date,
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            "/details",
-                            arguments: picture,
-                          ),
+                          onPressed:
+                              () => Navigator.pushNamed(
+                                context,
+                                "/details",
+                                arguments: picture,
+                              ),
                           iconButtonKey: Key("icon-button-key-$index"),
                         );
                       } else {
@@ -126,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                       presenter.getPictures();
                     },
                     child: const Text("Try again"),
-                  )
+                  ),
                 ],
               ),
             );
