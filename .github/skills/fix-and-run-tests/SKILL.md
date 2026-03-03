@@ -1,8 +1,6 @@
 ---
 name: fix-and-run-tests
-description: >
-  Runs the full Flutter test suite, analyzes failures, fixes them at the root cause,
-  and re-runs until all tests pass. Use when tests are failing or before opening a PR.
+description: Runs the full Flutter test suite, analyzes failures, fixes them at the root cause, and re-runs until all tests pass. Use when tests are failing or before opening a PR.
 compatibility: Requires Flutter SDK installed and a connected device/simulator not needed (unit/widget tests only).
 ---
 

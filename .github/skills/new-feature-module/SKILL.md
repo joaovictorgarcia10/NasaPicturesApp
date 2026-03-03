@@ -1,9 +1,6 @@
 ---
 name: new-feature-module
-description: >
-  Scaffolds a complete new Clean Architecture feature module for this Flutter app.
-  Use when adding a new feature (e.g., favorites, settings, profile).
-  Creates all four layers (data, domain, presentation, ui) plus mirrored test files.
+description: Scaffolds a complete new Clean Architecture feature module for this Flutter app. Use when adding a new feature (e.g., favorites, settings, profile). Creates all four layers (data, domain, presentation, ui) plus mirrored test files.    
 compatibility: Requires access to lib/ and test/ directories.
 ---
 
