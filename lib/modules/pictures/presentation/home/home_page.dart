@@ -124,115 +124,115 @@ class _HomePageState extends State<HomePage> {
           ]),
           builder: (context, _) {
             final state = presenter.state.value;
-            final shouldPaginate = presenter.shouldPaginate.value;
-            final isDateFiltered = presenter.isDateFiltered.value;
 
-            if (state is HomeStateLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
-            if (state is HomeStateSuccess) {
-              return Column(
-                children: [
-                  SizedBox(height: 25.0),
-                  if (isDateFiltered)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 6.0,
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.filter_alt, size: 18.0),
-                          const SizedBox(width: 6.0),
-                          const Expanded(
-                            child: Text(
-                              "Date filter active",
-                              style: TextStyle(fontSize: 13.0),
-                            ),
-                          ),
-                          TextButton.icon(
-                            onPressed: () {
-                              _textController.clear();
-                              presenter.refreshPictures();
-                            },
-                            icon: const Icon(Icons.close, size: 16.0),
-                            label: const Text("Clear"),
-                          ),
-                        ],
-                      ),
-                    ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: RefreshIndicator(
-                        onRefresh: () async {
+            switch (state) {
+              case HomeStateLoading():
+                return const Center(child: CircularProgressIndicator());
+              case HomeStateError():
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(state.message),
+                      TextButton(
+                        onPressed: () {
                           _textController.clear();
-                          presenter.refreshPictures();
+                          presenter.getPictures();
                         },
-                        child: ListView.builder(
-                          controller: _scrollController,
-                          itemCount: state.pictures.length + 1,
-                          itemBuilder: (context, index) {
-                            if (index < state.pictures.length) {
-                              final picture = state.pictures[index];
-                              return PictureListTileWidget(
-                                url: picture.url,
-                                title: picture.title,
-                                date: picture.date.formatDate(picture.date),
-                                onPressed:
-                                    () => Navigator.pushNamed(
-                                      context,
-                                      "/details",
-                                      arguments: picture,
+                        child: const Text("Try again"),
+                      ),
+                    ],
+                  ),
+                );
+              case HomeStateSuccess():
+                final shouldPaginate = presenter.shouldPaginate.value;
+                final isDateFiltered = presenter.isDateFiltered.value;
+
+                return Column(
+                  children: [
+                    SizedBox(height: 25.0),
+                    if (isDateFiltered)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 6.0,
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.filter_alt, size: 18.0),
+                            const SizedBox(width: 6.0),
+                            const Expanded(
+                              child: Text(
+                                "Date filter active",
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                            ),
+                            TextButton.icon(
+                              onPressed: () {
+                                _textController.clear();
+                                presenter.refreshPictures();
+                              },
+                              icon: const Icon(Icons.close, size: 16.0),
+                              label: const Text("Clear"),
+                            ),
+                          ],
+                        ),
+                      ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: RefreshIndicator(
+                          onRefresh: () async {
+                            _textController.clear();
+                            presenter.refreshPictures();
+                          },
+                          child: ListView.builder(
+                            controller: _scrollController,
+                            itemCount: state.pictures.length + 1,
+                            itemBuilder: (context, index) {
+                              if (index < state.pictures.length) {
+                                final picture = state.pictures[index];
+                                return PictureListTileWidget(
+                                  url: picture.url,
+                                  title: picture.title,
+                                  date: picture.date.formatDate(picture.date),
+                                  onPressed:
+                                      () => Navigator.pushNamed(
+                                        context,
+                                        "/details",
+                                        arguments: picture,
+                                      ),
+                                  iconButtonKey: Key("icon-button-key-$index"),
+                                );
+                              } else {
+                                if (shouldPaginate) {
+                                  return const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 20.0,
                                     ),
-                                iconButtonKey: Key("icon-button-key-$index"),
-                              );
-                            } else {
-                              if (shouldPaginate) {
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  );
+                                }
                                 return const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                                  padding: EdgeInsets.symmetric(vertical: 24.0),
                                   child: Center(
-                                    child: CircularProgressIndicator(),
+                                    child: Text(
+                                      "You've reached the end of the list",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
                                   ),
                                 );
                               }
-                              return const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 24.0),
-                                child: Center(
-                                  child: Text(
-                                    "You've reached the end of the list",
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ),
-                              );
-                            }
-                          },
+                            },
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              );
+                  ],
+                );
             }
-
-            final errorState = state as HomeStateError;
-
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(errorState.message),
-                  TextButton(
-                    onPressed: () {
-                      _textController.clear();
-                      presenter.getPictures();
-                    },
-                    child: const Text("Try again"),
-                  ),
-                ],
-              ),
-            );
           },
         ),
       ),
