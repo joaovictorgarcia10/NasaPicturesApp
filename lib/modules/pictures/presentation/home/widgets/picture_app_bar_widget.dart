@@ -14,8 +14,6 @@ class PictureAppBarWidget extends StatefulWidget
   /// Called when the user taps "Filter by date range".
   final VoidCallback onFilterByDateRange;
 
-  static const Duration _animDuration = Duration(milliseconds: 200);
-
   const PictureAppBarWidget({
     super.key,
     required this.textController,
@@ -33,6 +31,7 @@ class PictureAppBarWidget extends StatefulWidget
 
 class _PictureAppBarWidgetState extends State<PictureAppBarWidget> {
   bool _showFilters = false;
+  Duration _animDuration = Duration(milliseconds: 200);
 
   void _toggleFilters() {
     if (_showFilters) {
@@ -63,7 +62,7 @@ class _PictureAppBarWidgetState extends State<PictureAppBarWidget> {
               IconButton(
                 tooltip: _showFilters ? 'Hide filters' : 'Show filters',
                 icon: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 200),
+                  duration: _animDuration,
                   child: Icon(
                     _showFilters ? Icons.filter_list_off : Icons.filter_list,
                   ),
@@ -74,7 +73,7 @@ class _PictureAppBarWidgetState extends State<PictureAppBarWidget> {
           ),
           SizedBox(height: 16.0),
           AnimatedContainer(
-            duration: PictureAppBarWidget._animDuration,
+            duration: _animDuration,
             curve: Curves.easeInOut,
             height: _showFilters ? 48.0 : 0.0,
             clipBehavior: Clip.antiAlias,
