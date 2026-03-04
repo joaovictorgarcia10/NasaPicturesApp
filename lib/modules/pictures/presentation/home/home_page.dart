@@ -5,7 +5,7 @@ import 'package:nasa_pictures_app/modules/pictures/presentation/helpers/date_for
 import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_state.dart';
 import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_presenter.dart';
 import 'package:nasa_pictures_app/modules/pictures/presentation/home/widgets/picture_list_tile_widget.dart';
-import 'package:nasa_pictures_app/modules/pictures/presentation/home/widgets/pictures_app_bar_widget.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/widgets/picture_app_bar_widget.dart';
 
 class HomePage extends StatefulWidget {
   final HomePresenter presenter;
@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: PicturesAppBarWidget(
+        appBar: PictureAppBarWidget(
           textController: _textController,
           onSearchChanged: _onSearchChanged,
           onFilterByDate: _onFilterByDate,

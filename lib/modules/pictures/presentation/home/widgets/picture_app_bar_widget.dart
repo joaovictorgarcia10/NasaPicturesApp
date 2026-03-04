@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PicturesAppBarWidget extends StatefulWidget
+class PictureAppBarWidget extends StatefulWidget
     implements PreferredSizeWidget {
   /// Controller for the search text field.
   final TextEditingController textController;
@@ -16,7 +16,7 @@ class PicturesAppBarWidget extends StatefulWidget
 
   static const Duration _animDuration = Duration(milliseconds: 200);
 
-  const PicturesAppBarWidget({
+  const PictureAppBarWidget({
     super.key,
     required this.textController,
     required this.onSearchChanged,
@@ -28,10 +28,10 @@ class PicturesAppBarWidget extends StatefulWidget
   Size get preferredSize => Size.fromHeight(180.0);
 
   @override
-  State<PicturesAppBarWidget> createState() => _PicturesAppBarWidgetState();
+  State<PictureAppBarWidget> createState() => _PictureAppBarWidgetState();
 }
 
-class _PicturesAppBarWidgetState extends State<PicturesAppBarWidget> {
+class _PictureAppBarWidgetState extends State<PictureAppBarWidget> {
   bool _showFilters = false;
 
   void _toggleFilters() {
@@ -74,7 +74,7 @@ class _PicturesAppBarWidgetState extends State<PicturesAppBarWidget> {
           ),
           SizedBox(height: 16.0),
           AnimatedContainer(
-            duration: PicturesAppBarWidget._animDuration,
+            duration: PictureAppBarWidget._animDuration,
             curve: Curves.easeInOut,
             height: _showFilters ? 48.0 : 0.0,
             clipBehavior: Clip.antiAlias,
