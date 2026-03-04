@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_state.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/presenter/home_state.dart';
 
 /// Abstract interface for the Home screen presenter.
 abstract class HomePresenter {

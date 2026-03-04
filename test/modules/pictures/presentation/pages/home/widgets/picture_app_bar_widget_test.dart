@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nasa_pictures_app/modules/pictures/presentation/home/widgets/picture_app_bar_widget.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/widgets/picture_app_bar_widget.dart';
 
 void main() {
   late PictureAppBarWidget sut;

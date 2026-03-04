@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
-import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_state.dart';
-import 'package:nasa_pictures_app/modules/pictures/presentation/home/home_page.dart';
-import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_presenter.dart';
-import 'package:nasa_pictures_app/modules/pictures/presentation/home/widgets/picture_list_tile_widget.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/presenter/home_state.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/home_page.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/presenter/home_presenter.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/widgets/picture_list_tile_widget.dart';
 
-import '../../mock/picture_list_mock.dart';
+import '../../../mock/picture_list_mock.dart';
 
 class HomePresenterMock extends Mock implements HomePresenter {}
 
