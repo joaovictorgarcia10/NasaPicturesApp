@@ -96,7 +96,6 @@ class _PicturesAppBarWidgetState extends State<PicturesAppBarWidget> {
               ],
             ),
           ),
-          SizedBox(height: 16.0),
         ],
       ),
     );
