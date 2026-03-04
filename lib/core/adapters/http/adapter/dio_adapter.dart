@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 
-import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/adapters/http/http_client.dart';
 import 'package:nasa_pictures_app/core/adapters/http/http_response.dart';
 
@@ -45,7 +44,7 @@ class DioAdapter implements HttpClient {
     final data = response.data;
 
     if (data == null) {
-      throw AppError(type: AppErrorType.httpResponse, exception: response);
+      throw Exception('HTTP response error: status ${response.statusCode}');
     } else {
       return HttpResponse(data: data);
     }
@@ -64,25 +63,37 @@ class DioAdapter implements HttpClient {
     try {
       switch (method) {
         case 'post':
-          response = await dio.post(path,
-              queryParameters: queryParameters, data: jsonBody);
+          response = await dio.post(
+            path,
+            queryParameters: queryParameters,
+            data: jsonBody,
+          );
         case 'get':
           response = await dio.get(path, queryParameters: queryParameters);
         case 'patch':
-          response = await dio.patch(path,
-              queryParameters: queryParameters, data: jsonBody);
+          response = await dio.patch(
+            path,
+            queryParameters: queryParameters,
+            data: jsonBody,
+          );
         case 'delete':
-          response = await dio.delete(path,
-              queryParameters: queryParameters, data: jsonBody);
+          response = await dio.delete(
+            path,
+            queryParameters: queryParameters,
+            data: jsonBody,
+          );
         default:
-          throw AppError(type: AppErrorType.httpRequest);
+          throw Exception('Invalid HTTP method: $method');
       }
 
       return _handleResponse(response);
-    } on DioException catch (e) {
-      throw AppError(type: AppErrorType.httpRequest, exception: e);
-    } catch (e) {
-      throw AppError(type: AppErrorType.httpRequest, exception: e);
+    } on DioException catch (e, s) {
+      Error.throwWithStackTrace(
+        Exception('Network request failed: ${e.message}'),
+        s,
+      );
+    } catch (e, s) {
+      Error.throwWithStackTrace(e, s);
     }
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
@@ -64,11 +63,11 @@ void main() {
     });
 
     test("Should getPictures and set state to HomeStateError", () async {
-      when(
-        () => getPicturesUsecase(),
-      ).thenThrow(AppError(type: AppErrorType.invalidData));
+      when(() => getPicturesUsecase()).thenThrow(Exception());
 
-      await sut.getPictures();
+      try {
+        await sut.getPictures();
+      } catch (_) {}
       expect(states[0], isA<HomeStateLoading>());
       expect(states[1], isA<HomeStateError>());
       expect(sut.state.value, isA<HomeStateError>());
@@ -89,11 +88,11 @@ void main() {
     });
 
     test("Should refreshPictures and set state to HomeStateError", () async {
-      when(
-        () => getPicturesUsecase(),
-      ).thenThrow(AppError(type: AppErrorType.invalidData));
+      when(() => getPicturesUsecase()).thenThrow(Exception());
 
-      await sut.refreshPictures();
+      try {
+        await sut.refreshPictures();
+      } catch (_) {}
       expect(states[0], isA<HomeStateLoading>());
       expect(states[1], isA<HomeStateError>());
       expect(sut.state.value, isA<HomeStateError>());
@@ -120,11 +119,11 @@ void main() {
         () => networkConnectionController.hasConnection(),
       ).thenAnswer((_) => Future.value(false));
 
-      when(
-        () => getPicturesUsecase(),
-      ).thenThrow(AppError(type: AppErrorType.invalidData));
+      when(() => getPicturesUsecase()).thenThrow(Exception());
 
-      await sut.paginatePictures();
+      try {
+        await sut.paginatePictures();
+      } catch (_) {}
       expect(sut.shouldPaginate.value, false);
       cleanStates();
     });
@@ -181,9 +180,11 @@ void main() {
     test("Should filterByDate and set state to HomeStateError", () async {
       when(
         () => getPicturesUsecase(date: any(named: 'date')),
-      ).thenThrow(AppError(type: AppErrorType.invalidData));
+      ).thenThrow(Exception());
 
-      await sut.filterByDate(DateTime(2026, 3, 3));
+      try {
+        await sut.filterByDate(DateTime(2026, 3, 3));
+      } catch (_) {}
 
       expect(states[0], isA<HomeStateLoading>());
       expect(states[1], isA<HomeStateError>());
@@ -221,9 +222,14 @@ void main() {
           startDate: any(named: 'startDate'),
           endDate: any(named: 'endDate'),
         ),
-      ).thenThrow(AppError(type: AppErrorType.invalidData));
+      ).thenThrow(Exception());
 
-      await sut.filterByDateRange(DateTime(2024, 1, 1), DateTime(2024, 1, 31));
+      try {
+        await sut.filterByDateRange(
+          DateTime(2024, 1, 1),
+          DateTime(2024, 1, 31),
+        );
+      } catch (_) {}
 
       expect(states[0], isA<HomeStateLoading>());
       expect(states[1], isA<HomeStateError>());

@@ -1,5 +1,4 @@
 import 'package:nasa_pictures_app/core/constants/app_constants.dart';
-import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/adapters/local_storage/local_storage_client.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
 
@@ -14,22 +13,16 @@ class PicturesLocalDatasource implements PicturesDatasource {
     String? startDate,
     String? endDate,
   }) async {
-    try {
-      final response = localStorageClient.getList(
-        AppConstants.pictureListCacheKey,
-      );
+    final response = localStorageClient.getList(
+      AppConstants.pictureListCacheKey,
+    );
 
-      final List<Map<String, dynamic>> data = List.from(response);
+    final List<Map<String, dynamic>> data = List.from(response);
 
-      if (data.isNotEmpty) {
-        return data;
-      } else {
-        throw AppError(type: AppErrorType.invalidData);
-      }
-    } on AppError catch (_) {
-      rethrow;
-    } catch (e) {
-      throw AppError(type: AppErrorType.datasource, exception: e);
+    if (data.isNotEmpty) {
+      return data;
+    } else {
+      throw Exception('No data found in local storage');
     }
   }
 

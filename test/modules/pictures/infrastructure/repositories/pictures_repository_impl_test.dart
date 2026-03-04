@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/repositories/pictures_repository_impl.dart';
@@ -104,21 +103,15 @@ void main() {
       },
     );
 
-    test(
-      "Should throw an AppError repository calling the remoteDatasource",
-      () async {
-        when(
-          () => remoteDatasource.getPictures(),
-        ).thenThrow(AppError(type: AppErrorType.repository));
+    test("Should propagate Exception from the remoteDatasource", () async {
+      when(
+        () => networkConnectionController.hasConnection(),
+      ).thenAnswer((_) => Future.value(true));
 
-        try {
-          await sut.getPictures();
-        } on AppError catch (e) {
-          expect(e, isA<AppError>());
-          expect(e.type, AppErrorType.repository);
-        }
-      },
-    );
+      when(() => remoteDatasource.getPictures()).thenThrow(Exception());
+
+      await expectLater(() => sut.getPictures(), throwsA(isA<Exception>()));
+    });
 
     test(
       "Should get a List<Map<String, dynamic>> from the localDatasource and rerturn a List<Picture>",
@@ -142,20 +135,14 @@ void main() {
       },
     );
 
-    test(
-      "Should throw an AppError repository calling the localDatasource",
-      () async {
-        when(
-          () => localDatasource.getPictures(),
-        ).thenThrow(AppError(type: AppErrorType.repository));
+    test("Should propagate Exception from the localDatasource", () async {
+      when(
+        () => networkConnectionController.hasConnection(),
+      ).thenAnswer((_) => Future.value(false));
 
-        try {
-          await sut.getPictures();
-        } on AppError catch (e) {
-          expect(e, isA<AppError>());
-          expect(e.type, AppErrorType.repository);
-        }
-      },
-    );
+      when(() => localDatasource.getPictures()).thenThrow(Exception());
+
+      await expectLater(() => sut.getPictures(), throwsA(isA<Exception>()));
+    });
   });
 }

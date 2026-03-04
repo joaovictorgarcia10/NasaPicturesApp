@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/adapters/dependency_injector/dependency_injector.dart';
 
 class GetItAdapter implements DependencyInjector {
@@ -10,70 +9,36 @@ class GetItAdapter implements DependencyInjector {
   factory GetItAdapter() => _singleton;
 
   @override
-  void registerLazySingleton<T extends Object>(
-      {required T instance, String? instanceName}) {
-    try {
-      getIt.registerLazySingleton<T>(
-        () => instance,
-        instanceName: instanceName,
-      );
-    } catch (e) {
-      throw AppError(
-        type: AppErrorType.dependencyInjector,
-        exception: e,
-      );
-    }
+  void registerLazySingleton<T extends Object>({
+    required T instance,
+    String? instanceName,
+  }) {
+    getIt.registerLazySingleton<T>(() => instance, instanceName: instanceName);
   }
 
   @override
   T get<T extends Object>({String? instanceName}) {
-    try {
-      return getIt.get<T>(instanceName: instanceName);
-    } catch (e) {
-      throw AppError(
-        type: AppErrorType.dependencyInjector,
-        exception: e,
-      );
-    }
+    return getIt.get<T>(instanceName: instanceName);
   }
 
   @override
-  bool isRegistered<T extends Object>(
-      {Object? instance, String? instanceName}) {
-    try {
-      return getIt.isRegistered<T>(
-        instance: instance,
-        instanceName: instanceName,
-      );
-    } catch (e) {
-      throw AppError(
-        type: AppErrorType.dependencyInjector,
-        exception: e,
-      );
-    }
+  bool isRegistered<T extends Object>({
+    Object? instance,
+    String? instanceName,
+  }) {
+    return getIt.isRegistered<T>(
+      instance: instance,
+      instanceName: instanceName,
+    );
   }
 
   @override
   Future<void> reset() async {
-    try {
-      await getIt.reset();
-    } catch (e) {
-      throw AppError(
-        type: AppErrorType.dependencyInjector,
-        exception: e,
-      );
-    }
+    await getIt.reset();
   }
 
   @override
   Future<void> unregister<T extends Object>({String? instanceName}) async {
-    try {
-      await getIt.unregister<T>(instanceName: instanceName);
-    } catch (e) {
-      throw AppError(
-        type: AppErrorType.dependencyInjector,
-        exception: e,
-      );
-    }
+    await getIt.unregister<T>(instanceName: instanceName);
   }
 }

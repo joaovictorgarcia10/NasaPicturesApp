@@ -47,8 +47,9 @@ class HomePresenterImpl implements HomePresenter {
       final response = await getPicturesUsecase();
       _allPictures = response;
       state.value = HomeStateSuccess(pictures: _allPictures);
-    } catch (e) {
+    } catch (e, s) {
       state.value = HomeStateError(message: "Something went wrong.");
+      Error.throwWithStackTrace(e, s);
     }
   }
 
@@ -62,8 +63,9 @@ class HomePresenterImpl implements HomePresenter {
       final response = await getPicturesUsecase();
       _allPictures = response;
       state.value = HomeStateSuccess(pictures: _allPictures);
-    } catch (e) {
+    } catch (e, s) {
       state.value = HomeStateError(message: "Something went wrong.");
+      Error.throwWithStackTrace(e, s);
     }
   }
 
@@ -77,8 +79,9 @@ class HomePresenterImpl implements HomePresenter {
         final response = await getPicturesUsecase();
         _allPictures = [..._allPictures, ...response];
         state.value = HomeStateSuccess(pictures: _allPictures);
-      } catch (e) {
+      } catch (e, s) {
         shouldPaginate.value = false;
+        Error.throwWithStackTrace(e, s);
       }
     } else {
       shouldPaginate.value = false;
@@ -122,8 +125,9 @@ class HomePresenterImpl implements HomePresenter {
       shouldPaginate.value = false;
       isDateFiltered.value = true;
       state.value = HomeStateSuccess(pictures: _allPictures);
-    } catch (e) {
+    } catch (e, s) {
       state.value = HomeStateError(message: "Something went wrong.");
+      Error.throwWithStackTrace(e, s);
     }
   }
 
@@ -145,8 +149,9 @@ class HomePresenterImpl implements HomePresenter {
       shouldPaginate.value = false;
       isDateFiltered.value = true;
       state.value = HomeStateSuccess(pictures: _allPictures);
-    } catch (e) {
+    } catch (e, s) {
       state.value = HomeStateError(message: "Something went wrong.");
+      Error.throwWithStackTrace(e, s);
     }
   }
 

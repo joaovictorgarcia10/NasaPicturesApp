@@ -1,4 +1,3 @@
-import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
@@ -22,25 +21,19 @@ class PicturesRepositoryImpl implements PicturesRepository {
     String? startDate,
     String? endDate,
   }) async {
-    try {
-      late List<Map<String, dynamic>> response;
-      final hasConnection = await networkConnectionController.hasConnection();
+    late List<Map<String, dynamic>> response;
+    final hasConnection = await networkConnectionController.hasConnection();
 
-      if (hasConnection) {
-        response = await remoteDatasource.getPictures(
-          date: date,
-          startDate: startDate,
-          endDate: endDate,
-        );
-      } else {
-        response = await localDatasource.getPictures();
-      }
-
-      return response.map((e) => PictureDto.fromMap(e).toEntity()).toList();
-    } on AppError catch (_) {
-      rethrow;
-    } catch (e) {
-      throw AppError(type: AppErrorType.repository, exception: e);
+    if (hasConnection) {
+      response = await remoteDatasource.getPictures(
+        date: date,
+        startDate: startDate,
+        endDate: endDate,
+      );
+    } else {
+      response = await localDatasource.getPictures();
     }
+
+    return response.map((e) => PictureDto.fromMap(e).toEntity()).toList();
   }
 }

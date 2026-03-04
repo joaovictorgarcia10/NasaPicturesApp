@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/adapters/http/http_client.dart';
 import 'package:nasa_pictures_app/core/adapters/http/http_response.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
@@ -56,7 +55,7 @@ void main() {
       );
     });
 
-    test("Should throw an AppError invalidData", () async {
+    test("Should throw an Exception when API returns empty list", () async {
       when(
         () => httpClient.request(
           method: "get",
@@ -65,12 +64,7 @@ void main() {
         ),
       ).thenAnswer((_) => Future.value(HttpResponse(data: [])));
 
-      try {
-        await sut.getPictures();
-      } on AppError catch (e) {
-        expect(e, isA<AppError>());
-        expect(e.type, AppErrorType.invalidData);
-      }
+      expect(() => sut.getPictures(), throwsA(isA<Exception>()));
 
       verify(
         () => httpClient.request(
@@ -81,55 +75,51 @@ void main() {
       );
     });
 
-    test("Should throw an AppError httpRequest", () async {
-      when(
-        () => httpClient.request(
-          method: "get",
-          path: "/planetary/apod",
-          queryParameters: {"count": "15"},
-        ),
-      ).thenThrow(AppError(type: AppErrorType.httpRequest));
+    test(
+      "Should propagate Exception from http client on network failure",
+      () async {
+        when(
+          () => httpClient.request(
+            method: "get",
+            path: "/planetary/apod",
+            queryParameters: {"count": "15"},
+          ),
+        ).thenThrow(Exception('Network request failed'));
 
-      try {
-        await sut.getPictures();
-      } on AppError catch (e) {
-        expect(e, isA<AppError>());
-        expect(e.type, AppErrorType.httpRequest);
-      }
+        await expectLater(() => sut.getPictures(), throwsA(isA<Exception>()));
 
-      verify(
-        () => httpClient.request(
-          method: "get",
-          path: "/planetary/apod",
-          queryParameters: {"count": "15"},
-        ),
-      );
-    });
+        verify(
+          () => httpClient.request(
+            method: "get",
+            path: "/planetary/apod",
+            queryParameters: {"count": "15"},
+          ),
+        );
+      },
+    );
 
-    test("Should throw an AppError httpResponse", () async {
-      when(
-        () => httpClient.request(
-          method: "get",
-          path: "/planetary/apod",
-          queryParameters: {"count": "15"},
-        ),
-      ).thenThrow(AppError(type: AppErrorType.httpResponse));
+    test(
+      "Should propagate Exception from http client on response error",
+      () async {
+        when(
+          () => httpClient.request(
+            method: "get",
+            path: "/planetary/apod",
+            queryParameters: {"count": "15"},
+          ),
+        ).thenThrow(Exception('HTTP response error'));
 
-      try {
-        await sut.getPictures();
-      } on AppError catch (e) {
-        expect(e, isA<AppError>());
-        expect(e.type, AppErrorType.httpResponse);
-      }
+        await expectLater(() => sut.getPictures(), throwsA(isA<Exception>()));
 
-      verify(
-        () => httpClient.request(
-          method: "get",
-          path: "/planetary/apod",
-          queryParameters: {"count": "15"},
-        ),
-      );
-    });
+        verify(
+          () => httpClient.request(
+            method: "get",
+            path: "/planetary/apod",
+            queryParameters: {"count": "15"},
+          ),
+        );
+      },
+    );
 
     test("Should use date queryParameter when date is provided", () async {
       when(

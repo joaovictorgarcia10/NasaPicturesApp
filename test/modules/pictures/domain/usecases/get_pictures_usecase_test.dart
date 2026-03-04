@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/repositories/pictures_repository.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/usecases/get_pictures_usecase.dart';
@@ -98,21 +97,16 @@ void main() {
       );
     });
 
-    test("Should throw an AppError invalidData", () async {
+    test("Should propagate Exception from repository", () async {
       when(
         () => repository.getPictures(
           date: any(named: 'date'),
           startDate: any(named: 'startDate'),
           endDate: any(named: 'endDate'),
         ),
-      ).thenThrow(AppError(type: AppErrorType.invalidData));
+      ).thenThrow(Exception());
 
-      try {
-        await sut();
-      } on AppError catch (e) {
-        expect(e, isA<AppError>());
-        expect(e.type, AppErrorType.invalidData);
-      }
+      await expectLater(() => sut(), throwsA(isA<Exception>()));
 
       verify(
         () => repository.getPictures(
