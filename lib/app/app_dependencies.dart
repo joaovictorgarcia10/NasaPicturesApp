@@ -55,9 +55,6 @@ class AppDependencies {
       instanceName: "PicturesRemoteDatasource",
       instance: PicturesRemoteDatasource(
         httpClient: injector.get<HttpClient>(),
-        localDatasource: injector.get<PicturesLocalDatasource>(
-          instanceName: "PicturesLocalDatasource",
-        ),
       ),
     );
 

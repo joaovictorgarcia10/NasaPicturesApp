@@ -1,12 +1,13 @@
 import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
-import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
+import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
+import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_remote_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/repositories/pictures_repository.dart';
 
 class PicturesRepositoryImpl implements PicturesRepository {
-  final PicturesDatasource remoteDatasource;
-  final PicturesDatasource localDatasource;
+  final PicturesRemoteDatasource remoteDatasource;
+  final PicturesLocalDatasource localDatasource;
   final NetworkConnectionController networkConnectionController;
 
   PicturesRepositoryImpl({
@@ -30,6 +31,8 @@ class PicturesRepositoryImpl implements PicturesRepository {
         startDate: startDate,
         endDate: endDate,
       );
+      
+      localDatasource.savePictures(pictures: response);
     } else {
       response = await localDatasource.getPictures();
     }

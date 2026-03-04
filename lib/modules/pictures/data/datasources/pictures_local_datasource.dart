@@ -2,7 +2,7 @@ import 'package:nasa_pictures_app/core/constants/app_constants.dart';
 import 'package:nasa_pictures_app/core/adapters/local_storage/local_storage_client.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
 
-class PicturesLocalDatasource implements PicturesDatasource {
+class PicturesLocalDatasource extends PicturesDatasource {
   final LocalStorageClient localStorageClient;
 
   PicturesLocalDatasource({required this.localStorageClient});
@@ -22,21 +22,16 @@ class PicturesLocalDatasource implements PicturesDatasource {
     if (data.isNotEmpty) {
       return data;
     } else {
-      throw Exception('No data found in local storage');
+      throw Exception('No data found in local datasource');
     }
   }
 
-  Future<bool> savePictures({
+  Future<void> savePictures({
     required List<Map<String, dynamic>> pictures,
   }) async {
-    try {
-      await localStorageClient.saveList(
-        AppConstants.pictureListCacheKey,
-        pictures,
-      );
-      return true;
-    } catch (e) {
-      return false;
-    }
+    await localStorageClient.saveList(
+      AppConstants.pictureListCacheKey,
+      pictures,
+    );
   }
 }

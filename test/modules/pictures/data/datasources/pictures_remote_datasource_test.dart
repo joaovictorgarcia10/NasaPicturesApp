@@ -4,28 +4,19 @@ import 'package:nasa_pictures_app/core/adapters/http/http_client.dart';
 import 'package:nasa_pictures_app/core/adapters/http/http_method.dart';
 import 'package:nasa_pictures_app/core/adapters/http/http_response.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
-import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_remote_datasource.dart';
 
 import '../../mock/picture_list_mock.dart';
 
 class HttpClientMock extends Mock implements HttpClient {}
 
-class PicturesLocalDatasourceMock extends Mock
-    implements PicturesLocalDatasource {}
-
 void main() {
   late PicturesDatasource sut;
   late HttpClient httpClient;
-  late PicturesLocalDatasource localDatasource;
 
   setUp(() {
     httpClient = HttpClientMock();
-    localDatasource = PicturesLocalDatasourceMock();
-    sut = PicturesRemoteDatasource(
-      httpClient: httpClient,
-      localDatasource: localDatasource,
-    );
+    sut = PicturesRemoteDatasource(httpClient: httpClient);
   });
 
   group("PicturesRemoteDatasource Tests", () {
@@ -37,10 +28,6 @@ void main() {
           queryParameters: {"count": "15"},
         ),
       ).thenAnswer((_) => Future.value(HttpResponse(data: pictureLisMock)));
-
-      when(
-        () => localDatasource.savePictures(pictures: pictureLisMock),
-      ).thenAnswer((_) async => true);
 
       final response = await sut.getPictures();
 
@@ -131,10 +118,6 @@ void main() {
         ),
       ).thenAnswer((_) => Future.value(HttpResponse(data: pictureSingleMock)));
 
-      when(
-        () => localDatasource.savePictures(pictures: [pictureSingleMock]),
-      ).thenAnswer((_) async => true);
-
       final response = await sut.getPictures(date: "2026-03-03");
 
       expect(response.length, 1);
@@ -159,10 +142,6 @@ void main() {
           queryParameters: {"date": "2007-05-18"},
         ),
       ).thenAnswer((_) => Future.value(HttpResponse(data: pictureSingleMock)));
-
-      when(
-        () => localDatasource.savePictures(pictures: [pictureSingleMock]),
-      ).thenAnswer((_) async => true);
 
       final response = await sut.getPictures(date: "2007-05-18");
 
@@ -195,10 +174,6 @@ void main() {
             },
           ),
         ).thenAnswer((_) => Future.value(HttpResponse(data: pictureLisMock)));
-
-        when(
-          () => localDatasource.savePictures(pictures: pictureLisMock),
-        ).thenAnswer((_) async => true);
 
         final response = await sut.getPictures(
           startDate: "2024-01-01",

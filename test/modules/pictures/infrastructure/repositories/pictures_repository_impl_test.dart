@@ -1,24 +1,27 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
-import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
+import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
+import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_remote_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/repositories/pictures_repository_impl.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/repositories/pictures_repository.dart';
 
 import '../../mock/picture_list_mock.dart';
 
-class PicturesRemoteDatasourceMock extends Mock implements PicturesDatasource {}
+class PicturesRemoteDatasourceMock extends Mock
+    implements PicturesRemoteDatasource {}
 
-class PicturesLocalDatasourceMock extends Mock implements PicturesDatasource {}
+class PicturesLocalDatasourceMock extends Mock
+    implements PicturesLocalDatasource {}
 
 class NetworkConnectionControllerMock extends Mock
     implements NetworkConnectionController {}
 
 void main() {
   late PicturesRepository sut;
-  late PicturesDatasource remoteDatasource;
-  late PicturesDatasource localDatasource;
+  late PicturesRemoteDatasource remoteDatasource;
+  late PicturesLocalDatasource localDatasource;
   late NetworkConnectionController networkConnectionController;
 
   setUp(() {
@@ -49,6 +52,10 @@ void main() {
           ),
         ).thenAnswer((_) => Future.value(pictureLisMock));
 
+        when(
+          () => localDatasource.savePictures(pictures: any(named: 'pictures')),
+        ).thenAnswer((_) => Future.value());
+
         final response = await sut.getPictures();
 
         expect(response.length, 2);
@@ -71,6 +78,10 @@ void main() {
           ),
         ).thenAnswer((_) => Future.value(pictureLisMock));
 
+        when(
+          () => localDatasource.savePictures(pictures: any(named: 'pictures')),
+        ).thenAnswer((_) => Future.value());
+
         final response = await sut.getPictures(date: "2026-03-03");
 
         expect(response.length, 2);
@@ -92,6 +103,10 @@ void main() {
             endDate: any(named: 'endDate'),
           ),
         ).thenAnswer((_) => Future.value(pictureLisMock));
+
+        when(
+          () => localDatasource.savePictures(pictures: any(named: 'pictures')),
+        ).thenAnswer((_) => Future.value());
 
         final response = await sut.getPictures(
           startDate: "2024-01-01",
