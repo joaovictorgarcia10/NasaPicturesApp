@@ -36,59 +36,126 @@ void main() {
 
   group("PicturesRepository Test", () {
     test(
-        "Should get a List<Map<String, dynamic>> from the remoteDatasource and rerturn a List<Picture>",
-        () async {
-      when(() => networkConnectionController.hasConnection())
-          .thenAnswer((_) => Future.value(true));
+      "Should get a List<Map<String, dynamic>> from the remoteDatasource and rerturn a List<Picture>",
+      () async {
+        when(
+          () => networkConnectionController.hasConnection(),
+        ).thenAnswer((_) => Future.value(true));
 
-      when(() => remoteDatasource.getPictures())
-          .thenAnswer((_) => Future.value(pictureLisMock));
+        when(
+          () => remoteDatasource.getPictures(
+            date: any(named: 'date'),
+            startDate: any(named: 'startDate'),
+            endDate: any(named: 'endDate'),
+          ),
+        ).thenAnswer((_) => Future.value(pictureLisMock));
 
-      final response = await sut.getPictures();
+        final response = await sut.getPictures();
 
-      expect(response.length, 2);
-      expect(response, isA<List<Picture>>());
-    });
-
-    test("Should throw an AppError repository calling the remoteDatasource",
-        () async {
-      when(() => remoteDatasource.getPictures())
-          .thenThrow(AppError(type: AppErrorType.repository));
-
-      try {
-        await sut.getPictures();
-      } on AppError catch (e) {
-        expect(e, isA<AppError>());
-        expect(e.type, AppErrorType.repository);
-      }
-    });
+        expect(response.length, 2);
+        expect(response, isA<List<Picture>>());
+      },
+    );
 
     test(
-        "Should get a List<Map<String, dynamic>> from the localDatasource and rerturn a List<Picture>",
-        () async {
-      when(() => networkConnectionController.hasConnection())
-          .thenAnswer((_) => Future.value(false));
+      "Should pass date param to remoteDatasource and return a List<Picture>",
+      () async {
+        when(
+          () => networkConnectionController.hasConnection(),
+        ).thenAnswer((_) => Future.value(true));
 
-      when(() => localDatasource.getPictures())
-          .thenAnswer((_) => Future.value(pictureLisMock));
+        when(
+          () => remoteDatasource.getPictures(
+            date: any(named: 'date'),
+            startDate: any(named: 'startDate'),
+            endDate: any(named: 'endDate'),
+          ),
+        ).thenAnswer((_) => Future.value(pictureLisMock));
 
-      final response = await sut.getPictures();
+        final response = await sut.getPictures(date: "2026-03-03");
 
-      expect(response.length, 2);
-      expect(response, isA<List<Picture>>());
-    });
+        expect(response.length, 2);
+        expect(response, isA<List<Picture>>());
+      },
+    );
 
-    test("Should throw an AppError repository calling the localDatasource",
-        () async {
-      when(() => localDatasource.getPictures())
-          .thenThrow(AppError(type: AppErrorType.repository));
+    test(
+      "Should pass date range params to remoteDatasource and return a List<Picture>",
+      () async {
+        when(
+          () => networkConnectionController.hasConnection(),
+        ).thenAnswer((_) => Future.value(true));
 
-      try {
-        await sut.getPictures();
-      } on AppError catch (e) {
-        expect(e, isA<AppError>());
-        expect(e.type, AppErrorType.repository);
-      }
-    });
+        when(
+          () => remoteDatasource.getPictures(
+            date: any(named: 'date'),
+            startDate: any(named: 'startDate'),
+            endDate: any(named: 'endDate'),
+          ),
+        ).thenAnswer((_) => Future.value(pictureLisMock));
+
+        final response = await sut.getPictures(
+          startDate: "2024-01-01",
+          endDate: "2024-01-31",
+        );
+
+        expect(response.length, 2);
+        expect(response, isA<List<Picture>>());
+      },
+    );
+
+    test(
+      "Should throw an AppError repository calling the remoteDatasource",
+      () async {
+        when(
+          () => remoteDatasource.getPictures(),
+        ).thenThrow(AppError(type: AppErrorType.repository));
+
+        try {
+          await sut.getPictures();
+        } on AppError catch (e) {
+          expect(e, isA<AppError>());
+          expect(e.type, AppErrorType.repository);
+        }
+      },
+    );
+
+    test(
+      "Should get a List<Map<String, dynamic>> from the localDatasource and rerturn a List<Picture>",
+      () async {
+        when(
+          () => networkConnectionController.hasConnection(),
+        ).thenAnswer((_) => Future.value(false));
+
+        when(
+          () => localDatasource.getPictures(
+            date: any(named: 'date'),
+            startDate: any(named: 'startDate'),
+            endDate: any(named: 'endDate'),
+          ),
+        ).thenAnswer((_) => Future.value(pictureLisMock));
+
+        final response = await sut.getPictures();
+
+        expect(response.length, 2);
+        expect(response, isA<List<Picture>>());
+      },
+    );
+
+    test(
+      "Should throw an AppError repository calling the localDatasource",
+      () async {
+        when(
+          () => localDatasource.getPictures(),
+        ).thenThrow(AppError(type: AppErrorType.repository));
+
+        try {
+          await sut.getPictures();
+        } on AppError catch (e) {
+          expect(e, isA<AppError>());
+          expect(e.type, AppErrorType.repository);
+        }
+      },
+    );
   });
 }

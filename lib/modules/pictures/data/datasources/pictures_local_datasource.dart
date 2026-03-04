@@ -9,7 +9,11 @@ class PicturesLocalDatasource implements PicturesDatasource {
   PicturesLocalDatasource({required this.localStorageClient});
 
   @override
-  Future<List<Map<String, dynamic>>> getPictures() async {
+  Future<List<Map<String, dynamic>>> getPictures({
+    String? date,
+    String? startDate,
+    String? endDate,
+  }) async {
     try {
       final response = localStorageClient.getList(
         AppConstants.pictureListCacheKey,

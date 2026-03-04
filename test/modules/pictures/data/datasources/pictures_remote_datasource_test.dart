@@ -36,14 +36,11 @@ void main() {
           path: "/planetary/apod",
           queryParameters: {"count": "15"},
         ),
-      ).thenAnswer(
-        (_) => Future.value(HttpResponse(data: pictureLisMock)),
-      );
+      ).thenAnswer((_) => Future.value(HttpResponse(data: pictureLisMock)));
 
-      when(() => localDatasource.savePictures(pictures: pictureLisMock))
-          .thenAnswer(
-        (_) async => true,
-      );
+      when(
+        () => localDatasource.savePictures(pictures: pictureLisMock),
+      ).thenAnswer((_) async => true);
 
       final response = await sut.getPictures();
 
@@ -66,9 +63,7 @@ void main() {
           path: "/planetary/apod",
           queryParameters: {"count": "15"},
         ),
-      ).thenAnswer(
-        (_) => Future.value(HttpResponse(data: [])),
-      );
+      ).thenAnswer((_) => Future.value(HttpResponse(data: [])));
 
       try {
         await sut.getPictures();
@@ -135,5 +130,102 @@ void main() {
         ),
       );
     });
+
+    test("Should use date queryParameter when date is provided", () async {
+      when(
+        () => httpClient.request(
+          method: "get",
+          path: "/planetary/apod",
+          queryParameters: {"date": "2026-03-03"},
+        ),
+      ).thenAnswer((_) => Future.value(HttpResponse(data: pictureSingleMock)));
+
+      when(
+        () => localDatasource.savePictures(pictures: [pictureSingleMock]),
+      ).thenAnswer((_) async => true);
+
+      final response = await sut.getPictures(date: "2026-03-03");
+
+      expect(response.length, 1);
+      expect(
+        response.first["title"],
+        "M13: The Great Globular Cluster in Hercules",
+      );
+      verify(
+        () => httpClient.request(
+          method: "get",
+          path: "/planetary/apod",
+          queryParameters: {"date": "2026-03-03"},
+        ),
+      );
+    });
+
+    test("Should normalize single Map response into a list of 1", () async {
+      when(
+        () => httpClient.request(
+          method: "get",
+          path: "/planetary/apod",
+          queryParameters: {"date": "2007-05-18"},
+        ),
+      ).thenAnswer((_) => Future.value(HttpResponse(data: pictureSingleMock)));
+
+      when(
+        () => localDatasource.savePictures(pictures: [pictureSingleMock]),
+      ).thenAnswer((_) async => true);
+
+      final response = await sut.getPictures(date: "2007-05-18");
+
+      expect(response, isA<List<Map<String, dynamic>>>());
+      expect(response.length, 1);
+      expect(
+        response.first["title"],
+        "M13: The Great Globular Cluster in Hercules",
+      );
+
+      verify(
+        () => httpClient.request(
+          method: "get",
+          path: "/planetary/apod",
+          queryParameters: {"date": "2007-05-18"},
+        ),
+      );
+    });
+
+    test(
+      "Should use start_date/end_date queryParameters when range is provided",
+      () async {
+        when(
+          () => httpClient.request(
+            method: "get",
+            path: "/planetary/apod",
+            queryParameters: {
+              "start_date": "2024-01-01",
+              "end_date": "2024-01-31",
+            },
+          ),
+        ).thenAnswer((_) => Future.value(HttpResponse(data: pictureLisMock)));
+
+        when(
+          () => localDatasource.savePictures(pictures: pictureLisMock),
+        ).thenAnswer((_) async => true);
+
+        final response = await sut.getPictures(
+          startDate: "2024-01-01",
+          endDate: "2024-01-31",
+        );
+
+        expect(response.length, 2);
+        verify(
+          () => httpClient.request(
+            method: "get",
+            path: "/planetary/apod",
+            queryParameters: {
+              "start_date": "2024-01-01",
+              "end_date": "2024-01-31",
+            },
+          ),
+        );
+      },
+    );
   });
 }

@@ -27,9 +27,14 @@ void main() {
 
     when(() => presenter.state).thenReturn(ValueNotifier(HomeStateLoading()));
     when(() => presenter.shouldPaginate).thenReturn(ValueNotifier(true));
+    when(() => presenter.isDateFiltered).thenReturn(ValueNotifier(false));
     when(() => presenter.refreshPictures()).thenAnswer((_) async {});
     when(() => presenter.paginatePictures()).thenAnswer((_) async {});
     when(() => presenter.search("")).thenAnswer((_) async {});
+    when(() => presenter.filterByDate(any())).thenAnswer((_) async {});
+    when(
+      () => presenter.filterByDateRange(any(), any()),
+    ).thenAnswer((_) async {});
   });
 
   group("DetailsPage Tests", () {
@@ -37,9 +42,10 @@ void main() {
       "Should naviagte to details page and render with the expected values",
       (widgetTester) async {
         when(() => presenter.getPictures()).thenAnswer((_) async {
-          final pictures = pictureLisMock
-              .map((e) => PictureDto.fromMap(e).toEntity())
-              .toList();
+          final pictures =
+              pictureLisMock
+                  .map((e) => PictureDto.fromMap(e).toEntity())
+                  .toList();
 
           presenter.state.value = HomeStateSuccess(pictures: pictures);
         });
@@ -62,8 +68,10 @@ void main() {
         expect(find.byType(DetailsPage), findsOneWidget);
         expect(find.text("Details"), findsOneWidget);
 
-        expect(find.text("M13: The Great Globular Cluster in Hercules"),
-            findsOneWidget);
+        expect(
+          find.text("M13: The Great Globular Cluster in Hercules"),
+          findsOneWidget,
+        );
         expect(find.text("18/05/2007"), findsOneWidget);
       },
     );

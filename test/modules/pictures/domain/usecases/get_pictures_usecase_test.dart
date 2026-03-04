@@ -26,24 +26,86 @@ void main() {
         serviceVersion: "serviceVersion",
         title: "title",
         url: "url",
-      )
+      ),
     ];
   });
 
   group("GetPicturesUsecase Tests", () {
     test("Should get a list of Pictures with success", () async {
-      when(() => repository.getPictures()).thenAnswer((_) async => mock);
+      when(
+        () => repository.getPictures(
+          date: any(named: 'date'),
+          startDate: any(named: 'startDate'),
+          endDate: any(named: 'endDate'),
+        ),
+      ).thenAnswer((_) async => mock);
 
       final response = await sut();
 
       expect(response.length, 1);
       expect(response.first.title, "title");
-      verify(() => repository.getPictures());
+      verify(
+        () => repository.getPictures(
+          date: any(named: 'date'),
+          startDate: any(named: 'startDate'),
+          endDate: any(named: 'endDate'),
+        ),
+      );
+    });
+
+    test("Should get a list of Pictures with a specific date", () async {
+      when(
+        () => repository.getPictures(
+          date: any(named: 'date'),
+          startDate: any(named: 'startDate'),
+          endDate: any(named: 'endDate'),
+        ),
+      ).thenAnswer((_) async => mock);
+
+      final response = await sut(date: "2026-03-03");
+
+      expect(response.length, 1);
+      verify(
+        () => repository.getPictures(
+          date: any(named: 'date'),
+          startDate: any(named: 'startDate'),
+          endDate: any(named: 'endDate'),
+        ),
+      );
+    });
+
+    test("Should get a list of Pictures with a date range", () async {
+      when(
+        () => repository.getPictures(
+          date: any(named: 'date'),
+          startDate: any(named: 'startDate'),
+          endDate: any(named: 'endDate'),
+        ),
+      ).thenAnswer((_) async => mock);
+
+      final response = await sut(
+        startDate: "2024-01-01",
+        endDate: "2024-01-31",
+      );
+
+      expect(response.length, 1);
+      verify(
+        () => repository.getPictures(
+          date: any(named: 'date'),
+          startDate: any(named: 'startDate'),
+          endDate: any(named: 'endDate'),
+        ),
+      );
     });
 
     test("Should throw an AppError invalidData", () async {
-      when(() => repository.getPictures())
-          .thenThrow(AppError(type: AppErrorType.invalidData));
+      when(
+        () => repository.getPictures(
+          date: any(named: 'date'),
+          startDate: any(named: 'startDate'),
+          endDate: any(named: 'endDate'),
+        ),
+      ).thenThrow(AppError(type: AppErrorType.invalidData));
 
       try {
         await sut();
@@ -52,7 +114,13 @@ void main() {
         expect(e.type, AppErrorType.invalidData);
       }
 
-      verify(() => repository.getPictures());
+      verify(
+        () => repository.getPictures(
+          date: any(named: 'date'),
+          startDate: any(named: 'startDate'),
+          endDate: any(named: 'endDate'),
+        ),
+      );
     });
   });
 }

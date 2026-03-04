@@ -17,18 +17,28 @@ class PicturesRepositoryImpl implements PicturesRepository {
   });
 
   @override
-  Future<List<Picture>> getPictures() async {
+  Future<List<Picture>> getPictures({
+    String? date,
+    String? startDate,
+    String? endDate,
+  }) async {
     try {
       late List<Map<String, dynamic>> response;
       final hasConnection = await networkConnectionController.hasConnection();
 
       if (hasConnection) {
-        response = await remoteDatasource.getPictures();
+        response = await remoteDatasource.getPictures(
+          date: date,
+          startDate: startDate,
+          endDate: endDate,
+        );
       } else {
         response = await localDatasource.getPictures();
       }
 
       return response.map((e) => PictureDto.fromMap(e).toEntity()).toList();
+    } on AppError catch (_) {
+      rethrow;
     } catch (e) {
       throw AppError(type: AppErrorType.repository, exception: e);
     }

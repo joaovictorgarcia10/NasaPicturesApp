@@ -21,14 +21,20 @@ void main() {
 
     when(() => presenter.state).thenReturn(ValueNotifier(HomeStateLoading()));
     when(() => presenter.shouldPaginate).thenReturn(ValueNotifier(true));
+    when(() => presenter.isDateFiltered).thenReturn(ValueNotifier(false));
     when(() => presenter.refreshPictures()).thenAnswer((_) async {});
     when(() => presenter.paginatePictures()).thenAnswer((_) async {});
     when(() => presenter.search("")).thenAnswer((_) async {});
+    when(() => presenter.filterByDate(any())).thenAnswer((_) async {});
+    when(
+      () => presenter.filterByDateRange(any(), any()),
+    ).thenAnswer((_) async {});
   });
 
   group("HomePage Tests", () {
-    testWidgets("Should render the HomePage with HomeStateLoading",
-        (widgetTester) async {
+    testWidgets("Should render the HomePage with HomeStateLoading", (
+      widgetTester,
+    ) async {
       when(() => presenter.getPictures()).thenAnswer((_) async {});
 
       await widgetTester.pumpWidget(MaterialApp(home: sut));
@@ -37,12 +43,14 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
-    testWidgets("Should render the HomePage with HomeStateSuccess",
-        (widgetTester) async {
+    testWidgets("Should render the HomePage with HomeStateSuccess", (
+      widgetTester,
+    ) async {
       when(() => presenter.getPictures()).thenAnswer((_) async {
-        final pictures = pictureLisMock
-            .map((e) => PictureDto.fromMap(e).toEntity())
-            .toList();
+        final pictures =
+            pictureLisMock
+                .map((e) => PictureDto.fromMap(e).toEntity())
+                .toList();
 
         presenter.state.value = HomeStateSuccess(pictures: pictures);
       });
@@ -55,11 +63,13 @@ void main() {
       expect(find.byType(PictureListTileWidget), findsNWidgets(2));
     });
 
-    testWidgets("Should render the HomePage with HomeStateError",
-        (widgetTester) async {
+    testWidgets("Should render the HomePage with HomeStateError", (
+      widgetTester,
+    ) async {
       when(() => presenter.getPictures()).thenAnswer((_) async {
-        presenter.state.value =
-            HomeStateError(message: "Something went wrong.");
+        presenter.state.value = HomeStateError(
+          message: "Something went wrong.",
+        );
       });
 
       await widgetTester.pumpWidget(MaterialApp(home: sut));

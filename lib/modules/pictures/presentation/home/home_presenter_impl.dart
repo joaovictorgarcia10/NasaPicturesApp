@@ -7,22 +7,26 @@ import 'package:nasa_pictures_app/modules/pictures/domain/usecases/get_pictures_
 import 'package:nasa_pictures_app/modules/pictures/presentation/home/home_state.dart';
 import 'package:nasa_pictures_app/modules/pictures/ui/home/home_presenter.dart';
 
+/// Concrete implementation of [HomePresenter].
 class HomePresenterImpl implements HomePresenter {
+  /// Use-case responsible for fetching pictures from the repository.
   final GetPicturesUsecase getPicturesUsecase;
+
+  /// Controller used to verify network availability before pagination.
   final NetworkConnectionController networkConnectionController;
 
+  /// Creates a [HomePresenterImpl] with the required dependencies.
   HomePresenterImpl({
     required this.getPicturesUsecase,
     required this.networkConnectionController,
   });
 
-// _____________________________________________________________________________
+  // _____________________________________________________________________________
 
   List<Picture> _allPictures = [];
-
   List<Picture> _filteredPictures = [];
 
-// _____________________________________________________________________________
+  // _____________________________________________________________________________
 
   @override
   ValueNotifier<HomeState> state = ValueNotifier(HomeStateLoading());
@@ -30,7 +34,10 @@ class HomePresenterImpl implements HomePresenter {
   @override
   ValueNotifier<bool> shouldPaginate = ValueNotifier(true);
 
-// _____________________________________________________________________________
+  @override
+  ValueNotifier<bool> isDateFiltered = ValueNotifier(false);
+
+  // _____________________________________________________________________________
 
   @override
   Future<void> getPictures() async {
@@ -38,7 +45,7 @@ class HomePresenterImpl implements HomePresenter {
 
     try {
       final response = await getPicturesUsecase();
-      _allPictures.addAll(response);
+      _allPictures = response;
       state.value = HomeStateSuccess(pictures: _allPictures);
     } catch (e) {
       state.value = HomeStateError(message: "Something went wrong.");
@@ -51,6 +58,7 @@ class HomePresenterImpl implements HomePresenter {
 
     try {
       shouldPaginate.value = true;
+      isDateFiltered.value = false;
       final response = await getPicturesUsecase();
       _allPictures = response;
       state.value = HomeStateSuccess(pictures: _allPictures);
@@ -83,12 +91,10 @@ class HomePresenterImpl implements HomePresenter {
       shouldPaginate.value = false;
       state.value = HomeStateSuccess(pictures: _allPictures);
 
-      _filteredPictures = _allPictures.where((picture) {
-        var titleMatch =
-            picture.title.toLowerCase().contains(value.toLowerCase());
-        var dateMatch = picture.date.contains(value);
-        return (titleMatch || dateMatch);
-      }).toList();
+      _filteredPictures =
+          _allPictures.where((picture) {
+            return picture.title.toLowerCase().contains(value.toLowerCase());
+          }).toList();
 
       if (_filteredPictures.isEmpty) {
         state.value = HomeStateError(message: "No items found.");
@@ -99,5 +105,55 @@ class HomePresenterImpl implements HomePresenter {
       shouldPaginate.value = true;
       state.value = HomeStateSuccess(pictures: _allPictures);
     }
+  }
+
+  @override
+  Future<void> filterByDate(DateTime date) async {
+    state.value = HomeStateLoading();
+
+    try {
+      final formatted =
+          "${date.year.toString().padLeft(4, '0')}-"
+          "${date.month.toString().padLeft(2, '0')}-"
+          "${date.day.toString().padLeft(2, '0')}";
+
+      final response = await getPicturesUsecase(date: formatted);
+      _allPictures = response;
+      shouldPaginate.value = false;
+      isDateFiltered.value = true;
+      state.value = HomeStateSuccess(pictures: _allPictures);
+    } catch (e) {
+      state.value = HomeStateError(message: "Something went wrong.");
+    }
+  }
+
+  @override
+  Future<void> filterByDateRange(DateTime start, DateTime end) async {
+    state.value = HomeStateLoading();
+
+    try {
+      String fmt(DateTime d) =>
+          "${d.year.toString().padLeft(4, '0')}-"
+          "${d.month.toString().padLeft(2, '0')}-"
+          "${d.day.toString().padLeft(2, '0')}";
+
+      final response = await getPicturesUsecase(
+        startDate: fmt(start),
+        endDate: fmt(end),
+      );
+      _allPictures = response;
+      shouldPaginate.value = false;
+      isDateFiltered.value = true;
+      state.value = HomeStateSuccess(pictures: _allPictures);
+    } catch (e) {
+      state.value = HomeStateError(message: "Something went wrong.");
+    }
+  }
+
+  @override
+  void dispose() {
+    state.dispose();
+    shouldPaginate.dispose();
+    isDateFiltered.dispose();
   }
 }

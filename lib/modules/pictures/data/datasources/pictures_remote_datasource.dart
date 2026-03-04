@@ -13,15 +13,34 @@ class PicturesRemoteDatasource implements PicturesDatasource {
   });
 
   @override
-  Future<List<Map<String, dynamic>>> getPictures() async {
+  Future<List<Map<String, dynamic>>> getPictures({
+    String? date,
+    String? startDate,
+    String? endDate,
+  }) async {
     try {
+      final Map<String, dynamic> queryParameters;
+
+      if (date != null) {
+        queryParameters = {"date": date};
+      } else if (startDate != null && endDate != null) {
+        queryParameters = {"start_date": startDate, "end_date": endDate};
+      } else {
+        queryParameters = {"count": "15"};
+      }
+
       final response = await httpClient.request(
         method: "get",
         path: "/planetary/apod",
-        queryParameters: {"count": "15"},
+        queryParameters: queryParameters,
       );
 
-      final List<Map<String, dynamic>> data = List.from(response.data);
+      final rawData = response.data;
+
+      final List<Map<String, dynamic>> data =
+          rawData is List
+              ? List<Map<String, dynamic>>.from(rawData)
+              : [rawData as Map<String, dynamic>];
 
       if (data.isNotEmpty) {
         localDatasource.savePictures(pictures: data);

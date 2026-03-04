@@ -6,7 +6,20 @@ class GetPicturesUsecase {
 
   GetPicturesUsecase({required this.repository});
 
-  Future<List<Picture>> call() async {
-    return await repository.getPictures();
+  /// Fetches pictures from the repository.
+  ///
+  /// Pass [date] for a single-day query (`YYYY-MM-DD`).
+  /// Pass [startDate] + [endDate] for a date-range query.
+  /// Omit all params to retrieve a random batch.
+  Future<List<Picture>> call({
+    String? date,
+    String? startDate,
+    String? endDate,
+  }) async {
+    return await repository.getPictures(
+      date: date,
+      startDate: startDate,
+      endDate: endDate,
+    );
   }
 }
