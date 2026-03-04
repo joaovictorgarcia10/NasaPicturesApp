@@ -5,6 +5,7 @@ import 'package:nasa_pictures_app/modules/pictures/presentation/helpers/date_for
 import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_state.dart';
 import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_presenter.dart';
 import 'package:nasa_pictures_app/modules/pictures/presentation/home/widgets/picture_list_tile_widget.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/widgets/pictures_app_bar_widget.dart';
 
 class HomePage extends StatefulWidget {
   final HomePresenter presenter;
@@ -88,33 +89,11 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100.0),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 12.0, 4.0, 8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: SearchBar(
-                    leading: const Icon(Icons.search),
-                    controller: _textController,
-                    hintText: "Search by title...",
-                    onChanged: _onSearchChanged,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.calendar_today),
-                  tooltip: "Filter by specific date",
-                  onPressed: _onFilterByDate,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.date_range),
-                  tooltip: "Filter by date range",
-                  onPressed: _onFilterByDateRange,
-                ),
-              ],
-            ),
-          ),
+        appBar: PicturesAppBarWidget(
+          textController: _textController,
+          onSearchChanged: _onSearchChanged,
+          onFilterByDate: _onFilterByDate,
+          onFilterByDateRange: _onFilterByDateRange,
         ),
         body: AnimatedBuilder(
           animation: Listenable.merge([
@@ -128,6 +107,7 @@ class _HomePageState extends State<HomePage> {
             switch (state) {
               case HomeStateLoading():
                 return const Center(child: CircularProgressIndicator());
+
               case HomeStateError():
                 return Center(
                   child: Column(
@@ -144,6 +124,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 );
+
               case HomeStateSuccess():
                 final shouldPaginate = presenter.shouldPaginate.value;
                 final isDateFiltered = presenter.isDateFiltered.value;
