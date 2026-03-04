@@ -1,6 +1,6 @@
 import 'package:nasa_pictures_app/core/error/app_error.dart';
 import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
-import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_datasource.dart';
+import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/repositories/pictures_repository.dart';

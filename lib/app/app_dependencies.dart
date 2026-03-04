@@ -5,16 +5,16 @@ import 'package:nasa_pictures_app/core/utils/network_connection/network_connecti
 import 'package:nasa_pictures_app/core/environment/app_environment.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_remote_datasource.dart';
-import 'package:nasa_pictures_app/modules/pictures/ui/home/home_presenter.dart';
-import 'package:nasa_pictures_app/core/infrastructure/dependency_injector/adapter/get_it_adapter.dart';
-import 'package:nasa_pictures_app/core/infrastructure/http/adapter/dio_adapter.dart';
-import 'package:nasa_pictures_app/core/infrastructure/http/http_client.dart';
-import 'package:nasa_pictures_app/core/infrastructure/local_storage/adapter/shared_preferences_adapter.dart';
-import 'package:nasa_pictures_app/core/infrastructure/local_storage/local_storage_client.dart';
-import 'package:nasa_pictures_app/modules/pictures/data/repositories/pictures_repository_impl.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_presenter.dart';
+import 'package:nasa_pictures_app/core/adapters/dependency_injector/adapter/get_it_adapter.dart';
+import 'package:nasa_pictures_app/core/adapters/http/adapter/dio_adapter.dart';
+import 'package:nasa_pictures_app/core/adapters/http/http_client.dart';
+import 'package:nasa_pictures_app/core/adapters/local_storage/adapter/shared_preferences_adapter.dart';
+import 'package:nasa_pictures_app/core/adapters/local_storage/local_storage_client.dart';
+import 'package:nasa_pictures_app/modules/pictures/infrastructure/repositories/pictures_repository_impl.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/repositories/pictures_repository.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/usecases/get_pictures_usecase.dart';
-import 'package:nasa_pictures_app/modules/pictures/presentation/home/home_presenter_impl.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_presenter_impl.dart';
 
 class AppDependencies {
   final injector = GetItAdapter();

@@ -2,8 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nasa_pictures_app/core/constants/app_constants.dart';
 import 'package:nasa_pictures_app/core/error/app_error.dart';
-import 'package:nasa_pictures_app/core/infrastructure/local_storage/local_storage_client.dart';
-import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_datasource.dart';
+import 'package:nasa_pictures_app/core/adapters/local_storage/local_storage_client.dart';
+import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
 
 import '../../mock/picture_list_mock.dart';

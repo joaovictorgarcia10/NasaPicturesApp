@@ -4,8 +4,8 @@ import 'package:nasa_pictures_app/core/constants/app_constants.dart';
 import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/usecases/get_pictures_usecase.dart';
-import 'package:nasa_pictures_app/modules/pictures/presentation/home/home_state.dart';
-import 'package:nasa_pictures_app/modules/pictures/ui/home/home_presenter.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_state.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_presenter.dart';
 
 /// Concrete implementation of [HomePresenter].
 class HomePresenterImpl implements HomePresenter {

@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:nasa_pictures_app/modules/pictures/data/helpers/date_formater_extension.dart';
-import 'package:nasa_pictures_app/modules/pictures/presentation/home/home_state.dart';
-import 'package:nasa_pictures_app/modules/pictures/ui/home/home_presenter.dart';
-import 'package:nasa_pictures_app/modules/pictures/ui/home/widgets/picture_list_tile_widget.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/helpers/date_formater_extension.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_state.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/presenter/home_presenter.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/home/widgets/picture_list_tile_widget.dart';
 
 class HomePage extends StatefulWidget {
   final HomePresenter presenter;

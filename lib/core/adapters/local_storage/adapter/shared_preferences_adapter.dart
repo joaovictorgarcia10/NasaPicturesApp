@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:nasa_pictures_app/core/error/app_error.dart';
-import 'package:nasa_pictures_app/core/infrastructure/local_storage/local_storage_client.dart';
+import 'package:nasa_pictures_app/core/adapters/local_storage/local_storage_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// [LocalStorageClient] implementation backed by [SharedPreferencesWithCache].

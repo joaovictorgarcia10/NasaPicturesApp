@@ -1,4 +1,4 @@
-import 'package:nasa_pictures_app/core/infrastructure/http/http_response.dart';
+import 'package:nasa_pictures_app/core/adapters/http/http_response.dart';
 
 abstract class HttpClient {
   Future<HttpResponse> request({
