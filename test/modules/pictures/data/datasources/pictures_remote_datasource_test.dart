@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nasa_pictures_app/core/adapters/http/http_client.dart';
+import 'package:nasa_pictures_app/core/adapters/http/http_method.dart';
 import 'package:nasa_pictures_app/core/adapters/http/http_response.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
@@ -31,7 +32,7 @@ void main() {
     test("Should return a list of pictures from http client", () async {
       when(
         () => httpClient.request(
-          method: "get",
+          method: HttpMethod.get,
           path: "/planetary/apod",
           queryParameters: {"count": "15"},
         ),
@@ -48,7 +49,7 @@ void main() {
 
       verify(
         () => httpClient.request(
-          method: "get",
+          method: HttpMethod.get,
           path: "/planetary/apod",
           queryParameters: {"count": "15"},
         ),
@@ -58,7 +59,7 @@ void main() {
     test("Should throw an Exception when API returns empty list", () async {
       when(
         () => httpClient.request(
-          method: "get",
+          method: HttpMethod.get,
           path: "/planetary/apod",
           queryParameters: {"count": "15"},
         ),
@@ -68,7 +69,7 @@ void main() {
 
       verify(
         () => httpClient.request(
-          method: "get",
+          method: HttpMethod.get,
           path: "/planetary/apod",
           queryParameters: {"count": "15"},
         ),
@@ -80,7 +81,7 @@ void main() {
       () async {
         when(
           () => httpClient.request(
-            method: "get",
+            method: HttpMethod.get,
             path: "/planetary/apod",
             queryParameters: {"count": "15"},
           ),
@@ -90,7 +91,7 @@ void main() {
 
         verify(
           () => httpClient.request(
-            method: "get",
+            method: HttpMethod.get,
             path: "/planetary/apod",
             queryParameters: {"count": "15"},
           ),
@@ -103,7 +104,7 @@ void main() {
       () async {
         when(
           () => httpClient.request(
-            method: "get",
+            method: HttpMethod.get,
             path: "/planetary/apod",
             queryParameters: {"count": "15"},
           ),
@@ -113,7 +114,7 @@ void main() {
 
         verify(
           () => httpClient.request(
-            method: "get",
+            method: HttpMethod.get,
             path: "/planetary/apod",
             queryParameters: {"count": "15"},
           ),
@@ -124,7 +125,7 @@ void main() {
     test("Should use date queryParameter when date is provided", () async {
       when(
         () => httpClient.request(
-          method: "get",
+          method: HttpMethod.get,
           path: "/planetary/apod",
           queryParameters: {"date": "2026-03-03"},
         ),
@@ -143,7 +144,7 @@ void main() {
       );
       verify(
         () => httpClient.request(
-          method: "get",
+          method: HttpMethod.get,
           path: "/planetary/apod",
           queryParameters: {"date": "2026-03-03"},
         ),
@@ -153,7 +154,7 @@ void main() {
     test("Should normalize single Map response into a list of 1", () async {
       when(
         () => httpClient.request(
-          method: "get",
+          method: HttpMethod.get,
           path: "/planetary/apod",
           queryParameters: {"date": "2007-05-18"},
         ),
@@ -174,7 +175,7 @@ void main() {
 
       verify(
         () => httpClient.request(
-          method: "get",
+          method: HttpMethod.get,
           path: "/planetary/apod",
           queryParameters: {"date": "2007-05-18"},
         ),
@@ -186,7 +187,7 @@ void main() {
       () async {
         when(
           () => httpClient.request(
-            method: "get",
+            method: HttpMethod.get,
             path: "/planetary/apod",
             queryParameters: {
               "start_date": "2024-01-01",
@@ -207,7 +208,7 @@ void main() {
         expect(response.length, 2);
         verify(
           () => httpClient.request(
-            method: "get",
+            method: HttpMethod.get,
             path: "/planetary/apod",
             queryParameters: {
               "start_date": "2024-01-01",

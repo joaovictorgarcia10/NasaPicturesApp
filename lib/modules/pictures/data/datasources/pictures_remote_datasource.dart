@@ -1,4 +1,5 @@
 import 'package:nasa_pictures_app/core/adapters/http/http_client.dart';
+import 'package:nasa_pictures_app/core/adapters/http/http_method.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
 
@@ -28,7 +29,7 @@ class PicturesRemoteDatasource implements PicturesDatasource {
     }
 
     final response = await httpClient.request(
-      method: "get",
+      method: HttpMethod.get,
       path: "/planetary/apod",
       queryParameters: queryParameters,
     );

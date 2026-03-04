@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import 'package:nasa_pictures_app/core/adapters/http/http_client.dart';
+import 'package:nasa_pictures_app/core/adapters/http/http_method.dart';
 import 'package:nasa_pictures_app/core/adapters/http/http_response.dart';
 
 class DioAdapter implements HttpClient {
@@ -52,7 +53,7 @@ class DioAdapter implements HttpClient {
 
   @override
   Future<HttpResponse> request({
-    required String method,
+    required HttpMethod method,
     required String path,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? body,
@@ -62,28 +63,36 @@ class DioAdapter implements HttpClient {
 
     try {
       switch (method) {
-        case 'post':
+        case HttpMethod.post:
           response = await dio.post(
             path,
             queryParameters: queryParameters,
             data: jsonBody,
           );
-        case 'get':
+
+        case HttpMethod.get:
           response = await dio.get(path, queryParameters: queryParameters);
-        case 'patch':
+
+        case HttpMethod.patch:
           response = await dio.patch(
             path,
             queryParameters: queryParameters,
             data: jsonBody,
           );
-        case 'delete':
+
+        case HttpMethod.put:
+          response = await dio.put(
+            path,
+            queryParameters: queryParameters,
+            data: jsonBody,
+          );
+
+        case HttpMethod.delete:
           response = await dio.delete(
             path,
             queryParameters: queryParameters,
             data: jsonBody,
           );
-        default:
-          throw Exception('Invalid HTTP method: $method');
       }
 
       return _handleResponse(response);
