@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PictureAppBarWidget extends StatefulWidget
-    implements PreferredSizeWidget {
+class PictureAppBarWidget extends StatefulWidget {
   /// Controller for the search text field.
   final TextEditingController textController;
 
@@ -21,9 +20,6 @@ class PictureAppBarWidget extends StatefulWidget
     required this.onFilterByDate,
     required this.onFilterByDateRange,
   });
-
-  @override
-  Size get preferredSize => Size.fromHeight(180.0);
 
   @override
   State<PictureAppBarWidget> createState() => _PictureAppBarWidgetState();

@@ -89,11 +89,23 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: PictureAppBarWidget(
-          textController: _textController,
-          onSearchChanged: _onSearchChanged,
-          onFilterByDate: _onFilterByDate,
-          onFilterByDateRange: _onFilterByDateRange,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(180.0),
+          child: ValueListenableBuilder(
+            valueListenable: presenter.state,
+            builder: (context, state, child) {
+              if (state is HomeStateSuccess) {
+                return child!;
+              }
+              return SizedBox.shrink();
+            },
+            child: PictureAppBarWidget(
+              textController: _textController,
+              onSearchChanged: _onSearchChanged,
+              onFilterByDate: _onFilterByDate,
+              onFilterByDateRange: _onFilterByDateRange,
+            ),
+          ),
         ),
         body: ValueListenableBuilder(
           valueListenable: presenter.state,

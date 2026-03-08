@@ -9,8 +9,8 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define=API_BASE_URL=https://api.nasa.gov",
-                "--dart-define=API_KEY=ceTiTEfkHDvXK7tSu7hxrrA7hs6fwDYRPajfZ7cz"
+                "--dart-define=PICTURES_BASE_URL=https://api.nasa.gov",
+                "--dart-define=PICTURES_API_KEY=ceTiTEfkHDvXK7tSu7hxrrA7hs6fwDYRPajfZ7cz"
             ]
         },
     ]

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:nasa_pictures_app/core/controllers/network_connection/network_connection_controller.dart';
+import 'package:nasa_pictures_app/modules/pictures/constants/pictures_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart'
     show SharedPreferencesWithCache, SharedPreferencesWithCacheOptions;
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
@@ -37,10 +38,8 @@ class AppDependencies {
     injector.registerLazySingleton<HttpClient>(
       instance: DioAdapter(
         dio: Dio(),
-        baseUrl: String.fromEnvironment('PICTURES_BASE_URL'),
-        queryParameters: {
-          "api_key": String.fromEnvironment('PICTURES_API_KEY'),
-        },
+        baseUrl: PicturesConstants.picturesBaseUrl,
+        queryParameters: {"api_key": PicturesConstants.picturesApiKey},
       ),
       instanceName: 'PicturesHttpClient',
     );
