@@ -44,43 +44,36 @@ class AppDependencies {
     );
 
     // Datasources
-    injector.registerLazySingleton<PicturesLocalDatasource>(
-      instanceName: "PicturesLocalDatasource",
+    injector.registerFactory<PicturesLocalDatasource>(
       instance: PicturesLocalDatasource(
         localStorageClient: injector.get<LocalStorageClient>(),
       ),
     );
-
-    injector.registerLazySingleton<PicturesRemoteDatasource>(
-      instanceName: "PicturesRemoteDatasource",
+    injector.registerFactory<PicturesRemoteDatasource>(
       instance: PicturesRemoteDatasource(
         httpClient: injector.get<HttpClient>(),
       ),
     );
 
     // Repositories
-    injector.registerLazySingleton<PicturesRepository>(
+    injector.registerFactory<PicturesRepository>(
       instance: PicturesRepositoryImpl(
-        localDatasource: injector.get<PicturesLocalDatasource>(
-          instanceName: "PicturesLocalDatasource",
-        ),
-        remoteDatasource: injector.get<PicturesRemoteDatasource>(
-          instanceName: "PicturesRemoteDatasource",
-        ),
+        localDatasource: injector.get<PicturesLocalDatasource>(),
+        remoteDatasource: injector.get<PicturesRemoteDatasource>(),
         networkConnectionController:
             injector.get<NetworkConnectionController>(),
       ),
     );
 
     // Usecases
-    injector.registerLazySingleton<GetPicturesUsecase>(
+    injector.registerFactory<GetPicturesUsecase>(
       instance: GetPicturesUsecase(
         repository: injector.get<PicturesRepository>(),
       ),
     );
 
     // Presenters
-    injector.registerLazySingleton<HomePresenter>(
+    injector.registerFactory<HomePresenter>(
       instance: HomePresenterImpl(
         getPicturesUsecase: injector.get<GetPicturesUsecase>(),
         networkConnectionController:

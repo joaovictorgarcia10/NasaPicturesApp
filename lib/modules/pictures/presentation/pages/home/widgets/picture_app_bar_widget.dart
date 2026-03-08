@@ -31,7 +31,7 @@ class PictureAppBarWidget extends StatefulWidget
 
 class _PictureAppBarWidgetState extends State<PictureAppBarWidget> {
   bool _showFilters = false;
-  Duration _animDuration = Duration(milliseconds: 200);
+  final Duration _animDuration = Duration(milliseconds: 200);
 
   void _toggleFilters() {
     if (_showFilters) {

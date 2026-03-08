@@ -4,14 +4,16 @@ abstract class DependencyInjector {
     String? instanceName,
   });
 
+  void registerFactory<T extends Object>({
+    required T instance,
+    String? instanceName,
+  });
+
   T get<T extends Object>({String? instanceName});
 
   Future<void> unregister<T extends Object>({String? instanceName});
 
-  bool isRegistered<T extends Object>({
-    Object? instance,
-    String? instanceName,
-  });
+  bool isRegistered<T extends Object>({Object? instance, String? instanceName});
 
   Future<void> reset();
 }

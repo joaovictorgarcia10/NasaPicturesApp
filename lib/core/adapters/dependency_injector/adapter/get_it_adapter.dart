@@ -17,6 +17,14 @@ class GetItAdapter implements DependencyInjector {
   }
 
   @override
+  void registerFactory<T extends Object>({
+    required T instance,
+    String? instanceName,
+  }) {
+    getIt.registerFactory<T>(() => instance, instanceName: instanceName);
+  }
+
+  @override
   T get<T extends Object>({String? instanceName}) {
     return getIt.get<T>(instanceName: instanceName);
   }

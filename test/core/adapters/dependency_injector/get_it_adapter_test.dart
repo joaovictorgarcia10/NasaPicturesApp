@@ -27,6 +27,22 @@ void main() {
       );
     });
 
+    test("Should return the correct value of a registered Factory ", () {
+      sut.registerFactory<String>(
+        instance: "hello world factory",
+        instanceName: "myFactory",
+      );
+
+      final result = sut.get<String>(instanceName: "myFactory");
+
+      expect(result, "hello world factory");
+      expect(sut.isRegistered<String>(instanceName: "myFactory"), true);
+      expect(
+        sut.isRegistered<String>(instanceName: "notRegisteredInstance"),
+        false,
+      );
+    });
+
     test('Should throw an error trying to access a not registered type', () {
       expect(() => sut.get<int>(), throwsA(anything));
     });
