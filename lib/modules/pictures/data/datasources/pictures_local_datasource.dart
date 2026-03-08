@@ -1,5 +1,5 @@
-import 'package:nasa_pictures_app/core/constants/app_constants.dart';
 import 'package:nasa_pictures_app/core/adapters/local_storage/local_storage_client.dart';
+import 'package:nasa_pictures_app/modules/pictures/constants/pictures_constants.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
 
 class PicturesLocalDatasource extends PicturesDatasource {
@@ -14,7 +14,7 @@ class PicturesLocalDatasource extends PicturesDatasource {
     String? endDate,
   }) async {
     final response = localStorageClient.getList(
-      AppConstants.pictureListCacheKey,
+      PicturesConstants.pictureListCacheKey,
     );
 
     final List<Map<String, dynamic>> data = List.from(response);
@@ -30,7 +30,7 @@ class PicturesLocalDatasource extends PicturesDatasource {
     required List<Map<String, dynamic>> pictures,
   }) async {
     await localStorageClient.saveList(
-      AppConstants.pictureListCacheKey,
+      PicturesConstants.pictureListCacheKey,
       pictures,
     );
   }

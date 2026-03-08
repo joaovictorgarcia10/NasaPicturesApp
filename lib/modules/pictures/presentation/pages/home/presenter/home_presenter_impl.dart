@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
-import 'package:nasa_pictures_app/core/constants/app_constants.dart';
-import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
+import 'package:nasa_pictures_app/core/controllers/network_connection/network_connection_controller.dart';
+import 'package:nasa_pictures_app/modules/pictures/constants/pictures_constants.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/usecases/get_pictures_usecase.dart';
 import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/presenter/home_state.dart';
@@ -74,7 +74,7 @@ class HomePresenterImpl implements HomePresenter {
     final hasConnection = await networkConnectionController.hasConnection();
 
     if (hasConnection &&
-        _allPictures.length < AppConstants.pictureListMaxLenght) {
+        _allPictures.length < PicturesConstants.pictureListMaxLenght) {
       try {
         final response = await getPicturesUsecase();
         _allPictures = [..._allPictures, ...response];

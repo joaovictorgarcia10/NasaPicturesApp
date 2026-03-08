@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:nasa_pictures_app/core/constants/app_constants.dart';
 import 'package:nasa_pictures_app/core/adapters/local_storage/local_storage_client.dart';
+import 'package:nasa_pictures_app/modules/pictures/constants/pictures_constants.dart';
 import 'package:nasa_pictures_app/modules/pictures/infrastructure/datasources/pictures_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
 
@@ -23,7 +23,8 @@ void main() {
       "Should return a list of pictures from local storage client",
       () async {
         when(
-          () => localStorageClient.getList(AppConstants.pictureListCacheKey),
+          () =>
+              localStorageClient.getList(PicturesConstants.pictureListCacheKey),
         ).thenAnswer((_) => pictureLisMock);
 
         final response = await sut.getPictures();
@@ -32,7 +33,8 @@ void main() {
         expect(response.last["title"], "NGC 7635: The Bubble Nebula Expanding");
 
         verify(
-          () => localStorageClient.getList(AppConstants.pictureListCacheKey),
+          () =>
+              localStorageClient.getList(PicturesConstants.pictureListCacheKey),
         );
       },
     );
@@ -41,26 +43,28 @@ void main() {
       "Should throw an Exception when local storage returns empty list",
       () async {
         when(
-          () => localStorageClient.getList(AppConstants.pictureListCacheKey),
+          () =>
+              localStorageClient.getList(PicturesConstants.pictureListCacheKey),
         ).thenAnswer((_) => []);
 
         expect(() => sut.getPictures(), throwsA(isA<Exception>()));
 
         verify(
-          () => localStorageClient.getList(AppConstants.pictureListCacheKey),
+          () =>
+              localStorageClient.getList(PicturesConstants.pictureListCacheKey),
         );
       },
     );
 
     test("Should propagate Exception from local storage client", () async {
       when(
-        () => localStorageClient.getList(AppConstants.pictureListCacheKey),
+        () => localStorageClient.getList(PicturesConstants.pictureListCacheKey),
       ).thenThrow(Exception('storage failure'));
 
       expect(() => sut.getPictures(), throwsA(isA<Exception>()));
 
       verify(
-        () => localStorageClient.getList(AppConstants.pictureListCacheKey),
+        () => localStorageClient.getList(PicturesConstants.pictureListCacheKey),
       );
     });
   });

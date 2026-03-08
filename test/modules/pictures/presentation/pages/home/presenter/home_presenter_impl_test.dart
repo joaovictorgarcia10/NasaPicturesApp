@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
+import 'package:nasa_pictures_app/core/controllers/network_connection/network_connection_controller.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
 import 'package:nasa_pictures_app/modules/pictures/domain/usecases/get_pictures_usecase.dart';

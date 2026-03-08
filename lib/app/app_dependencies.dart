@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:nasa_pictures_app/core/controllers/network_connection/network_connection_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart'
     show SharedPreferencesWithCache, SharedPreferencesWithCacheOptions;
-import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
-import 'package:nasa_pictures_app/core/environment/app_environment.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_remote_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/presenter/home_presenter.dart';
@@ -29,33 +28,38 @@ class AppDependencies {
       ),
     );
 
-    // Http Client
-    injector.registerLazySingleton<HttpClient>(
-      instance: DioAdapter(
-        dio: Dio(),
-        baseUrl: AppEnvironment.apiBaseUrl,
-        queryParameters: {"api_key": AppEnvironment.apiKey},
-      ),
-    );
-
     // Network Connection Controller
     injector.registerLazySingleton<NetworkConnectionController>(
       instance: NetworkConnectionController(),
     );
 
-    // Datasources
+    // Pictures HTTP Client
+    injector.registerLazySingleton<HttpClient>(
+      instance: DioAdapter(
+        dio: Dio(),
+        baseUrl: String.fromEnvironment('PICTURES_BASE_URL'),
+        queryParameters: {
+          "api_key": String.fromEnvironment('PICTURES_API_KEY'),
+        },
+      ),
+      instanceName: 'PicturesHttpClient',
+    );
+
+    // Pictures Datasources
+    injector.registerFactory<PicturesRemoteDatasource>(
+      instance: PicturesRemoteDatasource(
+        httpClient: injector.get<HttpClient>(
+          instanceName: 'PicturesHttpClient',
+        ),
+      ),
+    );
     injector.registerFactory<PicturesLocalDatasource>(
       instance: PicturesLocalDatasource(
         localStorageClient: injector.get<LocalStorageClient>(),
       ),
     );
-    injector.registerFactory<PicturesRemoteDatasource>(
-      instance: PicturesRemoteDatasource(
-        httpClient: injector.get<HttpClient>(),
-      ),
-    );
 
-    // Repositories
+    // Pictures Repositories
     injector.registerFactory<PicturesRepository>(
       instance: PicturesRepositoryImpl(
         localDatasource: injector.get<PicturesLocalDatasource>(),
@@ -65,14 +69,14 @@ class AppDependencies {
       ),
     );
 
-    // Usecases
+    // Pictures Usecases
     injector.registerFactory<GetPicturesUsecase>(
       instance: GetPicturesUsecase(
         repository: injector.get<PicturesRepository>(),
       ),
     );
 
-    // Presenters
+    // Pictures Presenters
     injector.registerFactory<HomePresenter>(
       instance: HomePresenterImpl(
         getPicturesUsecase: injector.get<GetPicturesUsecase>(),

@@ -1,4 +1,4 @@
-import 'package:nasa_pictures_app/core/utils/network_connection/network_connection_controller.dart';
+import 'package:nasa_pictures_app/core/controllers/network_connection/network_connection_controller.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_local_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/datasources/pictures_remote_datasource.dart';
 import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
