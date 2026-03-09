@@ -5,6 +5,7 @@ import 'package:nasa_pictures_app/modules/pictures/data/dtos/picture_dto.dart';
 import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/presenter/home_state.dart';
 import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/home_page.dart';
 import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/presenter/home_presenter.dart';
+import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/widgets/picture_app_bar_widget.dart';
 import 'package:nasa_pictures_app/modules/pictures/presentation/pages/home/widgets/picture_list_tile_widget.dart';
 
 import '../../../mock/picture_list_mock.dart';
@@ -39,7 +40,6 @@ void main() {
 
       await widgetTester.pumpWidget(MaterialApp(home: sut));
       expect(find.byType(Scaffold), findsOneWidget);
-      expect(find.byType(SearchBar), findsOneWidget);
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
@@ -57,7 +57,7 @@ void main() {
 
       await widgetTester.pumpWidget(MaterialApp(home: sut));
       expect(find.byType(Scaffold), findsOneWidget);
-      expect(find.byType(SearchBar), findsOneWidget);
+      expect(find.byType(PictureAppBarWidget), findsOneWidget);
       expect(find.byType(RefreshIndicator), findsOneWidget);
       expect(find.byType(ListView), findsOneWidget);
       expect(find.byType(PictureListTileWidget), findsNWidgets(2));
@@ -74,7 +74,6 @@ void main() {
 
       await widgetTester.pumpWidget(MaterialApp(home: sut));
       expect(find.byType(Scaffold), findsOneWidget);
-      expect(find.byType(SearchBar), findsOneWidget);
       expect(find.byType(TextButton), findsOneWidget);
       expect(find.text("Something went wrong."), findsOneWidget);
     });
