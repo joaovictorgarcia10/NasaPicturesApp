@@ -20,7 +20,9 @@ void main() {
   late NavigatorObserver navigatorObserver;
 
   setUp(() {
-    sut = const DetailsPage();
+    sut = DetailsPage(
+      picture: PictureDto.fromMap(pictureLisMock[0]).toEntity(),
+    );
     presenter = HomePresenterMock();
     homePage = HomePage(presenter: presenter);
     navigatorObserver = NavigatorObserverMock();

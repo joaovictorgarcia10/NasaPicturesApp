@@ -193,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                                       () => Navigator.pushNamed(
                                         context,
                                         "/details",
-                                        arguments: picture,
+                                        arguments: {"picture": picture},
                                       ),
                                   iconButtonKey: Key("icon-button-key-$index"),
                                 );

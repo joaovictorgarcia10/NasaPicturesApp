@@ -4,7 +4,9 @@ import 'package:nasa_pictures_app/modules/pictures/presentation/helpers/date_for
 import 'package:nasa_pictures_app/modules/pictures/domain/entities/picture.dart';
 
 class DetailsPage extends StatefulWidget {
-  const DetailsPage({super.key});
+  final Picture picture;
+
+  const DetailsPage({super.key, required this.picture});
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -15,8 +17,6 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final picture = ModalRoute.of(context)?.settings.arguments as Picture;
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(title: const Text('Details')),
@@ -24,7 +24,7 @@ class _DetailsPageState extends State<DetailsPage> {
           child: Column(
             children: [
               CachedNetworkImage(
-                imageUrl: picture.url,
+                imageUrl: widget.picture.url,
                 fit: BoxFit.cover,
                 errorWidget:
                     (context, url, error) => SizedBox(
@@ -40,11 +40,11 @@ class _DetailsPageState extends State<DetailsPage> {
                     const SizedBox(height: 20.0),
                     const Divider(),
                     const SizedBox(height: 20.0),
-                    Text(picture.title),
+                    Text(widget.picture.title),
                     const SizedBox(height: 5.0),
-                    Text(picture.date.formatDate(picture.date)),
+                    Text(widget.picture.date.formatDate(widget.picture.date)),
                     const SizedBox(height: 20.0),
-                    Text(picture.explanation),
+                    Text(widget.picture.explanation),
                     const SizedBox(height: 20.0),
                   ],
                 ),
